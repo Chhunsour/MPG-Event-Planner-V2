@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Languages, RefreshCw, CheckCircle2, AlertCircle } from "lucide-react";
+import { useToast } from "@/components/ui/Toast";
 
 interface TranslationToolbarProps {
   entity: "service" | "project" | "blog";
@@ -17,6 +18,7 @@ export default function TranslationToolbar({
 }: TranslationToolbarProps) {
   const [status, setStatus] = useState<"idle" | "translating" | "done" | "error">("idle");
   const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const handleTranslate = async () => {
     setStatus("translating");
@@ -44,13 +46,18 @@ export default function TranslationToolbar({
         if (data.data) {
           onTranslated(data.data);
         }
+        toast("Translations generated successfully.", "success");
       } else {
+        const errMsg = data.message ?? "Translation failed";
         setStatus("error");
-        setError(data.message ?? "Translation failed");
+        setError(errMsg);
+        toast(errMsg, "error");
       }
     } catch {
+      const errMsg = "Network error during translation";
       setStatus("error");
-      setError("Network error");
+      setError(errMsg);
+      toast(errMsg, "error");
     }
   };
 

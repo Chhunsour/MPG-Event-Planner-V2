@@ -240,7 +240,7 @@ class ServiceController extends Controller
             });
         }
 
-        return back();
+        return back()->with('status', 'Service order updated.');
     }
 
     private function attributes(ServiceRequest $request, ?Service $service = null): array

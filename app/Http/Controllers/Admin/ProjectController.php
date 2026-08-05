@@ -261,7 +261,7 @@ class ProjectController extends Controller
     {
         $project->update(['is_featured' => ! $project->is_featured]);
 
-        return back();
+        return back()->with('status', $project->is_featured ? 'Project marked as featured.' : 'Project removed from featured.');
     }
 
     public function reorder(Request $request, Project $project): RedirectResponse
@@ -284,7 +284,7 @@ class ProjectController extends Controller
             });
         }
 
-        return back();
+        return back()->with('status', 'Project order updated.');
     }
 
     /* ── Gallery ─────────────────────────────────────────────── */

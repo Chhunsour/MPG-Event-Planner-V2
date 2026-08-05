@@ -19,6 +19,14 @@ class HandleInertiaRequests extends Middleware
                 'is_admin' => $request->user()->is_admin,
             ] : null,
             'status' => $request->session()->get('status'),
+            'flash' => [
+                'status' => $request->session()->get('status'),
+                'success' => $request->session()->get('success'),
+                'error' => $request->session()->get('error'),
+                'info' => $request->session()->get('info'),
+                'warning' => $request->session()->get('warning'),
+                'timestamp' => microtime(true),
+            ],
         ]);
     }
 }

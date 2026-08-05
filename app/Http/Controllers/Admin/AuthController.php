@@ -66,7 +66,7 @@ class AuthController extends Controller
         // Admin authentication must never honor an unrelated/stale intended
         // URL (which can point at the public site). Always enter through the
         // dashboard after a successful admin login.
-        return redirect()->route('admin.dashboard');
+        return redirect()->route('admin.dashboard')->with('status', 'Welcome back, '.Auth::user()->name.'!');
     }
 
     public function logout(Request $request): RedirectResponse
@@ -75,6 +75,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login');
+        return redirect()->route('admin.login')->with('status', 'You have logged out successfully.');
     }
 }

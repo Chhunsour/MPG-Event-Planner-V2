@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { Link, useForm, usePage } from "@inertiajs/react";
 import {
   LayoutDashboard,
@@ -28,6 +28,15 @@ interface AuthUser {
   is_admin: boolean;
 }
 
+interface FlashProps {
+  status?: string | null;
+  success?: string | null;
+  error?: string | null;
+  info?: string | null;
+  warning?: string | null;
+  timestamp?: number | null;
+}
+
 const NAV_ITEMS = [
   { route: "admin.dashboard", label: "Dashboard", icon: LayoutDashboard, section: "dashboard" },
   { route: "admin.services.index", label: "Services", icon: Briefcase, section: "services" },
@@ -38,15 +47,35 @@ const NAV_ITEMS = [
 ] as const;
 
 export default function AdminLayout({ title, actions, children }: AdminLayoutProps) {
-  const { url, props } = usePage<{ auth: AuthUser | null; status?: string | null; errors?: Record<string, string> }>();
+  const { url, props } = usePage<{
+    auth: AuthUser | null;
+    status?: string | null;
+    flash?: FlashProps | null;
+    errors?: Record<string, string>;
+  }>();
   const auth = props.auth;
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const { toast } = useToast();
+  const lastProcessedKey = useRef<string | number | null>(null);
 
   useEffect(() => {
-    const status = props.status;
-    if (typeof status === "string" && status.trim()) {
-      toast(status, "success");
+    const flash = props.flash;
+    const key = flash?.timestamp ?? props.status ?? null;
+
+    if (key !== null && key !== lastProcessedKey.current) {
+      lastProcessedKey.current = key;
+
+      if (flash?.success) {
+        toast(flash.success, "success");
+      } else if (flash?.error) {
+        toast(flash.error, "error");
+      } else if (flash?.info) {
+        toast(flash.info, "info");
+      } else if (flash?.warning) {
+        toast(flash.warning, "info");
+      } else if (props.status && typeof props.status === "string" && props.status.trim()) {
+        toast(props.status, "success");
+      }
     }
 
     const errors = props.errors;

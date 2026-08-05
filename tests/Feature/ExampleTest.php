@@ -10,10 +10,10 @@ class ExampleTest extends TestCase
     /**
      * A basic test example.
      */
-    public function test_the_backend_root_redirects_to_admin_login(): void
+    public function test_the_root_redirects_to_english_home(): void
     {
         $response = $this->get('/');
 
-        $response->assertRedirectToRoute('admin.login');
+        $response->assertRedirect('/en');
     }
 }
