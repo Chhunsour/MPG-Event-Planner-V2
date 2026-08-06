@@ -55,7 +55,8 @@ export default function JournalBlock({
           />
         </ScrollReveal>
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:gap-12">
+          {/* Main Featured Lead Article */}
           <ScrollReveal className="lg:col-span-7">
             <Link
               href={`/${locale}/blog/${lead.slug}`}
@@ -63,12 +64,12 @@ export default function JournalBlock({
               className="group block"
             >
               {lead.cover_image && (
-                <figure className="frame aspect-16/10 w-full">
+                <figure className="frame aspect-16/10 w-full overflow-hidden rounded-xl">
                   <img
                     src={lead.cover_image}
                     alt={lead.cover_image_alt || lead.title}
                     loading="lazy"
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </figure>
               )}
@@ -84,7 +85,7 @@ export default function JournalBlock({
                     {lead.excerpt}
                   </p>
                 )}
-                <span className="t-label mt-5 inline-flex items-center gap-2 text-brand">
+                <span className="t-label mt-5 inline-flex items-center gap-2 text-brand font-semibold">
                   {dict.blog.readMore}
                   <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                 </span>
@@ -92,29 +93,40 @@ export default function JournalBlock({
             </Link>
           </ScrollReveal>
 
+          {/* Secondary Articles with Image Thumbnails */}
           {rest.length > 0 && (
-            <ScrollReveal className="lg:col-span-4 lg:col-start-9" stagger>
-              <ul>
+            <ScrollReveal className="lg:col-span-5" stagger>
+              <ul className="space-y-6">
                 {rest.map((post) => {
                   const date = formatDate(post.published_at, locale);
                   return (
-                    <li key={post.id} className="border-t border-line last:border-b">
+                    <li key={post.id} className="border-t border-line pt-6 first:border-t-0 first:pt-0">
                       <Link
                         href={`/${locale}/blog/${post.slug}`}
                         data-pressable
-                        className="group flex items-start gap-5 py-6"
+                        className="group flex items-start gap-4 sm:gap-5"
                       >
+                        {post.cover_image && (
+                          <figure className="frame aspect-4/3 w-28 shrink-0 overflow-hidden rounded-lg sm:w-36 border border-line">
+                            <img
+                              src={post.cover_image}
+                              alt={post.cover_image_alt || post.title}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                          </figure>
+                        )}
                         <span className="min-w-0 flex-1">
                           {date && (
-                            <span className="t-meta block text-faint">
+                            <span className="t-meta block text-xs text-faint">
                               {date}
                             </span>
                           )}
-                          <span className="t-heading mt-2 block text-ink-text transition-colors group-hover:text-brand">
+                          <span className="t-heading mt-1 block text-sm font-bold text-ink-text transition-colors group-hover:text-brand sm:text-base">
                             {post.title}
                           </span>
                           {post.excerpt && (
-                            <span className="t-body mt-1.5 block text-muted">
+                            <span className="t-body mt-1.5 block line-clamp-2 text-xs text-muted sm:text-sm">
                               {post.excerpt}
                             </span>
                           )}
