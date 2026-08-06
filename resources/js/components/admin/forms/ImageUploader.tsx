@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Upload, Trash2, Zap, CheckCircle2 } from "lucide-react";
+import { Upload, Trash2, Zap, CheckCircle2, FileImage } from "lucide-react";
 
 interface ImageUploaderProps {
   name: string;
@@ -120,37 +120,54 @@ export default function ImageUploader({
         </button>
       )}
 
-      {/* Selected File Details & WebP Compression Stats */}
-      <div className="space-y-2">
-        {fileName && (
-          <p className="text-xs font-medium text-ink-text">
-            Selected File: <span className="text-brand font-bold">{fileName}</span>
-          </p>
-        )}
-
-        {stats ? (
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-lg border border-emerald-200 bg-emerald-50/80 p-3 text-xs text-emerald-900 shadow-sm">
-            <div className="flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-              <div>
-                <span className="font-bold text-emerald-950">WebP Compression Output: </span>
-                <span className="font-mono text-emerald-800">
-                  {stats.originalSize} ➔ <strong className="text-emerald-950 font-bold">{stats.webpSize}</strong>
-                </span>
-              </div>
+      {/* Real Image File Size vs Converted WebP Size Breakdown */}
+      {stats ? (
+        <div className="rounded-xl border border-line bg-paper p-3.5 shadow-sm space-y-3">
+          <div className="grid grid-cols-2 gap-3 text-xs">
+            {/* Step 1: Real Original Image Size */}
+            <div className="rounded-lg border border-line bg-paper-tint p-2.5">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-faint mb-1 flex items-center gap-1">
+                <FileImage className="h-3 w-3 text-muted" /> Original Image Size
+              </span>
+              <p className="font-mono text-sm font-bold text-ink-text">{stats.originalSize}</p>
+              <span className="text-[11px] text-muted truncate block mt-0.5">{fileName}</span>
             </div>
-            <span className="self-start sm:self-center inline-flex items-center gap-1 rounded-full bg-emerald-600 px-2.5 py-0.5 text-[11px] font-bold text-white shadow-xs">
-              <Zap className="h-3 w-3" />
-              {stats.percentSaved}% Data Saved ({stats.bytesSaved})
+
+            {/* Step 2: Auto-Converted WebP Size */}
+            <div className="rounded-lg border border-emerald-300 bg-emerald-50/60 p-2.5">
+              <span className="block text-[10px] font-bold uppercase tracking-wider text-emerald-800 mb-1 flex items-center gap-1">
+                <Zap className="h-3 w-3 text-emerald-600" /> WebP Compressed Size
+              </span>
+              <p className="font-mono text-sm font-bold text-emerald-950">{stats.webpSize}</p>
+              <span className="text-[11px] font-semibold text-emerald-700 block mt-0.5">
+                {stats.percentSaved}% Saved ({stats.bytesSaved} smaller)
+              </span>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between border-t border-line pt-2.5 text-[11px] text-emerald-900">
+            <span className="flex items-center gap-1 font-semibold text-emerald-800">
+              <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
+              <span>Reduced payload size from {stats.originalSize} down to {stats.webpSize}</span>
+            </span>
+            <span className="rounded-full bg-emerald-600 px-2.5 py-0.5 font-bold text-white text-[10px]">
+              Saved {stats.percentSaved}%
             </span>
           </div>
-        ) : (
+        </div>
+      ) : (
+        <div className="space-y-1">
+          {fileName && (
+            <p className="text-xs font-medium text-ink-text">
+              Selected File: <span className="text-brand font-bold">{fileName}</span>
+            </p>
+          )}
           <p className="flex items-center gap-1.5 text-[11px] text-faint">
             <Zap className="h-3 w-3 text-brand" />
             <span>Auto-converts JPG / PNG to WebP format to save payload size & accelerate page load.</span>
           </p>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
