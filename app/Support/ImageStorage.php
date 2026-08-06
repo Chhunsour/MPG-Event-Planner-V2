@@ -2,6 +2,7 @@
 
 namespace App\Support;
 
+use App\Support\SiteSettings;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -77,8 +78,12 @@ class ImageStorage
             imagealphablending($image, true);
             imagesavealpha($image, true);
 
-            // Convert to WebP with 82% quality (optimal web compression)
-            imagewebp($image, $fullTargetPath, 82);
+            // Read user-configured WebP compression quality setting (default 82%)
+            $quality = (int) SiteSettings::get('webp_quality', 82);
+            $quality = max(50, min(100, $quality));
+
+            // Convert to WebP with configured quality
+            imagewebp($image, $fullTargetPath, $quality);
             imagedestroy($image);
         } else {
             // Fallback: move file directly if GD conversion is unsupported

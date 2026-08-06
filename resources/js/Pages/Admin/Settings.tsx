@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { usePage } from "@inertiajs/react";
+import { usePage, useForm } from "@inertiajs/react";
 import {
   Building2,
   Globe,
@@ -10,12 +10,7 @@ import {
   Save,
   RefreshCw,
   Lock,
-  Phone,
-  Mail,
-  MapPin,
-  Send,
-  Facebook,
-  Instagram,
+  Image,
 } from "lucide-react";
 import AdminLayout from "@/Layouts/AdminLayout";
 import TextField from "@/components/admin/forms/TextField";
@@ -30,35 +25,38 @@ interface AuthUser {
   is_admin: boolean;
 }
 
-export default function Settings() {
+interface SettingsProps {
+  settings?: {
+    webp_quality?: number;
+    company_name?: string;
+    company_email?: string;
+    company_phone?: string;
+    company_address?: string;
+    telegram?: string;
+    facebook?: string;
+    instagram?: string;
+    default_lang?: string;
+  };
+}
+
+export default function Settings({ settings }: SettingsProps) {
   const { props } = usePage<{ auth: AuthUser | null }>();
   const auth = props.auth;
   const { toast } = useToast();
 
   const [activeTab, setActiveTab] = useState<"company" | "translation" | "security" | "system">("company");
   const [copiedCmd, setCopiedCmd] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
 
-  // Form state
-  const [company, setCompany] = useState({
-    name: "MPG Event Planner",
-    email: "contact@mpgeventplanner.com",
-    phone: "+855 12 345 678",
-    address: "Phnom Penh, Cambodia",
-    telegram: "@mpgeventplanner",
-    facebook: "https://facebook.com/mpgeventplanner",
-    instagram: "@mpgeventplanner",
-  });
-
-  const [translation, setTranslation] = useState({
-    defaultLang: "en",
-    autoTranslateOnSave: true,
-    protectedTerms: "MPG Event Planner, Phnom Penh, Cambodia",
-  });
-
-  const [system, setSystem] = useState({
-    cacheTtl: "60",
-    environment: "production",
+  const { data, setData, post, processing } = useForm({
+    webp_quality: settings?.webp_quality ?? 82,
+    company_name: settings?.company_name ?? "MPG Event Planner",
+    company_email: settings?.company_email ?? "contact@mpgeventplanner.com",
+    company_phone: settings?.company_phone ?? "+855 12 345 678",
+    company_address: settings?.company_address ?? "Phnom Penh, Cambodia",
+    telegram: settings?.telegram ?? "@mpgeventplanner",
+    facebook: settings?.facebook ?? "https://facebook.com/mpgeventplanner",
+    instagram: settings?.instagram ?? "@mpgeventplanner",
+    default_lang: settings?.default_lang ?? "en",
   });
 
   const copyAdminCmd = () => {
@@ -70,11 +68,12 @@ export default function Settings() {
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSaving(true);
-    setTimeout(() => {
-      setIsSaving(false);
-      toast("Settings updated successfully.", "success");
-    }, 400);
+    post("/admin/settings", {
+      preserveScroll: true,
+      onSuccess: () => {
+        toast("System settings updated successfully.", "success");
+      },
+    });
   };
 
   const handlePurgeCache = () => {
@@ -132,7 +131,7 @@ export default function Settings() {
             }`}
           >
             <Zap className="h-4 w-4" />
-            Publishing & Cache
+            Media & System
           </button>
         </div>
 
@@ -140,7 +139,7 @@ export default function Settings() {
           {/* TAB 1: COMPANY & CONTACT */}
           {activeTab === "company" && (
             <div className="space-y-6">
-              <div className="border border-line bg-paper p-6">
+              <div className="border border-line bg-paper p-6 rounded-xl shadow-sm">
                 <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
                   <div>
                     <h3 className="text-base font-bold text-ink-text">Company Information</h3>
@@ -153,36 +152,36 @@ export default function Settings() {
                   <TextField
                     label="Company Name"
                     name="company_name"
-                    value={company.name}
-                    onChange={(v) => setCompany({ ...company, name: v })}
+                    value={data.company_name}
+                    onChange={(v) => setData("company_name", v)}
                     required
                   />
                   <TextField
                     label="Contact Email"
                     name="company_email"
                     type="email"
-                    value={company.email}
-                    onChange={(v) => setCompany({ ...company, email: v })}
+                    value={data.company_email}
+                    onChange={(v) => setData("company_email", v)}
                     required
                   />
                   <TextField
                     label="Hotline Phone Number"
                     name="company_phone"
-                    value={company.phone}
-                    onChange={(v) => setCompany({ ...company, phone: v })}
+                    value={data.company_phone}
+                    onChange={(v) => setData("company_phone", v)}
                     required
                   />
                   <TextField
                     label="Office Address"
                     name="company_address"
-                    value={company.address}
-                    onChange={(v) => setCompany({ ...company, address: v })}
+                    value={data.company_address}
+                    onChange={(v) => setData("company_address", v)}
                     required
                   />
                 </div>
               </div>
 
-              <div className="border border-line bg-paper p-6">
+              <div className="border border-line bg-paper p-6 rounded-xl shadow-sm">
                 <div className="mb-6 border-b border-line pb-4">
                   <h3 className="text-base font-bold text-ink-text">Social Channels</h3>
                   <p className="text-xs text-muted">Social links connected to website action buttons.</p>
@@ -192,20 +191,20 @@ export default function Settings() {
                   <TextField
                     label="Telegram Handle"
                     name="telegram"
-                    value={company.telegram}
-                    onChange={(v) => setCompany({ ...company, telegram: v })}
+                    value={data.telegram}
+                    onChange={(v) => setData("telegram", v)}
                   />
                   <TextField
                     label="Facebook Page URL"
                     name="facebook"
-                    value={company.facebook}
-                    onChange={(v) => setCompany({ ...company, facebook: v })}
+                    value={data.facebook}
+                    onChange={(v) => setData("facebook", v)}
                   />
                   <TextField
                     label="Instagram Handle"
                     name="instagram"
-                    value={company.instagram}
-                    onChange={(v) => setCompany({ ...company, instagram: v })}
+                    value={data.instagram}
+                    onChange={(v) => setData("instagram", v)}
                   />
                 </div>
               </div>
@@ -215,7 +214,7 @@ export default function Settings() {
           {/* TAB 2: TRANSLATION & LOCALIZATION */}
           {activeTab === "translation" && (
             <div className="space-y-6">
-              <div className="border border-line bg-paper p-6">
+              <div className="border border-line bg-paper p-6 rounded-xl shadow-sm">
                 <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
                   <div>
                     <h3 className="text-base font-bold text-ink-text">Auto-Translation Engine</h3>
@@ -225,7 +224,7 @@ export default function Settings() {
                 </div>
 
                 <div className="space-y-5">
-                  <div className="rounded border border-emerald-200 bg-emerald-50/50 p-4">
+                  <div className="rounded-lg border border-emerald-200 bg-emerald-50/50 p-4">
                     <div className="flex items-center gap-2">
                       <span className="flex h-2 w-2 rounded-full bg-emerald-500" />
                       <strong className="text-xs font-bold text-emerald-900">Translation Service Active</strong>
@@ -239,24 +238,15 @@ export default function Settings() {
                     <SelectField
                       label="Default Website Language"
                       name="default_lang"
-                      value={translation.defaultLang}
+                      value={data.default_lang}
                       options={[
                         { value: "en", label: "English (en)" },
                         { value: "km", label: "Khmer (km)" },
                         { value: "zh", label: "Chinese (zh)" },
                       ]}
-                      onChange={(v) => setTranslation({ ...translation, defaultLang: v })}
+                      onChange={(v) => setData("default_lang", v)}
                     />
                   </div>
-
-                  <TextareaField
-                    label="Protected Terms (Do Not Translate)"
-                    name="protected_terms"
-                    value={translation.protectedTerms}
-                    rows={2}
-                    hint="Comma-separated brand names or terms to keep untranslated."
-                    onChange={(v) => setTranslation({ ...translation, protectedTerms: v })}
-                  />
                 </div>
               </div>
             </div>
@@ -265,7 +255,7 @@ export default function Settings() {
           {/* TAB 3: ADMIN & SECURITY */}
           {activeTab === "security" && (
             <div className="space-y-6">
-              <div className="border border-line bg-paper p-6">
+              <div className="border border-line bg-paper p-6 rounded-xl shadow-sm">
                 <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
                   <div>
                     <h3 className="text-base font-bold text-ink-text">Current Account</h3>
@@ -286,7 +276,7 @@ export default function Settings() {
                 </div>
               </div>
 
-              <div className="border border-line bg-paper p-6">
+              <div className="border border-line bg-paper p-6 rounded-xl shadow-sm">
                 <div className="mb-4">
                   <h3 className="text-base font-bold text-ink-text">Create Administrator Account</h3>
                   <p className="mt-1 text-xs text-muted">
@@ -294,7 +284,7 @@ export default function Settings() {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between overflow-x-auto border border-line bg-paper-tint px-4 py-3 font-mono text-xs text-ink-text">
+                <div className="flex items-center justify-between overflow-x-auto border border-line bg-paper-tint px-4 py-3 font-mono text-xs text-ink-text rounded-lg">
                   <span>php artisan mpg:create-admin</span>
                   <button
                     type="button"
@@ -313,10 +303,46 @@ export default function Settings() {
             </div>
           )}
 
-          {/* TAB 4: PUBLISHING & CACHE */}
+          {/* TAB 4: MEDIA & SYSTEM OPTIMIZATION */}
           {activeTab === "system" && (
             <div className="space-y-6">
-              <div className="border border-line bg-paper p-6">
+              {/* WebP Image Quality Setting */}
+              <div className="border border-line bg-paper p-6 rounded-xl shadow-sm">
+                <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
+                  <div>
+                    <h3 className="text-base font-bold text-ink-text flex items-center gap-2">
+                      <Image className="h-5 w-5 text-brand" />
+                      <span>WebP Image Compression Quality</span>
+                    </h3>
+                    <p className="text-xs text-muted">Select desired image quality compression when JPG or PNG images are uploaded to the dashboard.</p>
+                  </div>
+                  <span className="rounded-md border border-brand/20 bg-brand/10 px-3 py-1 text-xs font-bold text-brand">
+                    Active: {data.webp_quality}% Quality
+                  </span>
+                </div>
+
+                <div className="space-y-4 max-w-xl">
+                  <SelectField
+                    label="Image Compression Quality Level"
+                    name="webp_quality"
+                    value={String(data.webp_quality)}
+                    options={[
+                      { value: "60", label: "60% - Maximum Compression (Smallest File Size, ~90% Saved)" },
+                      { value: "75", label: "75% - High Compression (Great Quality, ~85% Saved)" },
+                      { value: "82", label: "82% - Balanced (Recommended Default, ~80% Saved)" },
+                      { value: "90", label: "90% - Ultra High Quality (Low Compression, ~60% Saved)" },
+                      { value: "100", label: "100% - Lossless Quality (No Compression)" },
+                    ]}
+                    onChange={(v) => setData("webp_quality", Number(v))}
+                  />
+                  <p className="text-xs text-faint">
+                    All image uploads across Blog Posts, Projects, Services, and Media are automatically converted to .webp using this setting.
+                  </p>
+                </div>
+              </div>
+
+              {/* Cache Purge */}
+              <div className="border border-line bg-paper p-6 rounded-xl shadow-sm">
                 <div className="mb-6 flex items-center justify-between border-b border-line pb-4">
                   <div>
                     <h3 className="text-base font-bold text-ink-text">Website Revalidation</h3>
@@ -326,17 +352,7 @@ export default function Settings() {
                 </div>
 
                 <div className="space-y-4">
-                  <div className="flex items-center justify-between rounded border border-line p-4">
-                    <div>
-                      <p className="text-xs font-bold text-ink-text">ISR Revalidation Window</p>
-                      <p className="text-xs text-muted">The public site revalidates content every 60 seconds.</p>
-                    </div>
-                    <span className="rounded bg-brand-tint px-2.5 py-1 text-xs font-bold text-brand-deep">
-                      60 Seconds
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between rounded border border-line p-4">
+                  <div className="flex items-center justify-between rounded-lg border border-line p-4">
                     <div>
                       <p className="text-xs font-bold text-ink-text">Purge Site Cache</p>
                       <p className="text-xs text-muted">Force immediate update for all public pages.</p>
@@ -344,7 +360,7 @@ export default function Settings() {
                     <button
                       type="button"
                       onClick={handlePurgeCache}
-                      className="flex items-center gap-1.5 border border-line-strong px-3 py-1.5 text-xs font-semibold text-ink-text hover:border-brand hover:text-brand"
+                      className="flex items-center gap-1.5 rounded-lg border border-line-strong px-3.5 py-1.5 text-xs font-semibold text-ink-text hover:border-brand hover:text-brand"
                     >
                       <RefreshCw className="h-3.5 w-3.5" />
                       Purge Cache Now
@@ -356,14 +372,14 @@ export default function Settings() {
           )}
 
           {/* Save Button Bar */}
-          <div className="flex items-center justify-end border-t border-line bg-paper px-6 py-4">
+          <div className="flex items-center justify-end border-t border-line bg-paper px-6 py-4 rounded-xl shadow-sm">
             <button
               type="submit"
-              disabled={isSaving}
-              className="flex items-center gap-2 bg-brand px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-brand-deep disabled:opacity-50"
+              disabled={processing}
+              className="flex items-center gap-2 rounded-lg bg-brand px-5 py-2.5 text-xs font-bold text-white transition-colors hover:bg-brand-deep disabled:opacity-50 cursor-pointer"
             >
               <Save className="h-4 w-4" />
-              {isSaving ? "Saving..." : "Save Settings"}
+              {processing ? "Saving..." : "Save System Settings"}
             </button>
           </div>
         </form>

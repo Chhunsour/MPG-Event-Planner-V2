@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\MediaController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\Admin\QuotationController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TranslationController;
 use App\Models\QuotationRequest;
 use Illuminate\Support\Facades\Route;
@@ -127,6 +128,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('quotations/{quotation}', fn (QuotationRequest $quotation) => redirect()->route('admin.messages.show', $quotation, 301)
         )->name('quotations.show');
 
-        Route::get('settings', fn () => Inertia::render('Admin/Settings'))->name('settings');
+        Route::get('settings', [SettingController::class, 'index'])->name('settings');
+        Route::post('settings', [SettingController::class, 'update'])->name('settings.update');
     });
 });
