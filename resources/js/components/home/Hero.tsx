@@ -97,12 +97,12 @@ export default function Hero({
             <div className="relative flex flex-1 overflow-hidden">
               <div className="animate-marquee-smooth flex items-center gap-8 whitespace-nowrap">
                 {[...services, ...services, ...services, ...services].map((service, idx) => (
-                  <div key={`${service.id}-${idx}`} className="flex items-center gap-8">
-                    <span className="t-meta text-xs font-medium tracking-wider text-white/80 select-none">
-                      {service.title}
-                    </span>
-                    <span className="h-1.5 w-1.5 rounded-full bg-accent-bright/60 shrink-0" />
-                  </div>
+                  <span
+                    key={`${service.id}-${idx}`}
+                    className="t-meta text-xs font-medium tracking-wider text-white/80 select-none"
+                  >
+                    {service.title}
+                  </span>
                 ))}
               </div>
             </div>

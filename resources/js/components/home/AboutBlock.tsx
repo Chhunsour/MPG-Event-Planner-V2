@@ -97,7 +97,7 @@ export default function AboutBlock({
                 <div className="absolute top-4 left-4 z-20 flex items-center gap-3 rounded-lg border border-white/20 bg-ink/90 px-4 py-2.5 text-white shadow-xl backdrop-blur-md">
                   <Award className="h-5 w-5 text-accent-bright shrink-0" />
                   <div>
-                    <span className="t-heading block text-sm font-extrabold text-white">10+ Years</span>
+                    <span className="t-heading block text-sm font-extrabold text-white">6+ Years</span>
                     <span className="t-meta text-[11px] text-white/70">
                       {locale === "km" ? "បទពិសោធន៍" : "Proven Track Record"}
                     </span>
