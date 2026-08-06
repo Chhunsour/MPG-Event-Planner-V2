@@ -35,13 +35,24 @@ export default function FlagshipBlock({
 
   return (
     <section className="on-dark relative bg-ink text-white">
-      <div className="shell">
-        <div className="grid gap-8 lg:grid-cols-12 lg:gap-14">
-          <ScrollReveal
-            className="lg:col-span-5 lg:-mt-20"
-            delay={60}
-          >
-            <figure className="frame aspect-4/3 w-full sm:aspect-16/10 lg:aspect-4/5">
+      <div className="shell band">
+        <div className="grid gap-8 lg:grid-cols-12 lg:gap-14 lg:items-center">
+          {/* Header on Mobile View */}
+          <div className="lg:hidden">
+            <SectionHead
+              icon={Crown}
+              label={dict.featured.tag}
+              title={service.title}
+              dark
+            />
+            {body && (
+              <p className="t-lead mt-4 text-white/80">{body}</p>
+            )}
+          </div>
+
+          {/* Showcase Image (Directly under title on mobile, left column on desktop) */}
+          <ScrollReveal className="lg:col-span-5 lg:-mt-12" delay={60}>
+            <figure className="frame aspect-4/3 w-full rounded-xl overflow-hidden shadow-xl border border-white/10 sm:aspect-16/10 lg:aspect-4/5">
               <img
                 src={service.image || flagshipImage}
                 alt={service.image_alt || dict.featured.imageAlt}
@@ -55,26 +66,27 @@ export default function FlagshipBlock({
             </figure>
           </ScrollReveal>
 
-          <div className="band pt-0 lg:col-span-6 lg:col-start-7 lg:pt-18">
-            <ScrollReveal>
+          {/* Capabilities & CTA Content */}
+          <div className="lg:col-span-6 lg:col-start-7">
+            {/* Header on Desktop View */}
+            <ScrollReveal className="hidden lg:block">
               <SectionHead
                 icon={Crown}
                 label={dict.featured.tag}
                 title={service.title}
                 dark
               />
-            </ScrollReveal>
-
-            <ScrollReveal stagger delay={80}>
               {body && (
                 <p className="t-lead mt-6 max-w-[52ch] text-white/80">{body}</p>
               )}
+            </ScrollReveal>
 
-              <div className="mt-8">
+            <ScrollReveal stagger delay={80}>
+              <div className="mt-6 lg:mt-8">
                 <h3 className="t-meta border-b border-white/15 pb-3 text-white/60">
                   {dict.featured.capabilitiesLabel}
                 </h3>
-                {/* 2-Column Grid on Mobile & Desktop with Real Icons */}
+                {/* 2-Column Grid with Real Icons */}
                 <ul className="mt-4 grid grid-cols-2 gap-3">
                   {capabilities.map((capability, index) => {
                     const IconComp = CAPABILITY_ICONS[index % CAPABILITY_ICONS.length];
@@ -95,7 +107,7 @@ export default function FlagshipBlock({
                 </ul>
               </div>
 
-              <div className="mt-9">
+              <div className="mt-8 lg:mt-9">
                 <Link
                   href={`/${locale}/services/${service.slug}`}
                   className="btn btn-onink"
