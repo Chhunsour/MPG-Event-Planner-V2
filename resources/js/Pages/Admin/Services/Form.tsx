@@ -76,7 +76,23 @@ export default function ServicesForm({ service }: ServicesFormProps) {
     seo_description: service.seo_description ?? "",
   });
 
-  const [, setTranslations] = useState<Record<string, Record<string, string>>>({});
+  const handleTranslated = (results: Record<string, Record<string, string>>) => {
+    const updates: Partial<typeof data> = {};
+    if (results.title) {
+      if (results.title.km) updates.title_km = results.title.km;
+      if (results.title.zh || results.title["zh-CN"]) updates.title_zh = results.title.zh || results.title["zh-CN"];
+    }
+    if (results.short_description) {
+      if (results.short_description.km) updates.short_description_km = results.short_description.km;
+      if (results.short_description.zh || results.short_description["zh-CN"]) updates.short_description_zh = results.short_description.zh || results.short_description["zh-CN"];
+    }
+    if (results.description) {
+      if (results.description.km) updates.description_km = results.description.km;
+      if (results.description.zh || results.description["zh-CN"]) updates.description_zh = results.description.zh || results.description["zh-CN"];
+    }
+    setData((prev) => ({ ...prev, ...updates }));
+  };
+
   const [slugTouched, setSlugTouched] = useState(!!service.slug);
 
   const slugify = (text: string) =>
@@ -121,9 +137,9 @@ export default function ServicesForm({ service }: ServicesFormProps) {
   };
 
   const translationFields = {
-    title_en: data.title_en,
-    short_description_en: data.short_description_en,
-    description_en: data.description_en,
+    title: data.title_en,
+    short_description: data.short_description_en,
+    description: data.description_en,
   };
 
   return (
@@ -157,7 +173,7 @@ export default function ServicesForm({ service }: ServicesFormProps) {
               entity="service"
               entityId={service.id ?? undefined}
               fields={translationFields}
-              onTranslated={setTranslations}
+              onTranslated={handleTranslated}
             />
 
             {/* Content with lang tabs */}
@@ -195,7 +211,8 @@ export default function ServicesForm({ service }: ServicesFormProps) {
                       </label>
                       <RichEditor
                         name={`description_${code}`}
-                        defaultValue={data[`description_${code}` as keyof typeof data] as string}
+                        value={data[`description_${code}` as keyof typeof data] as string}
+                        onChange={(v) => setData(`description_${code}` as keyof typeof data, v)}
                         placeholder="Explain what is included, how the work happens, and what clients can expect."
                       />
                     </div>

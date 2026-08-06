@@ -63,7 +63,22 @@ export default function BlogForm({ post }: BlogFormProps) {
     seo_description: post.seo_description ?? "",
   });
 
-  const [, setTranslations] = useState<Record<string, Record<string, string>>>({});
+  const handleTranslated = (results: Record<string, Record<string, string>>) => {
+    const updates: Partial<typeof data> = {};
+    if (results.title) {
+      if (results.title.km) updates.title_km = results.title.km;
+      if (results.title.zh || results.title["zh-CN"]) updates.title_zh = results.title.zh || results.title["zh-CN"];
+    }
+    if (results.excerpt) {
+      if (results.excerpt.km) updates.excerpt_km = results.excerpt.km;
+      if (results.excerpt.zh || results.excerpt["zh-CN"]) updates.excerpt_zh = results.excerpt.zh || results.excerpt["zh-CN"];
+    }
+    if (results.body) {
+      if (results.body.km) updates.body_km = results.body.km;
+      if (results.body.zh || results.body["zh-CN"]) updates.body_zh = results.body.zh || results.body["zh-CN"];
+    }
+    setData((prev) => ({ ...prev, ...updates }));
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -86,9 +101,9 @@ export default function BlogForm({ post }: BlogFormProps) {
   };
 
   const translationFields = {
-    title_en: data.title_en,
-    excerpt_en: data.excerpt_en,
-    body_en: data.body_en,
+    title: data.title_en,
+    excerpt: data.excerpt_en,
+    body: data.body_en,
   };
 
   return (
@@ -117,7 +132,7 @@ export default function BlogForm({ post }: BlogFormProps) {
               entity="blog"
               entityId={post.id ?? undefined}
               fields={translationFields}
-              onTranslated={setTranslations}
+              onTranslated={handleTranslated}
             />
 
             {/* Content with lang tabs */}
@@ -152,7 +167,8 @@ export default function BlogForm({ post }: BlogFormProps) {
                       </label>
                       <RichEditor
                         name={`body_${code}`}
-                        defaultValue={data[`body_${code}` as keyof typeof data] as string}
+                        value={data[`body_${code}` as keyof typeof data] as string}
+                        onChange={(v) => setData(`body_${code}` as keyof typeof data, v)}
                         placeholder="Write the full post content here."
                       />
                     </div>

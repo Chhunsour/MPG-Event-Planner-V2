@@ -3,8 +3,10 @@ import { Bold, Italic, List, ListOrdered, Quote, Link as LinkIcon } from "lucide
 
 interface RichEditorProps {
   name: string;
+  value?: string;
   defaultValue?: string;
   placeholder?: string;
+  onChange?: (value: string) => void;
 }
 
 const TOOLBAR_ACTIONS = [
@@ -15,19 +17,42 @@ const TOOLBAR_ACTIONS = [
   { cmd: "formatBlock", value: "blockquote", icon: Quote, label: "Quote" },
 ] as const;
 
-export default function RichEditor({ name, defaultValue = "", placeholder }: RichEditorProps) {
+export default function RichEditor({
+  name,
+  value,
+  defaultValue = "",
+  placeholder,
+  onChange,
+}: RichEditorProps) {
   const ref = useRef<HTMLDivElement>(null);
   const hiddenRef = useRef<HTMLInputElement>(null);
   const [focused, setFocused] = useState(false);
 
-  useEffect(() => {
-    if (ref.current && defaultValue && !ref.current.innerHTML) {
-      ref.current.innerHTML = defaultValue;
-    }
-  }, [defaultValue]);
+  const currentValue = value !== undefined ? value : defaultValue;
 
-  const exec = (cmd: string, value?: string) => {
-    document.execCommand(cmd, false, value);
+  useEffect(() => {
+    if (ref.current && ref.current.innerHTML !== currentValue) {
+      if (document.activeElement !== ref.current) {
+        ref.current.innerHTML = currentValue;
+      }
+    }
+    if (hiddenRef.current) {
+      hiddenRef.current.value = currentValue;
+    }
+  }, [currentValue]);
+
+  const syncValue = () => {
+    if (ref.current) {
+      const html = ref.current.innerHTML;
+      if (hiddenRef.current) {
+        hiddenRef.current.value = html;
+      }
+      onChange?.(html);
+    }
+  };
+
+  const exec = (cmd: string, val?: string) => {
+    document.execCommand(cmd, false, val);
     syncValue();
     ref.current?.focus();
   };
@@ -37,12 +62,6 @@ export default function RichEditor({ name, defaultValue = "", placeholder }: Ric
     if (url) {
       document.execCommand("createLink", false, url);
       syncValue();
-    }
-  };
-
-  const syncValue = () => {
-    if (hiddenRef.current && ref.current) {
-      hiddenRef.current.value = ref.current.innerHTML;
     }
   };
 

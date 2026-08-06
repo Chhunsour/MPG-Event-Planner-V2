@@ -33,6 +33,15 @@ class TranslationController extends Controller
             'protected_terms.*' => ['string', 'max:160'],
         ]);
 
+        if (isset($data['fields']) && is_array($data['fields'])) {
+            $normalizedFields = [];
+            foreach ($data['fields'] as $field => $value) {
+                $cleanField = preg_replace('/_en$/', '', (string) $field);
+                $normalizedFields[$cleanField] = $value;
+            }
+            $data['fields'] = $normalizedFields;
+        }
+
         foreach ($data['fields'] ?? [] as $field => $value) {
             if (! in_array($field, self::FIELDS, true)) {
                 throw ValidationException::withMessages(["fields.{$field}" => 'Unsupported translation field.']);
@@ -84,15 +93,20 @@ class TranslationController extends Controller
         $errors = [];
 
         foreach (['km', 'zh-CN'] as $target) {
+            $targetKey = $target === 'zh-CN' ? 'zh' : $target;
             foreach ($fields as $field => $value) {
                 try {
                     $format = in_array($field, ['description', 'body'], true) ? 'html' : 'text';
-                    $translations[$field][$target] = $translator->translate(
+                    $translated = $translator->translate(
                         $value,
                         $target,
                         $format,
                         $protectedTerms,
                     );
+                    $translations[$field][$targetKey] = $translated;
+                    if ($targetKey === 'zh') {
+                        $translations[$field]['zh-CN'] = $translated;
+                    }
                 } catch (\Throwable $exception) {
                     report($exception);
                     Log::error('Admin content translation failed.', [

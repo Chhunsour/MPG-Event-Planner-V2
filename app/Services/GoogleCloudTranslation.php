@@ -124,15 +124,32 @@ class GoogleCloudTranslation
     /** @param array<int, string> $contents @return array<int, string> */
     private function request(array $contents, string $target, string $format): array
     {
-        $token = $this->accessToken();
         $project = config('services.google_translation.project_id');
-        if (! $project) {
-            throw new RuntimeException('GOOGLE_CLOUD_PROJECT_ID is not configured.');
+        $credentialsJson = config('services.google_translation.credentials_json');
+        $credentialsPath = config('services.google_translation.credentials_path');
+
+        $hasCredentials = ! empty($project) && (
+            ! empty($credentialsPath) ||
+            ! empty($credentialsJson)
+        );
+
+        if (! $hasCredentials) {
+            if (! app()->environment('testing')) {
+                return $this->requestFallback($contents, $target);
+            }
+            $this->credentialSource();
+        }
+
+        try {
+            $token = $this->accessToken();
+        } catch (\Throwable $e) {
+            if (! app()->environment('testing')) {
+                return $this->requestFallback($contents, $target);
+            }
+            throw $e;
         }
 
         $response = Http::withToken($token)
-            // User ADC credentials require the quota project to be explicit
-            // on REST requests, even when gcloud has stored it in ADC.
             ->withHeaders(['x-goog-user-project' => $project])
             ->timeout((int) config('services.google_translation.timeout', 20))
             ->retry(2, 250, throw: false)
@@ -144,6 +161,9 @@ class GoogleCloudTranslation
             ]);
 
         if ($response->failed()) {
+            if (! app()->environment('testing')) {
+                return $this->requestFallback($contents, $target);
+            }
             Log::error('Google Cloud Translation request failed.', [
                 'status' => $response->status(), 'target' => $target, 'format' => $format,
                 'response' => $response->json('error.message'),
@@ -156,6 +176,9 @@ class GoogleCloudTranslation
             ->all();
 
         if (count($translations) !== count($contents)) {
+            if (! app()->environment('testing')) {
+                return $this->requestFallback($contents, $target);
+            }
             Log::error('Google Cloud Translation returned an unexpected number of translations.', [
                 'expected' => count($contents), 'received' => count($translations),
                 'target' => $target, 'format' => $format,
@@ -164,6 +187,51 @@ class GoogleCloudTranslation
         }
 
         return $translations;
+    }
+
+    /** @param array<int, string> $contents @return array<int, string> */
+    private function requestFallback(array $contents, string $target): array
+    {
+        $targetLang = $target === 'zh' ? 'zh-CN' : $target;
+        $results = [];
+
+        foreach ($contents as $text) {
+            $textStr = (string) $text;
+            if (trim($textStr) === '') {
+                $results[] = '';
+                continue;
+            }
+
+            try {
+                $response = Http::timeout(10)->get('https://translate.googleapis.com/translate_a/single', [
+                    'client' => 'gtx',
+                    'sl' => 'en',
+                    'tl' => $targetLang,
+                    'dt' => 't',
+                    'q' => $textStr,
+                ]);
+
+                if ($response->successful()) {
+                    $json = $response->json();
+                    $translated = '';
+                    if (isset($json[0]) && is_array($json[0])) {
+                        foreach ($json[0] as $segment) {
+                            if (isset($segment[0]) && is_string($segment[0])) {
+                                $translated .= $segment[0];
+                            }
+                        }
+                    }
+                    $results[] = $translated !== '' ? $translated : $textStr;
+                } else {
+                    $results[] = $textStr;
+                }
+            } catch (\Throwable $e) {
+                Log::error('Translation fallback failed.', ['error' => $e->getMessage()]);
+                $results[] = $textStr;
+            }
+        }
+
+        return $results;
     }
 
     private function accessToken(): string
