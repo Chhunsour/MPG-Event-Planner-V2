@@ -326,7 +326,7 @@ function LanguageSwitch({
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`flex items-center justify-between gap-2 rounded-full border px-3 py-1.5 text-xs font-bold transition-all duration-200 ${
+        className={`flex items-center justify-between gap-2.5 border px-3 py-2 text-xs font-bold tracking-wider transition-all duration-200 ${
           mobile
             ? "w-full border-white/25 bg-white/5 text-white"
             : solid
@@ -342,9 +342,9 @@ function LanguageSwitch({
             alt=""
             width={20}
             height={14}
-            className="h-3.5 w-5 rounded-xs object-cover shadow-xs"
+            className="h-3.5 w-5 object-cover"
           />
-          <span className="tracking-wider">{mobile ? activeLanguage.full : activeLanguage.label}</span>
+          <span>{mobile ? activeLanguage.full : activeLanguage.label}</span>
         </span>
         <ChevronDown
           className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 ${
@@ -357,10 +357,10 @@ function LanguageSwitch({
         <>
           <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
           <div
-            className={`absolute z-50 overflow-hidden rounded-xl border p-1.5 shadow-2xl backdrop-blur-md transition-all duration-200 ${
+            className={`absolute z-50 overflow-hidden border p-1 shadow-2xl transition-all duration-200 ${
               mobile
-                ? "bottom-full left-0 mb-2 w-full border-white/20 bg-ink/95 text-white"
-                : "right-0 top-full mt-2 min-w-44 border-line bg-paper/95 text-ink-text shadow-xl ring-1 ring-black/5"
+                ? "bottom-full left-0 mb-2 w-full border-white/25 bg-ink text-white"
+                : "right-0 top-full mt-1.5 min-w-44 border-line-strong bg-paper text-ink-text shadow-xl"
             }`}
           >
             {LANGUAGES.map((lang) => {
@@ -370,9 +370,9 @@ function LanguageSwitch({
                   key={lang.code}
                   href={localeHref(lang.code)}
                   onClick={() => setOpen(false)}
-                  className={`flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
+                  className={`flex items-center justify-between gap-3 px-3 py-2.5 text-xs font-semibold transition-colors ${
                     active
-                      ? "bg-brand text-white shadow-xs font-bold"
+                      ? "bg-brand text-white font-bold"
                       : mobile
                         ? "text-white/80 hover:bg-white/10 hover:text-white"
                         : "text-muted hover:bg-paper-tint hover:text-ink-text"
@@ -384,7 +384,7 @@ function LanguageSwitch({
                       alt=""
                       width={20}
                       height={14}
-                      className="h-3.5 w-5 rounded-xs object-cover shadow-xs"
+                      className="h-3.5 w-5 object-cover"
                     />
                     <span>{lang.full}</span>
                   </div>
