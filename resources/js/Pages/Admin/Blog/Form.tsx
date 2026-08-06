@@ -65,18 +65,17 @@ export default function BlogForm({ post }: BlogFormProps) {
 
   const handleTranslated = (results: Record<string, Record<string, string>>) => {
     const updates: Partial<typeof data> = {};
-    if (results.title) {
-      if (results.title.km) updates.title_km = results.title.km;
-      if (results.title.zh || results.title["zh-CN"]) updates.title_zh = results.title.zh || results.title["zh-CN"];
-    }
-    if (results.excerpt) {
-      if (results.excerpt.km) updates.excerpt_km = results.excerpt.km;
-      if (results.excerpt.zh || results.excerpt["zh-CN"]) updates.excerpt_zh = results.excerpt.zh || results.excerpt["zh-CN"];
-    }
-    if (results.body) {
-      if (results.body.km) updates.body_km = results.body.km;
-      if (results.body.zh || results.body["zh-CN"]) updates.body_zh = results.body.zh || results.body["zh-CN"];
-    }
+    Object.entries(results).forEach(([field, langMap]) => {
+      const cleanField = field.replace(/_en$/, "");
+      const kmVal = langMap.km;
+      const zhVal = langMap.zh || langMap["zh-CN"];
+      if (kmVal) {
+        (updates as Record<string, string>)[`${cleanField}_km`] = kmVal;
+      }
+      if (zhVal) {
+        (updates as Record<string, string>)[`${cleanField}_zh`] = zhVal;
+      }
+    });
     setData((prev) => ({ ...prev, ...updates }));
   };
 
@@ -146,12 +145,19 @@ export default function BlogForm({ post }: BlogFormProps) {
                 {({ code, label }) => (
                   <div className="space-y-4 py-4">
                     {code !== "en" && (
-                      <TextField
-                        label={`${label} title`}
-                        name={`title_${code}`}
-                        value={data[`title_${code}` as keyof typeof data] as string}
-                        onChange={(v) => setData(`title_${code}` as keyof typeof data, v)}
-                      />
+                      <>
+                        {!(data[`title_${code}` as keyof typeof data] as string) && (
+                          <div className="rounded border border-sky-200 bg-brand-tint px-3 py-2 text-xs text-sky-800">
+                            <strong>{label} translation is empty.</strong> Click <strong>"Translate all"</strong> in the toolbar above to generate translations from English automatically.
+                          </div>
+                        )}
+                        <TextField
+                          label={`${label} title`}
+                          name={`title_${code}`}
+                          value={data[`title_${code}` as keyof typeof data] as string}
+                          onChange={(v) => setData(`title_${code}` as keyof typeof data, v)}
+                        />
+                      </>
                     )}
                     <TextareaField
                       label={`${label} excerpt`}

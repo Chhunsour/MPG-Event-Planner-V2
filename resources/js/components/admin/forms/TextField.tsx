@@ -31,7 +31,8 @@ export default function TextField({
   autoFocus,
   onChange,
 }: TextFieldProps) {
-  const count = (value ?? defaultValue ?? "").length;
+  const currentValue = value !== undefined ? value : (defaultValue ?? "");
+  const count = currentValue.length;
   return (
     <div>
       <label
@@ -45,8 +46,7 @@ export default function TextField({
         id={name}
         name={name}
         type={type}
-        value={value}
-        defaultValue={defaultValue}
+        value={currentValue}
         placeholder={placeholder}
         required={required}
         maxLength={maxLength}

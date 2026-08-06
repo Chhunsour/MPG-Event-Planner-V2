@@ -25,7 +25,8 @@ export default function TextareaField({
   hint,
   onChange,
 }: TextareaFieldProps) {
-  const count = (value ?? defaultValue ?? "").length;
+  const currentValue = value !== undefined ? value : (defaultValue ?? "");
+  const count = currentValue.length;
   return (
     <div>
       <label
@@ -37,8 +38,7 @@ export default function TextareaField({
       <textarea
         id={name}
         name={name}
-        value={value}
-        defaultValue={defaultValue}
+        value={currentValue}
         placeholder={placeholder}
         rows={rows}
         maxLength={maxLength}

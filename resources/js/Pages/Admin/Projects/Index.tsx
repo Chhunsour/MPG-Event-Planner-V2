@@ -96,7 +96,7 @@ export default function ProjectsIndex({ projects, services, years, status }: Pro
         <form method="GET" className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-50">
             <label htmlFor="q" className="sr-only">Search projects</label>
-            <input id="q" name="q" type="search" value={q} placeholder="Search title, client, location"
+            <input id="q" name="q" type="text" value={q} placeholder="Search title, client, location"
               onChange={(e) => setQ(e.target.value)}
               className="w-full border border-line-strong px-3 py-2 text-sm text-ink-text outline-none focus:border-brand" />
           </div>

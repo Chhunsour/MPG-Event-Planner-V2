@@ -101,18 +101,17 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
 
   const handleTranslated = (results: Record<string, Record<string, string>>) => {
     const updates: Partial<typeof data> = {};
-    if (results.title) {
-      if (results.title.km) updates.title_km = results.title.km;
-      if (results.title.zh || results.title["zh-CN"]) updates.title_zh = results.title.zh || results.title["zh-CN"];
-    }
-    if (results.short_description) {
-      if (results.short_description.km) updates.short_description_km = results.short_description.km;
-      if (results.short_description.zh || results.short_description["zh-CN"]) updates.short_description_zh = results.short_description.zh || results.short_description["zh-CN"];
-    }
-    if (results.description) {
-      if (results.description.km) updates.description_km = results.description.km;
-      if (results.description.zh || results.description["zh-CN"]) updates.description_zh = results.description.zh || results.description["zh-CN"];
-    }
+    Object.entries(results).forEach(([field, langMap]) => {
+      const cleanField = field.replace(/_en$/, "");
+      const kmVal = langMap.km;
+      const zhVal = langMap.zh || langMap["zh-CN"];
+      if (kmVal) {
+        (updates as Record<string, string>)[`${cleanField}_km`] = kmVal;
+      }
+      if (zhVal) {
+        (updates as Record<string, string>)[`${cleanField}_zh`] = zhVal;
+      }
+    });
     setData((prev) => ({ ...prev, ...updates }));
   };
 
@@ -201,12 +200,19 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
                 {({ code, label }) => (
                   <div className="space-y-4 py-4">
                     {code !== "en" && (
-                      <TextField
-                        label={`${label} project name`}
-                        name={`title_${code}`}
-                        value={data[`title_${code}` as keyof typeof data] as string}
-                        onChange={(v) => setData(`title_${code}` as keyof typeof data, v)}
-                      />
+                      <>
+                        {!(data[`title_${code}` as keyof typeof data] as string) && (
+                          <div className="rounded border border-sky-200 bg-brand-tint px-3 py-2 text-xs text-sky-800">
+                            <strong>{label} translation is empty.</strong> Click <strong>"Translate all"</strong> in the toolbar above to generate project name and description translations automatically.
+                          </div>
+                        )}
+                        <TextField
+                          label={`${label} project name`}
+                          name={`title_${code}`}
+                          value={data[`title_${code}` as keyof typeof data] as string}
+                          onChange={(v) => setData(`title_${code}` as keyof typeof data, v)}
+                        />
+                      </>
                     )}
                     <TextareaField
                       label={`${label} short description`}

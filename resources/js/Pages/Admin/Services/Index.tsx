@@ -108,7 +108,7 @@ export default function ServicesIndex({ services, status }: ServicesIndexProps) 
           <div className="relative flex-1 min-w-50">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-faint" aria-hidden="true" />
             <label htmlFor="q" className="sr-only">Search services</label>
-            <input id="q" type="search" value={q} placeholder="Search title or category…"
+            <input id="q" type="text" value={q} placeholder="Search title or category…"
               onChange={(e) => setQ(e.target.value)}
               className="w-full border border-line-strong py-2 pl-9 pr-9 text-sm text-ink-text outline-none focus:border-brand" />
             {q && (

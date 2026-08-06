@@ -81,7 +81,7 @@ export default function BlogIndex({ posts, status }: BlogIndexProps) {
       <div className="mb-4 border border-line bg-paper p-4">
         <form method="GET" className="flex flex-wrap items-end gap-3">
           <div className="flex-1 min-w-50">
-            <input type="search" name="q" value={q} placeholder="Search title, excerpt, category"
+            <input type="text" name="q" value={q} placeholder="Search title, excerpt, category"
               onChange={(e) => setQ(e.target.value)}
               className="w-full border border-line-strong px-3 py-2 text-sm text-ink-text outline-none focus:border-brand" />
           </div>
