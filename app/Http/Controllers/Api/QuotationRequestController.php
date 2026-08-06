@@ -116,6 +116,10 @@ class QuotationRequestController extends Controller
             Log::error('Telegram notification failed for quotation #' . $quotation->id . ': ' . $e->getMessage());
         }
 
+        if ($request->header('X-Inertia')) {
+            return redirect()->to("/" . ($quotation->language ?? 'en') . "/thank-you");
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Your quotation request has been submitted successfully.',

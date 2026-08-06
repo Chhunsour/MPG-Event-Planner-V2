@@ -70,7 +70,7 @@ export default function QuotationForm({ locale, dict }: QuotationFormProps) {
     return next;
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setFormError(null);
 
@@ -82,30 +82,44 @@ export default function QuotationForm({ locale, dict }: QuotationFormProps) {
 
     setIsPending(true);
 
-    router.post("/api/quotation-requests", {
-      customer_name: values.name,
-      phone: values.phone,
-      email: values.email,
-      preferred_contact_method: "telegram",
-      event_type: values.eventType,
-      event_location: "To be confirmed",
-      additional_information: values.message,
-      language: locale,
-      consent: true,
-      website_url: honeypot,
-    }, {
-      onSuccess: () => {
+    try {
+      const response = await fetch("/api/quotation-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+        },
+        body: JSON.stringify({
+          customer_name: values.name,
+          phone: values.phone,
+          email: values.email,
+          preferred_contact_method: "telegram",
+          event_type: values.eventType,
+          event_location: "To be confirmed",
+          additional_information: values.message,
+          language: locale,
+          consent: true,
+          website_url: honeypot,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
         router.visit(`/${locale}/thank-you`);
-      },
-      onError: (errors) => {
+      } else {
         setIsPending(false);
-        if (errors.email) {
+        if (data.errors?.email) {
           setErrors({ email: dict.validation.invalid_email });
         }
-        setFormError(dict.validation.server_error);
+        setFormError(data.message || dict.validation.server_error);
         requestAnimationFrame(() => summaryRef.current?.focus());
-      },
-    });
+      }
+    } catch {
+      setIsPending(false);
+      setFormError(dict.validation.server_error);
+      requestAnimationFrame(() => summaryRef.current?.focus());
+    }
   };
 
   const errorList = Object.entries(errors);
