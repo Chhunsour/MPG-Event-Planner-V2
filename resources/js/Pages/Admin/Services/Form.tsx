@@ -1,6 +1,6 @@
 import { Link, useForm, router } from "@inertiajs/react";
 import { useState } from "react";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ChevronDown } from "lucide-react";
 import AdminLayout from "@/Layouts/AdminLayout";
 import TextField from "@/components/admin/forms/TextField";
 import TextareaField from "@/components/admin/forms/TextareaField";
@@ -256,12 +256,19 @@ export default function ServicesForm({ service }: ServicesFormProps) {
             </div>
 
             {/* Advanced settings */}
-            <div className="border border-line bg-paper p-5">
-              <div className="mb-4">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Advanced</p>
-                <h3 className="text-base font-bold text-ink-text">SEO & metadata</h3>
-              </div>
-              <div className="space-y-4">
+            <details className="group border border-line bg-paper">
+              <summary className="flex cursor-pointer select-none items-center justify-between p-5 text-left outline-none [&::-webkit-details-marker]:hidden">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Advanced</p>
+                  <h3 className="text-base font-bold text-ink-text">SEO & metadata</h3>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-brand">
+                  <span className="group-open:hidden">Show settings</span>
+                  <span className="hidden group-open:inline">Hide settings</span>
+                  <ChevronDown className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" />
+                </div>
+              </summary>
+              <div className="space-y-4 border-t border-line p-5">
                 <TextField label="Slug" name="slug" value={data.slug} placeholder="url-friendly-slug" onChange={handleSlugChange} />
                 <TextField label="Category" name="category" value={data.category} placeholder="e.g. Corporate events" onChange={(v) => setData("category", v)} />
                 <TextField label="SEO title" name="seo_title" value={data.seo_title} maxLength={60} showCount onChange={(v) => setData("seo_title", v)} />
@@ -274,7 +281,7 @@ export default function ServicesForm({ service }: ServicesFormProps) {
                   <label htmlFor="is_featured" className="text-sm text-muted">Featured service</label>
                 </div>
               </div>
-            </div>
+            </details>
           </div>
 
           {/* Sidebar */}

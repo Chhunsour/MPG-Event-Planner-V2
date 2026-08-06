@@ -1,6 +1,6 @@
 import { Link, useForm, router } from "@inertiajs/react";
 import { useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, ChevronDown } from "lucide-react";
 import AdminLayout from "@/Layouts/AdminLayout";
 import TextField from "@/components/admin/forms/TextField";
 import TextareaField from "@/components/admin/forms/TextareaField";
@@ -301,12 +301,19 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
             </div>
 
             {/* Advanced settings */}
-            <div className="border border-line bg-paper p-5">
-              <div className="mb-4">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Advanced</p>
-                <h3 className="text-base font-bold text-ink-text">SEO & metadata</h3>
-              </div>
-              <div className="space-y-4">
+            <details className="group border border-line bg-paper">
+              <summary className="flex cursor-pointer select-none items-center justify-between p-5 text-left outline-none [&::-webkit-details-marker]:hidden">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Advanced</p>
+                  <h3 className="text-base font-bold text-ink-text">SEO & metadata</h3>
+                </div>
+                <div className="flex items-center gap-2 text-xs font-semibold text-brand">
+                  <span className="group-open:hidden">Show settings</span>
+                  <span className="hidden group-open:inline">Hide settings</span>
+                  <ChevronDown className="h-4 w-4 transition-transform duration-200 group-open:rotate-180" />
+                </div>
+              </summary>
+              <div className="space-y-4 border-t border-line p-5">
                 <TextField label="Slug" name="slug" value={data.slug} onChange={(v) => setData("slug", v)} />
                 <TextField label="Category" name="category" value={data.category} onChange={(v) => setData("category", v)} />
                 <div className="max-w-75">
@@ -331,7 +338,7 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
                   <label htmlFor="is_featured" className="text-sm text-muted">Featured project</label>
                 </div>
               </div>
-            </div>
+            </details>
           </div>
 
           {/* Sidebar */}
