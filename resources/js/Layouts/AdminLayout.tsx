@@ -14,6 +14,7 @@ import {
   ExternalLink,
   User,
   ChevronDown,
+  Globe,
 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
@@ -58,6 +59,7 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
   const auth = props.auth;
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+  const [websiteDropdownOpen, setWebsiteDropdownOpen] = useState(false);
   const { toast } = useToast();
   const lastProcessedKey = useRef<string | number | null>(null);
 
@@ -143,8 +145,111 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
             })}
           </nav>
 
-          {/* User Menu Dropdown */}
-          <div className="flex items-center gap-4">
+          {/* Action & User Menu Dropdown */}
+          <div className="flex items-center gap-3">
+            {/* View Website Dropdown Menu */}
+            <div className="relative hidden sm:block">
+              <button
+                type="button"
+                onClick={() => setWebsiteDropdownOpen(!websiteDropdownOpen)}
+                className="flex items-center gap-1.5 border border-line-strong px-3 py-1.5 text-xs font-semibold text-muted transition-colors hover:border-brand hover:text-brand"
+              >
+                <Globe className="h-3.5 w-3.5" />
+                <span>View website</span>
+                <ChevronDown className="h-3 w-3 text-faint" />
+              </button>
+
+              {websiteDropdownOpen && (
+                <>
+                  <div className="fixed inset-0 z-10" onClick={() => setWebsiteDropdownOpen(false)} />
+                  <div className="absolute right-0 z-20 mt-2 w-56 border border-line bg-paper p-2 shadow-lg">
+                    <div className="border-b border-line px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-faint">
+                      Website Landing Pages
+                    </div>
+                    <a
+                      href="/en"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setWebsiteDropdownOpen(false)}
+                      className="flex items-center justify-between px-3 py-2 text-xs font-medium text-ink-text hover:bg-paper-tint hover:text-brand"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Globe className="h-3.5 w-3.5 text-muted" />
+                        <span>Home Page</span>
+                      </div>
+                      <ExternalLink className="h-3 w-3 text-faint" />
+                    </a>
+                    <a
+                      href="/en/services"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setWebsiteDropdownOpen(false)}
+                      className="flex items-center justify-between px-3 py-2 text-xs font-medium text-ink-text hover:bg-paper-tint hover:text-brand"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Briefcase className="h-3.5 w-3.5 text-muted" />
+                        <span>Services Page</span>
+                      </div>
+                      <ExternalLink className="h-3 w-3 text-faint" />
+                    </a>
+                    <a
+                      href="/en/projects"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setWebsiteDropdownOpen(false)}
+                      className="flex items-center justify-between px-3 py-2 text-xs font-medium text-ink-text hover:bg-paper-tint hover:text-brand"
+                    >
+                      <div className="flex items-center gap-2">
+                        <FolderKanban className="h-3.5 w-3.5 text-muted" />
+                        <span>Projects Page</span>
+                      </div>
+                      <ExternalLink className="h-3 w-3 text-faint" />
+                    </a>
+                    <a
+                      href="/en/blog"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setWebsiteDropdownOpen(false)}
+                      className="flex items-center justify-between px-3 py-2 text-xs font-medium text-ink-text hover:bg-paper-tint hover:text-brand"
+                    >
+                      <div className="flex items-center gap-2">
+                        <FileText className="h-3.5 w-3.5 text-muted" />
+                        <span>Blog & News</span>
+                      </div>
+                      <ExternalLink className="h-3 w-3 text-faint" />
+                    </a>
+                    <a
+                      href="/en/about"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setWebsiteDropdownOpen(false)}
+                      className="flex items-center justify-between px-3 py-2 text-xs font-medium text-ink-text hover:bg-paper-tint hover:text-brand"
+                    >
+                      <div className="flex items-center gap-2">
+                        <User className="h-3.5 w-3.5 text-muted" />
+                        <span>About Us</span>
+                      </div>
+                      <ExternalLink className="h-3 w-3 text-faint" />
+                    </a>
+                    <a
+                      href="/en/contact"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setWebsiteDropdownOpen(false)}
+                      className="flex items-center justify-between px-3 py-2 text-xs font-medium text-ink-text hover:bg-paper-tint hover:text-brand"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Mail className="h-3.5 w-3.5 text-muted" />
+                        <span>Contact & Quote</span>
+                      </div>
+                      <ExternalLink className="h-3 w-3 text-faint" />
+                    </a>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Account User Dropdown Menu */}
             <div className="relative">
               <button
                 type="button"
@@ -178,15 +283,15 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
                       <Settings className="h-3.5 w-3.5" />
                       Settings
                     </Link>
-                    <Link
-                      href="/"
+                    <a
+                      href="/en"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-muted hover:bg-paper-tint hover:text-ink-text"
                     >
                       <ExternalLink className="h-3.5 w-3.5" />
                       View website
-                    </Link>
+                    </a>
                     <button
                       type="button"
                       onClick={handleLogout}
@@ -233,15 +338,24 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
                 <Settings className="h-4.5 w-4.5" />
                 <span>Settings</span>
               </Link>
-              <Link
-                href="/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-2 flex items-center gap-2 border border-line px-3 py-2 text-xs font-semibold text-muted"
-              >
-                <ExternalLink className="h-4 w-4" />
-                View website
-              </Link>
+
+              <div className="my-2 border-t border-line" />
+              <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-faint">Landing Pages</p>
+              <a href="/en" target="_blank" className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-muted">
+                <Globe className="h-4 w-4" /> Home Landing
+              </a>
+              <a href="/en/services" target="_blank" className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-muted">
+                <Briefcase className="h-4 w-4" /> Services Page
+              </a>
+              <a href="/en/projects" target="_blank" className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-muted">
+                <FolderKanban className="h-4 w-4" /> Projects Page
+              </a>
+              <a href="/en/blog" target="_blank" className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-muted">
+                <FileText className="h-4 w-4" /> Blog & News
+              </a>
+              <a href="/en/contact" target="_blank" className="flex items-center gap-2 px-3 py-2 text-xs font-semibold text-muted">
+                <Mail className="h-4 w-4" /> Contact & Quote
+              </a>
             </nav>
           </div>
         )}
