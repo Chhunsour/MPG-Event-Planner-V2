@@ -21,7 +21,7 @@ class PageController extends Controller
         $projects = Project::published()->ordered()->limit(5)->get()
             ->map(fn ($p) => $this->mapProject($p, $locale));
 
-        $posts = BlogPost::published()->ordered()->limit(3)->get()
+        $posts = BlogPost::published()->ordered()->limit(4)->get()
             ->map(fn ($p) => $this->mapBlogPost($p, $locale));
 
         return Inertia::render('Home', [
