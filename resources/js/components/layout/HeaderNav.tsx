@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import type { Locale } from "@/config/site";
-import { ArrowRight, ChevronDown, LayoutDashboard } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail } from "lucide-react";
 import BrandMark from "@/components/layout/BrandMark";
 
 interface HeaderNavProps {
@@ -29,7 +29,7 @@ const LANGUAGES = [
 ] as const;
 
 export default function HeaderNav({ locale, dict }: HeaderNavProps) {
-  const { url, props: { auth } } = usePage<{ auth: { id: number; name: string; email: string; is_admin: boolean } | null }>();
+  const { url } = usePage();
   const pathname = url;
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -137,6 +137,7 @@ export default function HeaderNav({ locale, dict }: HeaderNavProps) {
           />
         </Link>
 
+        {/* Desktop Navigation Links */}
         <nav
           className="hidden items-center gap-8 lg:flex"
           aria-label={dict.mainNav}
@@ -168,29 +169,8 @@ export default function HeaderNav({ locale, dict }: HeaderNavProps) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-5 lg:flex">
-          <Link
-            href={`/${locale}/contact`}
-            aria-current={isActive(`/${locale}/contact`) ? "page" : undefined}
-            className={`t-label group relative py-2 transition-colors duration-200 ${
-              isActive(`/${locale}/contact`)
-                ? solid
-                  ? "text-brand"
-                  : "text-white"
-                : solid
-                  ? "text-ink-text/75 hover:text-brand"
-                  : "text-white/80 hover:text-white"
-            }`}
-          >
-            {dict.contact}
-            <span
-              aria-hidden="true"
-              className={`absolute inset-x-0 bottom-0 h-0.5 origin-left bg-accent-bright transition-transform duration-200 ${
-                isActive(`/${locale}/contact`) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-              }`}
-            />
-          </Link>
-
+        {/* Language Switcher & Primary Contact Button */}
+        <div className="hidden items-center gap-4 lg:flex">
           <LanguageSwitch
             locale={locale}
             localeHref={localeHref}
@@ -198,19 +178,19 @@ export default function HeaderNav({ locale, dict }: HeaderNavProps) {
             solid={solid}
           />
 
-          {auth?.is_admin && (
-            <Link
-              href="/admin/dashboard"
-              className={`btn h-11.5 min-h-0 px-5 text-xs ${
-                solid ? "btn-outline" : "btn-onblue"
-              }`}
-            >
-              <LayoutDashboard className="h-3.5 w-3.5" aria-hidden="true" />
-              Dashboard
-            </Link>
-          )}
+          <Link
+            href={`/${locale}/contact`}
+            aria-current={isActive(`/${locale}/contact`) ? "page" : undefined}
+            className={`btn h-11.5 min-h-0 px-5 text-xs ${
+              solid ? "btn-outline" : "btn-onblue"
+            }`}
+          >
+            <Mail className="h-3.5 w-3.5" aria-hidden="true" />
+            {dict.contact}
+          </Link>
         </div>
 
+        {/* Mobile Menu Toggle */}
         <div className="flex items-center lg:hidden">
           <button
             ref={triggerRef}
@@ -235,6 +215,7 @@ export default function HeaderNav({ locale, dict }: HeaderNavProps) {
         </div>
       </div>
 
+      {/* Mobile Drawer Menu */}
       {menuOpen && (
         <div
           id="mobile-menu"
@@ -299,43 +280,24 @@ export default function HeaderNav({ locale, dict }: HeaderNavProps) {
           </nav>
 
           <div className="shrink-0 space-y-5 border-t border-white/15 px-5 py-6 sm:px-8">
-            {auth && auth.is_admin && (
-              <Link
-                href="/admin/dashboard"
-                className="btn btn-onink btn-lg w-full"
-              >
-                <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
-                Dashboard
-              </Link>
-            )}
+            <Link
+              href={`/${locale}/contact`}
+              className="btn btn-onink btn-lg w-full"
+            >
+              <Mail className="h-4 w-4" aria-hidden="true" />
+              {dict.contact}
+            </Link>
 
-            
-
-            {!auth && (
-              <div>
-                <p className="t-meta mb-2.5 text-white/50">{dict.langSelect}</p>
-                <LanguageSwitch
-                  locale={locale}
-                  localeHref={localeHref}
-                  label={dict.langSelect}
-                  solid={false}
-                  mobile
-                />
-              </div>
-            )}
-
-            {auth && (
-              <div>
-                <p className="t-meta mb-2.5 text-white/50">{dict.langSelect}</p>
-                <LanguageSwitch
-                  locale={locale}
-                  localeHref={localeHref}
-                  label={dict.langSelect}
-                  solid={false}
-                  mobile
-                />
-              </div>
-            )}
+            <div>
+              <p className="t-meta mb-2.5 text-white/50">{dict.langSelect}</p>
+              <LanguageSwitch
+                locale={locale}
+                localeHref={localeHref}
+                label={dict.langSelect}
+                solid={false}
+                mobile
+              />
+            </div>
           </div>
         </div>
       )}
