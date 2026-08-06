@@ -777,11 +777,6 @@ input[type="search"] {
   animation: marquee-smooth 90s linear infinite;
 }
 
-.animate-marquee-smooth:hover,
-.animate-marquee-smooth:focus-within {
-  animation-play-state: paused;
-}
-
 .reveal { animation: mpg-rise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 @media (prefers-reduced-motion: reduce) {

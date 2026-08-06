@@ -77,7 +77,7 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Slow, Elegant Infinite Ticker Rail */}
+      {/* Slow, Continuous Keyword Marquee Ticker Rail */}
       {services.length > 0 && (
         <div className="hero__rail relative overflow-hidden border-t border-white/12 bg-black/40 py-3.5 backdrop-blur-md">
           {/* Subtle Side Fade Mask */}
@@ -93,17 +93,14 @@ export default function Hero({
               <span className="h-3.5 w-px bg-white/20" />
             </div>
 
-            {/* Slow Smooth Marquee Track */}
+            {/* Continuous Non-Stop Keyword Ticker */}
             <div className="relative flex flex-1 overflow-hidden">
               <div className="animate-marquee-smooth flex items-center gap-8 whitespace-nowrap">
                 {[...services, ...services, ...services, ...services].map((service, idx) => (
                   <div key={`${service.id}-${idx}`} className="flex items-center gap-8">
-                    <Link
-                      href={`/${locale}/services/${service.slug}`}
-                      className="t-meta text-xs font-semibold tracking-wide text-white/85 transition-colors hover:text-accent-bright"
-                    >
+                    <span className="t-meta text-xs font-medium tracking-wider text-white/80 select-none">
                       {service.title}
-                    </Link>
+                    </span>
                     <span className="h-1.5 w-1.5 rounded-full bg-accent-bright/60 shrink-0" />
                   </div>
                 ))}
