@@ -89,19 +89,33 @@ body {
 input,
 textarea,
 select {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  border-radius: 0;
-  box-sizing: border-box;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+  box-shadow: none !important;
 }
 
 input[type="search"]::-webkit-search-decoration,
 input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
-  -webkit-appearance: none;
-  appearance: none;
+  -webkit-appearance: none !important;
+  appearance: none !important;
 }
 
 img, figure, video {
@@ -657,8 +671,8 @@ input[type="search"] {
   background: var(--paper-tint);
 }
 
-:focus-visible { outline: 3px solid var(--mpg-green-bright); outline-offset: 2px; }
-.on-dark :focus-visible { outline-color: var(--mpg-green-bright); }
+:focus-visible:not(input):not(textarea):not(select) { outline: 2px solid var(--mpg-blue); outline-offset: 2px; }
+.on-dark :focus-visible:not(input):not(textarea):not(select) { outline-color: var(--mpg-green-bright); }
 
 .skip-link {
   position: absolute;
