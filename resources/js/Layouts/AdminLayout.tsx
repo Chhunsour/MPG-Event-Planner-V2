@@ -39,14 +39,13 @@ interface FlashProps {
   timestamp?: number | null;
 }
 
-const NAV_ITEMS = [
+const PRIMARY_NAV = [
   { route: "admin.dashboard", label: "Dashboard", icon: LayoutDashboard, section: "dashboard" },
   { route: "admin.services.index", label: "Services", icon: Briefcase, section: "services" },
   { route: "admin.projects.index", label: "Projects", icon: FolderKanban, section: "projects" },
   { route: "admin.blog.index", label: "Blog Posts", icon: FileText, section: "blog" },
   { route: "admin.messages.index", label: "Messages", icon: Mail, section: "messages" },
   { route: "admin.media.index", label: "Media", icon: ImageIcon, section: "media" },
-  { route: "admin.settings", label: "Settings", icon: Settings, section: "settings" },
 ] as const;
 
 export default function AdminLayout({ title, actions, children }: AdminLayoutProps) {
@@ -97,16 +96,15 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
   return (
     <div className="min-h-screen bg-paper-tint text-ink-text antialiased">
       {/* Top Header Navigation */}
-      <header className="sticky top-0 z-40 border-b border-line bg-paper shadow-xs">
-        {/* Main Navbar */}
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          {/* Left: Brand Logo & Mobile Toggle */}
-          <div className="flex items-center gap-6 py-3.5">
+      <header className="sticky top-0 z-40 border-b border-line bg-paper">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-10">
+          {/* Brand Logo */}
+          <div className="flex items-center gap-8 py-3.5">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-1.5 text-muted hover:text-ink-text lg:hidden"
-              aria-label="Toggle Navigation Menu"
+              className="p-1 text-muted hover:text-ink-text lg:hidden"
+              aria-label="Toggle Menu"
             >
               {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -115,17 +113,14 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
               <img
                 src="/images/mpg-logo.png"
                 alt="MPG Event Planner"
-                className="h-9 w-auto object-contain"
+                className="h-8 w-auto object-contain"
               />
-              <span className="hidden rounded bg-brand-tint px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-deep sm:inline-block">
-                Studio
-              </span>
             </Link>
           </div>
 
-          {/* Center: Desktop Navigation Links */}
-          <nav className="hidden lg:flex lg:items-center lg:gap-1" aria-label="Global navigation">
-            {NAV_ITEMS.map((item) => {
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex lg:items-center lg:gap-6" aria-label="Main navigation">
+            {PRIMARY_NAV.map((item) => {
               const Icon = item.icon;
               const active =
                 currentSection === item.section ||
@@ -134,10 +129,8 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
                 <Link
                   key={item.route}
                   href={`/admin/${item.section === "dashboard" ? "dashboard" : item.section}`}
-                  className={`relative flex items-center gap-2 px-3.5 py-4 text-xs font-bold transition-colors ${
-                    active
-                      ? "text-brand"
-                      : "text-muted hover:text-ink-text"
+                  className={`relative flex items-center gap-2 py-4 text-xs font-semibold tracking-wide transition-colors ${
+                    active ? "text-brand font-bold" : "text-muted hover:text-ink-text"
                   }`}
                 >
                   <Icon className="h-4 w-4" />
@@ -150,40 +143,26 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
             })}
           </nav>
 
-          {/* Right: Actions & User Dropdown */}
-          <div className="flex items-center gap-3">
-            <Link
-              href="/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden items-center gap-1.5 border border-line-strong px-3 py-1.5 text-xs font-semibold text-muted transition-colors hover:border-brand hover:text-brand sm:inline-flex"
-            >
-              <ExternalLink className="h-3.5 w-3.5" />
-              <span>View website</span>
-            </Link>
-
-            {/* User menu */}
+          {/* User Menu Dropdown */}
+          <div className="flex items-center gap-4">
             <div className="relative">
               <button
                 type="button"
                 onClick={() => setUserDropdownOpen(!userDropdownOpen)}
-                className="flex items-center gap-2 border border-line px-2.5 py-1.5 text-xs font-medium text-ink-text hover:bg-paper-tint"
+                className="flex items-center gap-2 border border-line bg-paper px-3 py-1.5 text-xs font-medium text-ink-text transition-colors hover:bg-paper-tint"
               >
-                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-tint text-brand">
-                  <User className="h-3.5 w-3.5" />
+                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-brand-tint text-brand">
+                  <User className="h-3 w-3" />
                 </div>
-                <span className="hidden max-w-[130px] truncate text-xs font-semibold sm:inline-block">
-                  {auth?.name || auth?.email || "Admin"}
+                <span className="hidden max-w-[120px] truncate sm:inline-block">
+                  {auth?.name || auth?.email || "Account"}
                 </span>
-                <ChevronDown className="h-3.5 w-3.5 text-muted" />
+                <ChevronDown className="h-3.5 w-3.5 text-faint" />
               </button>
 
               {userDropdownOpen && (
                 <>
-                  <div
-                    className="fixed inset-0 z-10"
-                    onClick={() => setUserDropdownOpen(false)}
-                  />
+                  <div className="fixed inset-0 z-10" onClick={() => setUserDropdownOpen(false)} />
                   <div className="absolute right-0 z-20 mt-2 w-56 border border-line bg-paper p-2 shadow-lg">
                     <div className="border-b border-line px-3 py-2">
                       <p className="text-xs font-bold text-ink-text">{auth?.name || "Administrator"}</p>
@@ -192,10 +171,21 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
                     <Link
                       href="/admin/settings"
                       onClick={() => setUserDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-muted hover:bg-paper-tint hover:text-ink-text"
+                      className={`flex items-center gap-2 px-3 py-2 text-xs font-medium ${
+                        currentSection === "settings" ? "bg-brand-tint text-brand font-bold" : "text-muted hover:bg-paper-tint hover:text-ink-text"
+                      }`}
                     >
                       <Settings className="h-3.5 w-3.5" />
                       Settings
+                    </Link>
+                    <Link
+                      href="/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-muted hover:bg-paper-tint hover:text-ink-text"
+                    >
+                      <ExternalLink className="h-3.5 w-3.5" />
+                      View website
                     </Link>
                     <button
                       type="button"
@@ -214,9 +204,9 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
 
         {/* Mobile Navigation Drawer */}
         {mobileMenuOpen && (
-          <div className="border-t border-line bg-paper px-4 py-3 lg:hidden">
+          <div className="border-t border-line bg-paper px-6 py-4 lg:hidden">
             <nav className="flex flex-col gap-1">
-              {NAV_ITEMS.map((item) => {
+              {PRIMARY_NAV.map((item) => {
                 const Icon = item.icon;
                 const active =
                   currentSection === item.section ||
@@ -227,9 +217,7 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
                     href={`/admin/${item.section === "dashboard" ? "dashboard" : item.section}`}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`flex items-center gap-3 px-3 py-2.5 text-sm font-semibold transition-colors ${
-                      active
-                        ? "bg-brand-tint text-brand"
-                        : "text-muted hover:bg-paper-tint hover:text-ink-text"
+                      active ? "bg-brand-tint text-brand" : "text-muted hover:bg-paper-tint hover:text-ink-text"
                     }`}
                   >
                     <Icon className="h-4.5 w-4.5" />
@@ -237,6 +225,14 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
                   </Link>
                 );
               })}
+              <Link
+                href="/admin/settings"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center gap-3 px-3 py-2.5 text-sm font-semibold text-muted hover:bg-paper-tint hover:text-ink-text"
+              >
+                <Settings className="h-4.5 w-4.5" />
+                <span>Settings</span>
+              </Link>
               <Link
                 href="/"
                 target="_blank"
@@ -251,16 +247,16 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
         )}
       </header>
 
-      {/* Page Title & Actions Sub-Header Bar */}
-      <div className="border-b border-line bg-paper px-4 py-4 sm:px-6 lg:px-8">
+      {/* Page Title & Action Sub-Header */}
+      <div className="border-b border-line bg-paper px-6 py-4 lg:px-10">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
           <h1 className="text-xl font-bold tracking-tight text-ink-text">{title}</h1>
           {actions && <div className="flex items-center gap-2">{actions}</div>}
         </div>
       </div>
 
-      {/* Main Page Content Container */}
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      {/* Main Content Area */}
+      <main className="mx-auto max-w-7xl px-6 py-8 lg:px-10">
         {children}
       </main>
     </div>
