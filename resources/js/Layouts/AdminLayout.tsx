@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import { Link, useForm, usePage } from "@inertiajs/react";
+import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import {
   LayoutDashboard,
   Briefcase,
@@ -96,6 +96,8 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
   const currentSection = url.split("/")[2] ?? "";
 
   return (
+    <>
+    <Head title={`${title} – MPG Admin`} />
     <div className="min-h-screen bg-paper-tint text-ink-text antialiased">
       {/* Top Header Navigation */}
       <header className="sticky top-0 z-40 border-b border-line bg-paper">
@@ -374,5 +376,6 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
         {children}
       </main>
     </div>
+    </>
   );
 }

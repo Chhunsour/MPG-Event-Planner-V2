@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm, Link } from "@inertiajs/react";
+import { Head, useForm, Link } from "@inertiajs/react";
 import { Eye, EyeOff, ArrowLeft } from "lucide-react";
 
 export default function AdminLogin() {
@@ -11,6 +11,8 @@ export default function AdminLogin() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
+    <>
+    <Head title="Sign In – MPG Admin" />
     <div className="flex min-h-screen items-center justify-center bg-ink p-5">
       <div className="w-full max-w-100 bg-paper p-8 shadow-[0_8px_30px_rgb(6_24_43/0.12)]">
         {/* Brand header */}
@@ -137,5 +139,6 @@ export default function AdminLogin() {
         </div>
       </div>
     </div>
+    </>
   );
 }
