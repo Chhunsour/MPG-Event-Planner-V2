@@ -237,10 +237,6 @@ export default function ServicesIndex({ services, status }: ServicesIndexProps) 
                               <Link href={`/admin/services/${service.id}/edit`} className="flex items-center gap-1 text-xs font-semibold text-muted hover:text-brand">
                                 <Edit className="h-3.5 w-3.5" /> Edit
                               </Link>
-                              <button type="button" onClick={() => router.post(`/admin/services/${service.id}/duplicate`, {}, { preserveScroll: true })}
-                                className="flex items-center gap-1 text-xs font-semibold text-muted hover:text-brand">
-                                <Copy className="h-3.5 w-3.5" /> Duplicate
-                              </button>
                               {service.is_published && (
                                 <Link href={`/en/services/${service.slug}`} className="flex items-center gap-1 text-xs font-semibold text-muted hover:text-brand">
                                   <ExternalLink className="h-3.5 w-3.5" /> View

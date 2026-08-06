@@ -7,7 +7,7 @@ interface LanguageTrackProps {
 export default function LanguageTrack({ en, km, zh }: LanguageTrackProps) {
   const langs = [
     { code: "EN", ready: !!en },
-    { code: "KM", ready: !!km },
+    { code: "KH", ready: !!km },
     { code: "ZH", ready: !!zh },
   ];
 

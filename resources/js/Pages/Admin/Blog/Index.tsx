@@ -198,11 +198,6 @@ export default function BlogIndex({ posts, status }: BlogIndexProps) {
                               <Link href={`/admin/blog/${post.id}/edit`} className="flex items-center gap-1 text-xs font-semibold text-muted hover:text-brand">
                                 <Edit className="h-3.5 w-3.5" /> Edit
                               </Link>
-                              <form method="POST" action={`/admin/blog/${post.id}/duplicate`}>
-                                <button type="submit" className="flex items-center gap-1 text-xs font-semibold text-muted hover:text-brand">
-                                  <Copy className="h-3.5 w-3.5" /> Duplicate
-                                </button>
-                              </form>
                               <form method="POST" action={`/admin/blog/${post.id}/publish`}>
                                 <input type="hidden" name="is_published" value={post.is_published ? "0" : "1"} />
                                 <button type="submit" className="text-xs font-semibold text-muted hover:text-slate-800">
