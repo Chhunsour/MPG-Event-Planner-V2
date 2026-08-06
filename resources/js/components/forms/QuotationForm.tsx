@@ -82,7 +82,7 @@ export default function QuotationForm({ locale, dict }: QuotationFormProps) {
 
     setIsPending(true);
 
-    router.post("/api/quotation", {
+    router.post("/api/quotation-requests", {
       customer_name: values.name,
       phone: values.phone,
       email: values.email,

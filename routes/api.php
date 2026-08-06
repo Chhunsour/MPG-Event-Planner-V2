@@ -35,6 +35,10 @@ Route::middleware('locale')->group(function () {
     Route::post('quotation-requests', [QuotationRequestController::class, 'store'])
         ->middleware('throttle:10,1')
         ->name('api.quotation-requests.store');
+
+    Route::post('quotation', [QuotationRequestController::class, 'store'])
+        ->middleware('throttle:10,1')
+        ->name('api.quotation.store');
 });
 
 /*
