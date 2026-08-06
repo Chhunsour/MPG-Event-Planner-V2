@@ -36,7 +36,7 @@
 
   /* ─── Fonts (loaded via Google Fonts in Blade template) ─── */
   --font-en: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-km: 'Kantumruy', sans-serif;
+  --font-km: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
   --font-zh: 'Noto Sans SC', sans-serif;
 }
 
@@ -751,4 +751,36 @@ input[type="search"] {
     clip-path: none !important;
   }
   .figure-rise, .track__step { opacity: 1 !important; transform: none !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HARDENED KHMER GOOGLE SANS TYPOGRAPHY
+   ═══════════════════════════════════════════════════════════════ */
+html[lang="km"],
+:lang(km),
+.font-km,
+[lang="km"] {
+  font-family: var(--font-km) !important;
+  font-feature-settings: "liga" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:lang(km) h1,
+:lang(km) h2,
+:lang(km) h3,
+:lang(km) h4,
+:lang(km) h5,
+:lang(km) h6,
+:lang(km) p,
+:lang(km) span,
+:lang(km) a,
+:lang(km) label,
+:lang(km) button,
+:lang(km) input,
+:lang(km) textarea,
+:lang(km) select,
+.font-km {
+  font-family: var(--font-km) !important;
+  line-height: 1.6;
 }
