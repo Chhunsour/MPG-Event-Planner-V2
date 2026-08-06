@@ -32,6 +32,28 @@ interface ServicesIndexProps {
   status: string;
 }
 
+function ImageCell({ src, alt, fallbackLetter }: { src: string | null; alt: string; fallbackLetter: string }) {
+  const [error, setError] = useState(false);
+  const imageUrl = src ? (src.startsWith("/") || src.startsWith("http") ? src : `/storage/${src}`) : null;
+
+  if (!imageUrl || error) {
+    return (
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-line bg-paper-tint text-xs font-bold text-faint">
+        {fallbackLetter}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imageUrl}
+      alt={alt}
+      onError={() => setError(true)}
+      className="h-10 w-10 shrink-0 rounded border border-line object-cover"
+    />
+  );
+}
+
 export default function ServicesIndex({ services, status }: ServicesIndexProps) {
   const { url } = usePage();
   const params = new URLSearchParams(url.split("?")[1] ?? "");
@@ -193,12 +215,7 @@ export default function ServicesIndex({ services, status }: ServicesIndexProps) 
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          {service.image ? (
-                            <img src={`/storage/${service.image}`} alt={service.image_alt ?? ""}
-                              className="h-10 w-10 shrink-0 object-cover" />
-                          ) : (
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-paper-tint text-xs font-bold text-faint">S</div>
-                          )}
+                          <ImageCell src={service.image} alt={service.image_alt ?? ""} fallbackLetter="S" />
                           <div>
                             <strong className="block text-ink-text">{service.title_en}</strong>
                             <span className="text-xs text-faint">/{service.slug} · {service.projects_count} projects</span>

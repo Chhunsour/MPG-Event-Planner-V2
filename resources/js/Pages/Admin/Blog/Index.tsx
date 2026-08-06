@@ -32,6 +32,28 @@ interface BlogIndexProps {
   status: string;
 }
 
+function ImageCell({ src, alt, fallbackLetter }: { src: string | null; alt: string; fallbackLetter: string }) {
+  const [error, setError] = useState(false);
+  const imageUrl = src ? (src.startsWith("/") || src.startsWith("http") ? src : `/storage/${src}`) : null;
+
+  if (!imageUrl || error) {
+    return (
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-line bg-paper-tint text-xs font-bold text-faint">
+        {fallbackLetter}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imageUrl}
+      alt={alt}
+      onError={() => setError(true)}
+      className="h-10 w-10 shrink-0 rounded border border-line object-cover"
+    />
+  );
+}
+
 export default function BlogIndex({ posts, status }: BlogIndexProps) {
   const { url } = usePage();
   const params = new URLSearchParams(url.split("?")[1] ?? "");
@@ -154,12 +176,7 @@ export default function BlogIndex({ posts, status }: BlogIndexProps) {
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          {post.cover_image ? (
-                            <img src={`/storage/${post.cover_image}`} alt=""
-                              className="h-10 w-10 shrink-0 object-cover" />
-                          ) : (
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-paper-tint text-xs font-bold text-faint">B</div>
-                          )}
+                          <ImageCell src={post.cover_image} alt="" fallbackLetter="B" />
                           <div>
                             <strong className="block text-ink-text">{post.title_en}</strong>
                             <span className="text-xs text-faint">/{post.slug}{post.author_name && ` · ${post.author_name}`}</span>

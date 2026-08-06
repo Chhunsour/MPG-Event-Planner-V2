@@ -44,6 +44,28 @@ interface ProjectsIndexProps {
   status: string;
 }
 
+function ImageCell({ src, alt, fallbackLetter }: { src: string | null; alt: string; fallbackLetter: string }) {
+  const [error, setError] = useState(false);
+  const imageUrl = src ? (src.startsWith("/") || src.startsWith("http") ? src : `/storage/${src}`) : null;
+
+  if (!imageUrl || error) {
+    return (
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded border border-line bg-paper-tint text-xs font-bold text-faint">
+        {fallbackLetter}
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={imageUrl}
+      alt={alt}
+      onError={() => setError(true)}
+      className="h-10 w-10 shrink-0 rounded border border-line object-cover"
+    />
+  );
+}
+
 export default function ProjectsIndex({ projects, services, years, status }: ProjectsIndexProps) {
   const { url } = usePage();
   const params = new URLSearchParams(url.split("?")[1] ?? "");
@@ -193,12 +215,7 @@ export default function ProjectsIndex({ projects, services, years, status }: Pro
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex items-center gap-3">
-                          {project.cover_image ? (
-                            <img src={`/storage/${project.cover_image}`} alt={project.cover_image_alt ?? ""}
-                              className="h-10 w-10 shrink-0 object-cover" />
-                          ) : (
-                            <div className="flex h-10 w-10 shrink-0 items-center justify-center bg-paper-tint text-xs font-bold text-faint">P</div>
-                          )}
+                          <ImageCell src={project.cover_image} alt={project.cover_image_alt ?? ""} fallbackLetter="P" />
                           <div>
                             <strong className="flex items-center gap-1 text-ink-text">
                               {project.title_en}
