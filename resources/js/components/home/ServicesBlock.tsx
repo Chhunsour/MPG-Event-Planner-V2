@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Layers } from "lucide-react";
 import type { Locale } from "@/config/site";
 import type { Dictionary } from "@/lib/i18n";
 import type { ApiService } from "@/lib/types";
@@ -21,7 +21,7 @@ export default function ServicesBlock({
       <div className="shell">
         <ScrollReveal>
           <SectionHead
-            num="03"
+            icon={Layers}
             label={dict.services.label}
             title={dict.services.indexTitle}
             lead={dict.services.indexIntro}

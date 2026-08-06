@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, BookOpen } from "lucide-react";
 import type { Locale } from "@/config/site";
 import type { Dictionary } from "@/lib/i18n";
 import type { ApiBlogPost } from "@/lib/types";
@@ -42,7 +42,7 @@ export default function JournalBlock({
       <div className="shell">
         <ScrollReveal>
           <SectionHead
-            num="07"
+            icon={BookOpen}
             label={dict.blog.label}
             title={`${dict.blog.headline1} ${dict.blog.headline2}`}
             variant="inline"

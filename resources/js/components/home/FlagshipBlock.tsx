@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Crown } from "lucide-react";
 import type { Locale } from "@/config/site";
 import type { Dictionary } from "@/lib/i18n";
 import type { ApiService } from "@/lib/types";
@@ -47,7 +47,7 @@ export default function FlagshipBlock({
           <div className="band pt-0 lg:col-span-6 lg:col-start-7 lg:pt-18">
             <ScrollReveal>
               <SectionHead
-                num="02"
+                icon={Crown}
                 label={dict.featured.tag}
                 title={service.title}
                 dark

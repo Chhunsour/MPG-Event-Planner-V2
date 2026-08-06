@@ -1,5 +1,5 @@
 import { Link } from "@inertiajs/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, FolderKanban } from "lucide-react";
 import type { Locale } from "@/config/site";
 import type { Dictionary } from "@/lib/i18n";
 import type { ApiProject } from "@/lib/types";
@@ -23,7 +23,7 @@ export default function WorkBlock({
       <div className="shell">
         <ScrollReveal>
           <SectionHead
-            num="04"
+            icon={FolderKanban}
             label={dict.projects.label}
             title={dict.projects.sectionTitle}
             variant="inline"

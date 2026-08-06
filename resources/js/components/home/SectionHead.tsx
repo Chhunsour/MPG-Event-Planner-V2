@@ -1,9 +1,10 @@
-import type { ReactNode } from "react";
+import type { ReactNode, ComponentType } from "react";
 
 type Variant = "stacked" | "split" | "inline";
 
 interface SectionHeadProps {
-  num: string;
+  num?: string;
+  icon?: ComponentType<{ className?: string }>;
   label: string;
   title: ReactNode;
   lead?: string;
@@ -13,7 +14,7 @@ interface SectionHeadProps {
 }
 
 export default function SectionHead({
-  num,
+  icon: Icon,
   label,
   title,
   lead,
@@ -28,9 +29,11 @@ export default function SectionHead({
   return (
     <header>
       <div className={`sec-head ${dark ? "sec-head--dark" : ""}`}>
-        <span className="sec-head__num" aria-hidden="true">
-          {num}
-        </span>
+        {Icon && (
+          <span className="flex h-6 w-6 items-center justify-center rounded-sm bg-brand/10 text-brand dark:bg-white/10 dark:text-accent-bright" aria-hidden="true">
+            <Icon className="h-3.5 w-3.5 shrink-0" />
+          </span>
+        )}
         <span className="sec-head__tick" aria-hidden="true" />
         <p className={`t-meta ${labelTone}`}>{label}</p>
       </div>
