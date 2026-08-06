@@ -1,6 +1,33 @@
 @import "tailwindcss";
 
 /* ═══════════════════════════════════════════════════════════════
+   OFFICIAL GOOGLE SANS WEBFONT (DESIGNED BY GOOGLE)
+   ═══════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/google-sans/GoogleSans-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/google-sans/GoogleSans-Medium.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/google-sans/GoogleSans-Bold.woff') format('woff');
+}
+
+/* ═══════════════════════════════════════════════════════════════
    MPG EVENT PLANNER — "PRODUCTION GRID" DESIGN SYSTEM
    ═══════════════════════════════════════════════════════════════ */
 
@@ -757,17 +784,19 @@ input[type="search"] {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   GLOBAL HARDENED GOOGLE SANS TYPOGRAPHY
+   GLOBAL HARDENED GOOGLE SANS TYPOGRAPHY (DESIGNED BY GOOGLE)
    ═══════════════════════════════════════════════════════════════ */
-@font-face {
-  font-family: 'Google Sans Khmer';
-  src: local('Google Sans Khmer'), local('Google Sans'), local('Kantumruy Pro'), local('Battambang');
-  font-display: swap;
-}
-
+*,
+*::before,
+*::after,
+html,
 body,
-html {
-  font-family: 'Google Sans', 'Product Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif !important;
+button,
+input,
+select,
+textarea,
+h1, h2, h3, h4, h5, h6, p, span, a, label, li {
+  font-family: 'Google Sans', 'Google Sans Khmer', 'Kantumruy Pro', sans-serif !important;
 }
 
 html[lang="km"],
