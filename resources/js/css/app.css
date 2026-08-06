@@ -34,10 +34,10 @@
   /* ─── Rhythm ─── */
   --shell: 1400px;
 
-  /* ─── Fonts (loaded via Google Fonts in Blade template) ─── */
-  --font-en: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-km: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
-  --font-zh: 'Noto Sans SC', sans-serif;
+  /* ─── Fonts (loaded via Google Fonts & CDN Fonts in Blade template) ─── */
+  --font-en: 'Google Sans', 'Product Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-km: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
+  --font-zh: 'Google Sans', 'Noto Sans SC', sans-serif;
 }
 
 @theme inline {
@@ -61,10 +61,10 @@
   --color-sidebar: #0f1b28;
   --color-sidebar-raised: #1a2a3a;
 
-  --font-en: 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-km: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
-  --font-zh: 'Noto Sans SC', sans-serif;
-  --font-sans: var(--font-en), ui-sans-serif, system-ui, sans-serif;
+  --font-en: 'Google Sans', 'Product Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-km: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
+  --font-zh: 'Google Sans', 'Noto Sans SC', sans-serif;
+  --font-sans: 'Google Sans', 'Product Sans', var(--font-en), ui-sans-serif, system-ui, sans-serif;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -757,12 +757,17 @@ input[type="search"] {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   HARDENED KHMER GOOGLE SANS TYPOGRAPHY
+   GLOBAL HARDENED GOOGLE SANS TYPOGRAPHY
    ═══════════════════════════════════════════════════════════════ */
 @font-face {
   font-family: 'Google Sans Khmer';
-  src: local('Google Sans Khmer'), local('Kantumruy Pro'), local('Kantumruy'), local('Battambang');
+  src: local('Google Sans Khmer'), local('Google Sans'), local('Kantumruy Pro'), local('Battambang');
   font-display: swap;
+}
+
+body,
+html {
+  font-family: 'Google Sans', 'Product Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif !important;
 }
 
 html[lang="km"],
@@ -771,7 +776,7 @@ body.font-km,
 .font-km,
 [lang="km"],
 :lang(km) {
-  font-family: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
+  font-family: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
   font-feature-settings: "liga" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -793,6 +798,6 @@ body.font-km,
 :lang(km) select,
 .font-km,
 body.font-km * {
-  font-family: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
+  font-family: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
   line-height: 1.6;
 }
