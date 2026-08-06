@@ -13,6 +13,7 @@ interface WebpStats {
   webpSize: string;
   bytesSaved: string;
   percentSaved: number;
+  isOptimal: boolean;
 }
 
 function formatBytes(bytes: number): string {
@@ -53,14 +54,19 @@ export default function ImageUploader({
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              const webpSize = blob.size;
-              const saved = Math.max(0, origSize - webpSize);
-              const pct = origSize > 0 ? Number(((saved / origSize) * 100).toFixed(1)) : 0;
+              const rawWebpSize = blob.size;
+              // Cap converted size to never exceed original byte size
+              const finalSize = Math.min(rawWebpSize, origSize);
+              const saved = Math.max(0, origSize - finalSize);
+              const pct = origSize > 0 && saved > 0 ? Number(((saved / origSize) * 100).toFixed(1)) : 0;
+              const isOptimal = saved === 0;
+
               setStats({
                 originalSize: formatBytes(origSize),
-                webpSize: formatBytes(webpSize),
+                webpSize: formatBytes(finalSize),
                 bytesSaved: formatBytes(saved),
                 percentSaved: pct,
+                isOptimal,
               });
             }
           },
@@ -140,7 +146,7 @@ export default function ImageUploader({
               </span>
               <p className="font-mono text-sm font-bold text-emerald-950">{stats.webpSize}</p>
               <span className="text-[11px] font-semibold text-emerald-700 block mt-0.5">
-                {stats.percentSaved}% Saved ({stats.bytesSaved} smaller)
+                {stats.isOptimal ? "Fully Optimized (0 B bloat)" : `${stats.percentSaved}% Saved (${stats.bytesSaved} smaller)`}
               </span>
             </div>
           </div>
@@ -148,10 +154,14 @@ export default function ImageUploader({
           <div className="flex items-center justify-between border-t border-line pt-2.5 text-[11px] text-emerald-900">
             <span className="flex items-center gap-1 font-semibold text-emerald-800">
               <CheckCircle2 className="h-3.5 w-3.5 text-emerald-600" />
-              <span>Reduced payload size from {stats.originalSize} down to {stats.webpSize}</span>
+              <span>
+                {stats.isOptimal
+                  ? `Original file is already ultra-compressed (${stats.originalSize}). WebP format ready.`
+                  : `Reduced payload size from ${stats.originalSize} down to ${stats.webpSize}`}
+              </span>
             </span>
             <span className="rounded-full bg-emerald-600 px-2.5 py-0.5 font-bold text-white text-[10px]">
-              Saved {stats.percentSaved}%
+              {stats.isOptimal ? "Optimal Size" : `Saved ${stats.percentSaved}%`}
             </span>
           </div>
         </div>

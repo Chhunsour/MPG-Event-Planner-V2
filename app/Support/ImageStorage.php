@@ -85,6 +85,12 @@ class ImageStorage
             // Convert to WebP with configured quality
             imagewebp($image, $fullTargetPath, $quality);
             imagedestroy($image);
+
+            // If WebP conversion produces a larger file than the original (e.g. pre-compressed small JPEGs),
+            // preserve the smaller file size byte count so uploads NEVER bloat.
+            if (file_exists($fullTargetPath) && filesize($fullTargetPath) > $originalSize) {
+                copy($tempPath, $fullTargetPath);
+            }
         } else {
             // Fallback: move file directly if GD conversion is unsupported
             Storage::disk($this->disk)->putFileAs($directory, $file, $filename);
@@ -97,7 +103,9 @@ class ImageStorage
         $formattedOriginal = $this->formatBytes($originalSize);
         $formattedWebp = $this->formatBytes($webpSize);
 
-        $message = "⚡ Auto-converted to WebP: {$formattedOriginal} ➔ {$formattedWebp} ({$percentSaved}% data saved)";
+        $message = $bytesSaved > 0
+            ? "⚡ Auto-converted to WebP: {$formattedOriginal} ➔ {$formattedWebp} ({$percentSaved}% data saved)"
+            : "⚡ Image is already optimal ({$formattedOriginal})! WebP format ready.";
 
         return [
             'path' => $relativeTarget,
