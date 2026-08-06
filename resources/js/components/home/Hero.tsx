@@ -77,30 +77,35 @@ export default function Hero({
         </div>
       </div>
 
-      {/* Infinite Horizontal Sliding Interactive Service Buttons Rail */}
+      {/* Slow, Elegant Infinite Ticker Rail */}
       {services.length > 0 && (
-        <div className="hero__rail relative overflow-hidden border-t border-white/15 bg-[#004a8c]/90 py-3 backdrop-blur-md">
-          <div className="flex items-center">
-            {/* Label Badge */}
-            <div className="z-20 flex shrink-0 items-center gap-2.5 bg-[#004a8c] py-1 pl-4 pr-3 sm:pl-8">
-              <span className="t-meta text-xs font-bold uppercase tracking-wider text-accent-on-blue whitespace-nowrap">
+        <div className="hero__rail relative overflow-hidden border-t border-white/12 bg-black/40 py-3.5 backdrop-blur-md">
+          {/* Subtle Side Fade Mask */}
+          <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-12 bg-gradient-to-r from-ink/90 to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-12 bg-gradient-to-l from-ink/90 to-transparent" />
+
+          <div className="flex items-center gap-6 px-4 sm:px-8">
+            {/* Label */}
+            <div className="flex shrink-0 items-center gap-3">
+              <span className="t-meta text-[11px] font-bold uppercase tracking-widest text-white/60 whitespace-nowrap">
                 {dict.hero.stripLabel}
               </span>
-              <span className="h-4 w-px bg-white/25" />
+              <span className="h-3.5 w-px bg-white/20" />
             </div>
 
-            {/* Continuous Marquee Track of Clickable Service Buttons */}
+            {/* Slow Smooth Marquee Track */}
             <div className="relative flex flex-1 overflow-hidden">
-              <div className="animate-marquee-smooth flex items-center gap-3 whitespace-nowrap py-1">
-                {[...services, ...services, ...services, ...services, ...services].map((service, idx) => (
-                  <Link
-                    key={`${service.id}-${idx}`}
-                    href={`/${locale}/services/${service.slug}`}
-                    className="inline-flex items-center gap-2 rounded-md border border-white/25 bg-white/10 px-3.5 py-1.5 text-xs font-semibold text-white transition-all hover:border-accent-bright hover:bg-accent-bright hover:text-ink active:scale-95 shrink-0"
-                  >
-                    <span>{service.title}</span>
-                    <ArrowUpRight className="h-3 w-3 opacity-70" />
-                  </Link>
+              <div className="animate-marquee-smooth flex items-center gap-8 whitespace-nowrap">
+                {[...services, ...services, ...services, ...services].map((service, idx) => (
+                  <div key={`${service.id}-${idx}`} className="flex items-center gap-8">
+                    <Link
+                      href={`/${locale}/services/${service.slug}`}
+                      className="t-meta text-xs font-semibold tracking-wide text-white/85 transition-colors hover:text-accent-bright"
+                    >
+                      {service.title}
+                    </Link>
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent-bright/60 shrink-0" />
+                  </div>
                 ))}
               </div>
             </div>

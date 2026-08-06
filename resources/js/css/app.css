@@ -774,7 +774,7 @@ input[type="search"] {
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: marquee-smooth 30s linear infinite;
+  animation: marquee-smooth 90s linear infinite;
 }
 
 .animate-marquee-smooth:hover,
