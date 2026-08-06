@@ -159,7 +159,8 @@ export default function WorkGrid({
       {visible.length === 0 ? (
         <p className="t-lead py-10 text-muted">{dict.empty}</p>
       ) : (
-        <ul className="grid gap-5 lg:grid-cols-12">
+        /* 2-Column Mobile Grid for Projects Showcase */
+        <ul className="grid grid-cols-2 gap-3.5 sm:gap-5 lg:grid-cols-12">
           {visible.map((project, index) => {
             const layout = LAYOUT[index % LAYOUT.length];
             const scope = project.short_description || project.description;
@@ -171,34 +172,34 @@ export default function WorkGrid({
                   data-pressable
                   className="group block transition-transform duration-200"
                 >
-                  <figure className={`frame ${layout.aspect} w-full`}>
+                  <figure className={`frame ${layout.aspect} w-full rounded-lg overflow-hidden`}>
                     {project.cover_image ? (
                       <img
                         src={project.cover_image}
                         alt={project.cover_image_alt ?? project.title}
                         loading="lazy"
-                        className="absolute inset-0 h-full w-full object-cover"
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (
                       <span className="sr-only">{project.title}</span>
                     )}
                     <div className="scrim-b absolute inset-0" />
-                    <figcaption className="absolute inset-x-0 bottom-0 z-10 p-5 lg:p-6">
+                    <figcaption className="absolute inset-x-0 bottom-0 z-10 p-3 sm:p-5 lg:p-6">
                       {project.service?.title && (
-                        <p className="t-meta mb-2 text-accent-bright">
+                        <p className="t-meta mb-1 text-[10px] font-bold uppercase tracking-wider text-accent-bright sm:mb-2 sm:text-xs">
                           {project.service.title}
                         </p>
                       )}
-                      <p className="t-heading flex items-start gap-2 text-white">
-                        <span>{project.title}</span>
+                      <p className="t-heading flex items-start gap-1.5 text-xs font-bold text-white sm:text-base lg:text-lg">
+                        <span className="line-clamp-1">{project.title}</span>
                         <ArrowUpRight
-                          className="mt-1 h-4 w-4 shrink-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 lg:opacity-0 lg:group-hover:opacity-100"
+                          className="mt-0.5 h-3.5 w-3.5 shrink-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4 sm:w-4 lg:opacity-0 lg:group-hover:opacity-100"
                           aria-hidden="true"
                         />
                       </p>
                       {scope && (
                         <div
-                          className="t-meta mt-2 line-clamp-2 text-white/75 [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
+                          className="t-meta mt-1 line-clamp-1 text-[11px] text-white/80 sm:mt-2 sm:line-clamp-2 sm:text-xs [&_b]:font-bold [&_strong]:font-bold [&_i]:italic [&_em]:italic [&_u]:underline"
                           dangerouslySetInnerHTML={{ __html: scope }}
                         />
                       )}
