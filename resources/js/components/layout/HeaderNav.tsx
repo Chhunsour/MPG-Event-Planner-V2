@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, usePage } from "@inertiajs/react";
 import type { Locale } from "@/config/site";
-import { ArrowRight, ChevronDown, Mail } from "lucide-react";
+import { ArrowRight, ChevronDown, Mail, Check } from "lucide-react";
 import BrandMark from "@/components/layout/BrandMark";
 
 interface HeaderNavProps {
@@ -318,77 +318,83 @@ function LanguageSwitch({
   solid: boolean;
   mobile?: boolean;
 }) {
+  const [open, setOpen] = useState(false);
   const activeLanguage = LANGUAGES.find((lang) => lang.code === locale) ?? LANGUAGES[0];
 
   return (
-    <details
-      className={`group relative ${mobile ? "w-full" : ""}`}
-      aria-label={label}
-    >
-      <summary
-        className={`flex cursor-pointer list-none items-center justify-between gap-2 border px-2.5 py-2 text-[11px] font-semibold leading-none transition-colors [&::-webkit-details-marker]:hidden ${
+    <div className={`relative ${mobile ? "w-full" : ""}`}>
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className={`flex items-center justify-between gap-2 rounded-full border px-3 py-1.5 text-xs font-bold transition-all duration-200 ${
           mobile
-            ? "w-full border-white/25 px-4 py-3 text-sm text-white"
+            ? "w-full border-white/25 bg-white/5 text-white"
             : solid
-              ? "border-line-strong text-ink-text hover:text-brand"
-              : "border-white/35 text-white/80 hover:text-white"
+              ? "border-line-strong bg-paper text-ink-text hover:border-brand hover:text-brand"
+              : "border-white/35 bg-white/10 text-white backdrop-blur-xs hover:border-white hover:bg-white/20"
         }`}
+        aria-label={label}
+        aria-expanded={open}
       >
         <span className="flex items-center gap-2">
           <img
             src={activeLanguage.flag}
             alt=""
-            aria-hidden="true"
-            width={24}
-            height={16}
-            className="h-3.5 w-5 object-cover"
+            width={20}
+            height={14}
+            className="h-3.5 w-5 rounded-xs object-cover shadow-xs"
           />
-          {mobile ? activeLanguage.full : activeLanguage.label}
+          <span className="tracking-wider">{mobile ? activeLanguage.full : activeLanguage.label}</span>
         </span>
         <ChevronDown
-          className="h-3.5 w-3.5 shrink-0 transition-transform duration-200 group-open:rotate-180"
-          aria-hidden="true"
+          className={`h-3.5 w-3.5 shrink-0 transition-transform duration-200 ${
+            open ? "rotate-180 text-brand" : "text-faint"
+          }`}
         />
-      </summary>
+      </button>
 
-      <div
-        className={`absolute z-50 overflow-hidden border shadow-[0_8px_24px_rgb(6_24_43/0.18)] ${
-          mobile
-            ? "bottom-full left-0 mb-2 w-full border-white/25 bg-ink"
-            : "right-0 top-full mt-2 min-w-33"
-        } ${solid ? "border-line-strong bg-paper" : "border-white/35 bg-ink"}`}
-      >
-        {LANGUAGES.map((lang) => {
-          const active = locale === lang.code;
-          return (
-            <Link
-              key={lang.code}
-              href={localeHref(lang.code)}
-              aria-current={active ? "page" : undefined}
-              title={lang.full}
-              className={`flex items-center gap-2 px-3 py-2.5 text-[11px] font-semibold leading-none transition-colors ${
-                active
-                  ? solid
-                    ? "bg-brand text-white"
-                    : "bg-paper text-brand"
-                  : solid
-                    ? "text-muted hover:bg-brand/8 hover:text-brand"
-                    : "text-white/75 hover:bg-paper/10 hover:text-white"
-              }`}
-            >
-              <img
-                src={lang.flag}
-                alt=""
-                aria-hidden="true"
-                width={24}
-                height={16}
-                className="h-3.5 w-5 object-cover"
-              />
-              {mobile ? lang.full : lang.label}
-            </Link>
-          );
-        })}
-      </div>
-    </details>
+      {open && (
+        <>
+          <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+          <div
+            className={`absolute z-50 overflow-hidden rounded-xl border p-1.5 shadow-2xl backdrop-blur-md transition-all duration-200 ${
+              mobile
+                ? "bottom-full left-0 mb-2 w-full border-white/20 bg-ink/95 text-white"
+                : "right-0 top-full mt-2 min-w-44 border-line bg-paper/95 text-ink-text shadow-xl ring-1 ring-black/5"
+            }`}
+          >
+            {LANGUAGES.map((lang) => {
+              const active = locale === lang.code;
+              return (
+                <Link
+                  key={lang.code}
+                  href={localeHref(lang.code)}
+                  onClick={() => setOpen(false)}
+                  className={`flex items-center justify-between gap-3 rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
+                    active
+                      ? "bg-brand text-white shadow-xs font-bold"
+                      : mobile
+                        ? "text-white/80 hover:bg-white/10 hover:text-white"
+                        : "text-muted hover:bg-paper-tint hover:text-ink-text"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <img
+                      src={lang.flag}
+                      alt=""
+                      width={20}
+                      height={14}
+                      className="h-3.5 w-5 rounded-xs object-cover shadow-xs"
+                    />
+                    <span>{lang.full}</span>
+                  </div>
+                  {active && <Check className="h-3.5 w-3.5 shrink-0" />}
+                </Link>
+              );
+            })}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
