@@ -1,11 +1,22 @@
 import { Link } from "@inertiajs/react";
-import { ArrowRight, Crown } from "lucide-react";
+import { ArrowRight, Crown, Sparkles, Scissors, Palette, Volume2, Users, Wrench, ShieldCheck, CheckCircle2 } from "lucide-react";
 import type { Locale } from "@/config/site";
 import type { Dictionary } from "@/lib/i18n";
 import type { ApiService } from "@/lib/types";
 import { flagshipImage } from "@/config/content";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import SectionHead from "@/components/home/SectionHead";
+
+const CAPABILITY_ICONS = [
+  Sparkles,
+  Scissors,
+  Palette,
+  Volume2,
+  Users,
+  Wrench,
+  ShieldCheck,
+  CheckCircle2,
+];
 
 export default function FlagshipBlock({
   locale,
@@ -59,23 +70,28 @@ export default function FlagshipBlock({
                 <p className="t-lead mt-6 max-w-[52ch] text-white/80">{body}</p>
               )}
 
-              <div className="mt-9">
-                <h3 className="t-meta border-b border-white/15 pb-3 text-white/55">
+              <div className="mt-8">
+                <h3 className="t-meta border-b border-white/15 pb-3 text-white/60">
                   {dict.featured.capabilitiesLabel}
                 </h3>
-                <ul className="grid sm:grid-cols-2 sm:gap-x-10">
-                  {capabilities.map((capability, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center gap-3 border-b border-white/15 py-3"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="h-1.75 w-1.75 shrink-0 bg-accent-bright"
-                      />
-                      <span className="t-body text-white/90">{capability}</span>
-                    </li>
-                  ))}
+                {/* 2-Column Grid on Mobile & Desktop with Real Icons */}
+                <ul className="mt-4 grid grid-cols-2 gap-3">
+                  {capabilities.map((capability, index) => {
+                    const IconComp = CAPABILITY_ICONS[index % CAPABILITY_ICONS.length];
+                    return (
+                      <li
+                        key={index}
+                        className="flex items-center gap-2.5 rounded-lg border border-white/12 bg-white/5 p-2.5 text-white/95 transition-all duration-200 hover:border-accent-bright/40 hover:bg-white/10"
+                      >
+                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded bg-accent-bright/15 text-accent-bright">
+                          <IconComp className="h-3.5 w-3.5" aria-hidden="true" />
+                        </div>
+                        <span className="t-body text-xs font-semibold text-white/90">
+                          {capability}
+                        </span>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
 

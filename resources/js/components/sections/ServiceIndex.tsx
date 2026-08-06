@@ -1,8 +1,18 @@
 import { useState } from "react";
 import { Link } from "@inertiajs/react";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Sparkles, Zap, Building2, Ticket, Tv, Wrench, Layers } from "lucide-react";
 import type { Locale } from "@/config/site";
 import type { ApiService } from "@/lib/types";
+
+const SERVICE_ICONS = [
+  Sparkles,
+  Zap,
+  Building2,
+  Ticket,
+  Tv,
+  Wrench,
+  Layers,
+];
 
 export interface ServiceItem {
   slug: string;
@@ -61,57 +71,55 @@ export default function ServiceIndex({
 
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
-      <ul className="lg:col-span-7">
+      {/* 2-Column Grid on Mobile & Tablet, 1-Column on Large Layout */}
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-1 lg:gap-0">
         {serviceList.map((service, index) => {
           const isFlagship = service.is_featured;
           const isActive = activeSlug === service.slug;
+          const IconComp = SERVICE_ICONS[index % SERVICE_ICONS.length];
 
           return (
-            <li key={service.slug} className="border-b border-line first:border-t">
+            <li key={service.slug} className="lg:border-b lg:border-line lg:first:border-t">
               <Link
                 href={service.href}
                 onMouseEnter={() => service.image && activate(service.slug)}
                 onFocus={() => service.image && activate(service.slug)}
                 data-pressable
-                className={`group flex items-start gap-5 py-6 transition-[background-color,color,transform] sm:gap-8 ${
+                className={`group flex flex-col justify-between rounded-xl border border-line bg-paper-tint p-5 transition-all duration-200 hover:border-brand/40 hover:bg-paper hover:shadow-sm lg:flex-row lg:items-start lg:gap-5 lg:rounded-none lg:border-none lg:bg-transparent lg:p-0 lg:py-6 lg:hover:shadow-none ${
                   isActive ? "lg:bg-brand-tint/60" : ""
                 } lg:-mx-5 lg:px-5`}
               >
-                <span
-                  aria-hidden="true"
-                  className={`t-num mt-1.5 w-6 shrink-0 text-[0.6875rem] tracking-[0.08em] transition-colors ${
-                    isFlagship
-                      ? "text-accent"
-                      : "text-faint group-hover:text-brand"
-                  }`}
-                >
-                  {String(index + 1).padStart(2, "0")}
-                </span>
+                <div className="flex items-start gap-4">
+                  {/* Real Lucide Icon instead of Numbers */}
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white transition-colors">
+                    <IconComp className="h-4.5 w-4.5" aria-hidden="true" />
+                  </div>
 
-                <span className="min-w-0 flex-1">
-                  <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                    <span
-                      className={`${
-                        isFlagship ? "t-display-sm" : "t-heading"
-                      } text-ink-text transition-colors group-hover:text-brand`}
-                    >
-                      {service.title}
+                  <span className="min-w-0 flex-1">
+                    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                      <span
+                        className={`${
+                          isFlagship ? "t-display-sm" : "t-heading"
+                        } text-ink-text transition-colors group-hover:text-brand`}
+                      >
+                        {service.title}
+                      </span>
+                      {isFlagship && (
+                        <span className="t-meta bg-accent-deep px-2 py-0.5 text-xs text-white rounded-sm font-semibold">
+                          {flagshipLabel}
+                        </span>
+                      )}
                     </span>
-                    {isFlagship && (
-                      <span className="t-meta bg-accent-deep px-2 py-1 text-white">
-                        {flagshipLabel}
+                    {service.short_description && (
+                      <span className="t-body mt-2 block text-xs leading-relaxed text-muted line-clamp-2 sm:text-sm">
+                        {service.short_description}
                       </span>
                     )}
                   </span>
-                  {service.short_description && (
-                    <span className="t-body mt-1.5 block max-w-[46ch] text-muted">
-                      {service.short_description}
-                    </span>
-                  )}
-                </span>
+                </div>
 
-                <span className="t-meta hidden shrink-0 items-center gap-2 pt-2 text-faint transition-colors group-hover:text-brand sm:flex">
-                  <span className="hidden lg:inline">{viewLabel}</span>
+                <span className="t-meta mt-4 flex items-center justify-end gap-1.5 text-xs text-brand transition-colors group-hover:translate-x-1 lg:mt-0 lg:pt-2 lg:text-faint lg:group-hover:text-brand">
+                  <span className="lg:hidden">{viewLabel}</span>
                   <ArrowUpRight
                     className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                     aria-hidden="true"
@@ -123,9 +131,10 @@ export default function ServiceIndex({
         })}
       </ul>
 
+      {/* Sticky Right Preview Frame on Desktop */}
       {withImages.length > 0 && (
         <div className="hidden lg:col-span-5 lg:block" aria-hidden="true">
-          <div className="frame sticky top-[104px] aspect-[4/5] w-full">
+          <div className="frame sticky top-[104px] aspect-[4/5] w-full rounded-xl overflow-hidden shadow-lg border border-line">
             {withImages
               .filter((service) => mounted.includes(service.slug))
               .map((service) => (
@@ -140,7 +149,7 @@ export default function ServiceIndex({
               ))}
             <div className="scrim-b absolute inset-0" />
             {active && (
-              <p className="t-meta absolute bottom-5 left-5 right-5 z-10 text-white">
+              <p className="t-meta absolute bottom-5 left-5 right-5 z-10 text-white font-semibold">
                 {active.title}
               </p>
             )}
