@@ -124,7 +124,10 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
     if (cover_image) payload.cover_image = cover_image;
     if (remove_cover_image) payload.remove_cover_image = true;
     if (isEdit) {
-      router.put(`/admin/projects/${project.id}`, payload, {
+      router.post(`/admin/projects/${project.id}`, {
+        _method: "put",
+        ...payload,
+      }, {
         preserveScroll: true,
         forceFormData: true,
         onSuccess: () => {

@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { CheckCircle, AlertCircle, Info, X } from "lucide-react";
+import { Check, AlertCircle, Info, X } from "lucide-react";
 
 type ToastType = "success" | "error" | "info";
 
@@ -41,7 +41,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     (message: string, type: ToastType = "success") => {
       const id = ++toastId;
       setToasts((prev) => [...prev, { id, type, message }]);
-      setTimeout(() => dismiss(id), 4000);
+      setTimeout(() => dismiss(id), 3500);
     },
     [dismiss],
   );
@@ -49,7 +49,8 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ toast }}>
       {children}
-      <div className="fixed top-4 right-4 z-100 flex flex-col gap-2.5">
+      {/* Toast Notification Container (Bottom Right Floating Position) */}
+      <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none">
         {toasts.map((t) => (
           <ToastBubble key={t.id} item={t} onDismiss={() => dismiss(t.id)} />
         ))}
@@ -72,35 +73,47 @@ function ToastBubble({
     return () => cancelAnimationFrame(frame);
   }, []);
 
-  const icons = {
-    success: CheckCircle,
-    error: AlertCircle,
-    info: Info,
+  const config = {
+    success: {
+      icon: Check,
+      badgeBg: "bg-emerald-500/20 text-emerald-400 border border-emerald-500/30",
+    },
+    error: {
+      icon: AlertCircle,
+      badgeBg: "bg-rose-500/20 text-rose-400 border border-rose-500/30",
+    },
+    info: {
+      icon: Info,
+      badgeBg: "bg-sky-500/20 text-sky-400 border border-sky-500/30",
+    },
   };
-  const Icon = icons[item.type];
-  const styles = {
-    success: { bg: "bg-white", border: "border-l-4 border-l-green-500", icon: "text-green-500", text: "text-gray-800" },
-    error: { bg: "bg-white", border: "border-l-4 border-l-red-500", icon: "text-red-500", text: "text-gray-800" },
-    info: { bg: "bg-white", border: "border-l-4 border-l-blue-500", icon: "text-blue-500", text: "text-gray-800" },
-  };
-  const s = styles[item.type];
+
+  const { icon: Icon, badgeBg } = config[item.type];
 
   return (
     <div
-      className={`flex items-center gap-3 rounded-lg ${s.bg} ${s.border} px-4 py-3 shadow-lg ring-1 ring-black/5 transition-all duration-300 ${
-        visible ? "translate-y-0 opacity-100" : "-translate-y-3 opacity-0"
+      className={`pointer-events-auto flex items-center gap-3 rounded-full border border-slate-800 bg-slate-900/95 px-4 py-2.5 shadow-2xl backdrop-blur-md transition-all duration-300 ${
+        visible
+          ? "translate-y-0 opacity-100 scale-100"
+          : "translate-y-4 opacity-0 scale-95"
       }`}
       role="alert"
     >
-      <Icon className={`h-5 w-5 shrink-0 ${s.icon}`} aria-hidden="true" />
-      <span className={`text-sm font-medium ${s.text}`}>{item.message}</span>
+      <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${badgeBg}`}>
+        <Icon className="h-3 w-3 stroke-[2.5]" />
+      </div>
+
+      <span className="text-xs font-semibold text-slate-100 tracking-wide pr-1">
+        {item.message}
+      </span>
+
       <button
         type="button"
         onClick={onDismiss}
-        className="ml-1 shrink-0 text-gray-400 transition-colors hover:text-gray-600"
-        aria-label="Dismiss"
+        className="ml-auto rounded p-0.5 text-slate-400 transition-colors hover:bg-slate-800 hover:text-white"
+        aria-label="Dismiss notification"
       >
-        <X className="h-4 w-4" />
+        <X className="h-3.5 w-3.5" />
       </button>
     </div>
   );

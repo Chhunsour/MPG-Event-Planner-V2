@@ -87,7 +87,10 @@ export default function BlogForm({ post }: BlogFormProps) {
     if (cover_image) payload.cover_image = cover_image;
     if (remove_cover_image) payload.remove_cover_image = true;
     if (isEdit) {
-      router.put(`/admin/blog/${post.id}`, payload, {
+      router.post(`/admin/blog/${post.id}`, {
+        _method: "put",
+        ...payload,
+      }, {
         preserveScroll: true,
         forceFormData: true,
         onSuccess: () => {

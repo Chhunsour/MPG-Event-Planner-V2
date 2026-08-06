@@ -114,7 +114,10 @@ export default function ServicesForm({ service }: ServicesFormProps) {
     if (image) payload.image = image;
     if (remove_image) payload.remove_image = true;
     if (isEdit) {
-      router.put(`/admin/services/${service.id}`, payload, {
+      router.post(`/admin/services/${service.id}`, {
+        _method: "put",
+        ...payload,
+      }, {
         preserveScroll: true,
         forceFormData: true,
         onSuccess: () => {
