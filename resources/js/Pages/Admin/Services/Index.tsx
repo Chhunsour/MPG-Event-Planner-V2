@@ -89,19 +89,6 @@ export default function ServicesIndex({ services, status }: ServicesIndexProps) 
         </Link>
       }
     >
-      {/* Intro */}
-      <div className="mb-5 flex items-end justify-between">
-        <div>
-          <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Content library</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-ink-text">Services</h2>
-          <p className="mt-1 text-sm text-muted">Keep the services page clear, current, and easy to translate.</p>
-        </div>
-        <div className="text-right">
-          <strong className="text-2xl font-bold text-ink-text">{services.total}</strong>
-          <span className="ml-1 text-xs text-faint">matching services</span>
-        </div>
-      </div>
-
       {/* Filters */}
       <div className="mb-4 border border-line bg-paper p-4">
         <div className="flex flex-wrap items-end gap-3">

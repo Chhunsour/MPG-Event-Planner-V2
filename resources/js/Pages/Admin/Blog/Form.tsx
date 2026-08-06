@@ -109,14 +109,6 @@ export default function BlogForm({ post }: BlogFormProps) {
   return (
     <AdminLayout title={isEdit ? "Edit post" : "Create post"}>
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-6">
-        {/* Back link + header */}
-        <div>
-          <Link href="/admin/blog" className="text-xs font-semibold text-muted hover:text-brand">← Blog</Link>
-          <p className="mt-2 text-[11px] font-bold uppercase tracking-wider text-faint">Post editor</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-ink-text">{isEdit ? "Edit post" : "Create a post"}</h2>
-          <p className="mt-1 text-sm text-muted">Write a clear title, a useful excerpt, and the full body.</p>
-        </div>
-
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Main column */}
           <div className="space-y-6 lg:col-span-2">

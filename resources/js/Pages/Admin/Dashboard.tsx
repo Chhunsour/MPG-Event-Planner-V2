@@ -140,22 +140,7 @@ export default function Dashboard(props: DashboardProps) {
         </>
       }
     >
-      {/* Intro */}
-      <div className="mb-6 flex items-end justify-between">
-        <div>
-          <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Good work starts here</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-ink-text">Keep the website current.</h2>
-          <p className="mt-1 text-sm text-muted">Publish the work that matters, check translation coverage, and respond to new enquiries from one place.</p>
-        </div>
-        <div className="hidden text-right sm:block">
-          <p className="text-sm font-semibold text-muted">
-            {new Date().toLocaleDateString("en-US", { weekday: "long", day: "numeric", month: "short", year: "numeric" })}
-          </p>
-          <p className="text-[11px] text-faint">MPG content studio</p>
-        </div>
-      </div>
-
-      {/* Overview cards */}
+      {/* Metric Cards Grid */}
       <section className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" aria-label="Content overview">
         {cards.map((card) => {
           const Icon = card.icon;

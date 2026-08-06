@@ -12,6 +12,8 @@ import {
   Menu,
   X,
   ExternalLink,
+  User,
+  ChevronDown,
 } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
@@ -43,6 +45,7 @@ const NAV_ITEMS = [
   { route: "admin.projects.index", label: "Projects", icon: FolderKanban, section: "projects" },
   { route: "admin.blog.index", label: "Blog Posts", icon: FileText, section: "blog" },
   { route: "admin.messages.index", label: "Messages", icon: Mail, section: "messages" },
+  { route: "admin.media.index", label: "Media", icon: ImageIcon, section: "media" },
   { route: "admin.settings", label: "Settings", icon: Settings, section: "settings" },
 ] as const;
 
@@ -54,7 +57,8 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
     errors?: Record<string, string>;
   }>();
   const auth = props.auth;
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
   const { toast } = useToast();
   const lastProcessedKey = useRef<string | number | null>(null);
 
@@ -90,128 +94,175 @@ export default function AdminLayout({ title, actions, children }: AdminLayoutPro
 
   const currentSection = url.split("/")[2] ?? "";
 
-  const sidebar = (
-    <>
-      <div className="flex items-center justify-center px-5 py-6">
-        <img
-          src="/images/mpg-logo.png"
-          alt="MPG Event Planner"
-          className="h-12 w-auto max-w-full object-contain"
-        />
-      </div>
-
-      <nav className="flex flex-1 flex-col gap-0.5 px-3" aria-label="Admin sections">
-        {NAV_ITEMS.map((item) => {
-          const Icon = item.icon;
-          const active = currentSection === item.section || (item.section === "dashboard" && url === "/admin/dashboard");
-          return (
-            <Link
-              key={item.route}
-              href={`/admin/${item.section === "dashboard" ? "dashboard" : item.section}`}
-              aria-current={active ? "page" : undefined}
-              className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors ${
-                active
-                  ? "bg-brand text-white"
-                  : "text-on-blue hover:bg-sidebar-raised hover:text-white"
-              }`}
-            >
-              <Icon className="h-4.5 w-4.5 shrink-0" aria-hidden="true" />
-              <span>{item.label}</span>
-            </Link>
-          );
-        })}
-        <Link
-          href="/admin/media"
-          aria-current={currentSection === "media" ? "page" : undefined}
-          className={`flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors ${
-            currentSection === "media"
-              ? "bg-brand text-white"
-              : "text-on-blue hover:bg-sidebar-raised hover:text-white"
-          }`}
-        >
-          <ImageIcon className="h-4.5 w-4.5 shrink-0" aria-hidden="true" />
-          <span>Media</span>
-        </Link>
-      </nav>
-
-      <div className="border-t border-white/10 px-4 py-4">
-        <div className="mb-3 truncate text-xs text-on-blue/60">{auth?.email}</div>
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="flex w-full items-center gap-2 px-3 py-2 text-xs font-semibold text-red-400 transition-colors hover:bg-red-500/10 hover:text-red-300"
-        >
-          <LogOut className="h-4 w-4" aria-hidden="true" />
-          Log out
-        </button>
-      </div>
-    </>
-  );
-
   return (
-    <div className="flex min-h-screen bg-paper-tint">
-      {/* Desktop sidebar */}
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-60 flex-col bg-sidebar lg:flex">
-        {sidebar}
-      </aside>
-
-      {/* Mobile sidebar overlay */}
-      {sidebarOpen && (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-black/50"
-            onClick={() => setSidebarOpen(false)}
-          />
-          <aside className="absolute inset-y-0 left-0 flex w-60 flex-col bg-sidebar">
+    <div className="min-h-screen bg-paper-tint text-ink-text antialiased">
+      {/* Top Header Navigation */}
+      <header className="sticky top-0 z-40 border-b border-line bg-paper shadow-xs">
+        {/* Main Navbar */}
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          {/* Left: Brand Logo & Mobile Toggle */}
+          <div className="flex items-center gap-6 py-3.5">
             <button
               type="button"
-              onClick={() => setSidebarOpen(false)}
-              className="absolute right-3 top-4 text-on-blue/60 hover:text-white"
-              aria-label="Close menu"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-1.5 text-muted hover:text-ink-text lg:hidden"
+              aria-label="Toggle Navigation Menu"
             >
-              <X className="h-5 w-5" />
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
-            {sidebar}
-          </aside>
-        </div>
-      )}
 
-      <div className="flex min-h-screen flex-1 flex-col lg:pl-60">
-        {/* Topbar */}
-        <header className="sticky top-0 z-30 flex items-center justify-between gap-4 border-b border-line bg-paper px-5 py-4 lg:px-8">
-          <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={() => setSidebarOpen(true)}
-              className="text-muted lg:hidden"
-              aria-label="Open menu"
-            >
-              <Menu className="h-5 w-5" />
-            </button>
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-wider text-faint">
-                MPG content studio
-              </p>
-              <h1 className="text-lg font-bold tracking-tight text-ink-text">{title}</h1>
-            </div>
+            <Link href="/admin/dashboard" className="flex items-center gap-3">
+              <img
+                src="/images/mpg-logo.png"
+                alt="MPG Event Planner"
+                className="h-9 w-auto object-contain"
+              />
+              <span className="hidden rounded bg-brand-tint px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-brand-deep sm:inline-block">
+                Studio
+              </span>
+            </Link>
           </div>
-          <div className="flex items-center gap-2">
-            {actions}
+
+          {/* Center: Desktop Navigation Links */}
+          <nav className="hidden lg:flex lg:items-center lg:gap-1" aria-label="Global navigation">
+            {NAV_ITEMS.map((item) => {
+              const Icon = item.icon;
+              const active =
+                currentSection === item.section ||
+                (item.section === "dashboard" && url === "/admin/dashboard");
+              return (
+                <Link
+                  key={item.route}
+                  href={`/admin/${item.section === "dashboard" ? "dashboard" : item.section}`}
+                  className={`relative flex items-center gap-2 px-3.5 py-4 text-xs font-bold transition-colors ${
+                    active
+                      ? "text-brand"
+                      : "text-muted hover:text-ink-text"
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.label}</span>
+                  {active && (
+                    <span className="absolute inset-x-0 bottom-0 h-0.5 bg-brand" />
+                  )}
+                </Link>
+              );
+            })}
+          </nav>
+
+          {/* Right: Actions & User Dropdown */}
+          <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 bg-brand px-4 py-2 text-xs font-semibold text-white transition-colors hover:bg-brand-deep"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden items-center gap-1.5 border border-line-strong px-3 py-1.5 text-xs font-semibold text-muted transition-colors hover:border-brand hover:text-brand sm:inline-flex"
             >
-              <ExternalLink className="h-3.5 w-3.5" aria-hidden="true" />
-              View website
+              <ExternalLink className="h-3.5 w-3.5" />
+              <span>View website</span>
             </Link>
-          </div>
-        </header>
 
-        {/* Content */}
-        <div className="flex-1 px-5 py-6 lg:px-8">
-          {children}
+            {/* User menu */}
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                className="flex items-center gap-2 border border-line px-2.5 py-1.5 text-xs font-medium text-ink-text hover:bg-paper-tint"
+              >
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-tint text-brand">
+                  <User className="h-3.5 w-3.5" />
+                </div>
+                <span className="hidden max-w-[130px] truncate text-xs font-semibold sm:inline-block">
+                  {auth?.name || auth?.email || "Admin"}
+                </span>
+                <ChevronDown className="h-3.5 w-3.5 text-muted" />
+              </button>
+
+              {userDropdownOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-10"
+                    onClick={() => setUserDropdownOpen(false)}
+                  />
+                  <div className="absolute right-0 z-20 mt-2 w-56 border border-line bg-paper p-2 shadow-lg">
+                    <div className="border-b border-line px-3 py-2">
+                      <p className="text-xs font-bold text-ink-text">{auth?.name || "Administrator"}</p>
+                      <p className="truncate text-[11px] text-faint">{auth?.email}</p>
+                    </div>
+                    <Link
+                      href="/admin/settings"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-xs font-medium text-muted hover:bg-paper-tint hover:text-ink-text"
+                    >
+                      <Settings className="h-3.5 w-3.5" />
+                      Settings
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="flex w-full items-center gap-2 px-3 py-2 text-xs font-semibold text-red-600 hover:bg-red-50"
+                    >
+                      <LogOut className="h-3.5 w-3.5" />
+                      Log out
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="border-t border-line bg-paper px-4 py-3 lg:hidden">
+            <nav className="flex flex-col gap-1">
+              {NAV_ITEMS.map((item) => {
+                const Icon = item.icon;
+                const active =
+                  currentSection === item.section ||
+                  (item.section === "dashboard" && url === "/admin/dashboard");
+                return (
+                  <Link
+                    key={item.route}
+                    href={`/admin/${item.section === "dashboard" ? "dashboard" : item.section}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`flex items-center gap-3 px-3 py-2.5 text-sm font-semibold transition-colors ${
+                      active
+                        ? "bg-brand-tint text-brand"
+                        : "text-muted hover:bg-paper-tint hover:text-ink-text"
+                    }`}
+                  >
+                    <Icon className="h-4.5 w-4.5" />
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
+              <Link
+                href="/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 flex items-center gap-2 border border-line px-3 py-2 text-xs font-semibold text-muted"
+              >
+                <ExternalLink className="h-4 w-4" />
+                View website
+              </Link>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      {/* Page Title & Actions Sub-Header Bar */}
+      <div className="border-b border-line bg-paper px-4 py-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex max-w-7xl items-center justify-between gap-4">
+          <h1 className="text-xl font-bold tracking-tight text-ink-text">{title}</h1>
+          {actions && <div className="flex items-center gap-2">{actions}</div>}
         </div>
       </div>
+
+      {/* Main Page Content Container */}
+      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        {children}
+      </main>
     </div>
   );
 }

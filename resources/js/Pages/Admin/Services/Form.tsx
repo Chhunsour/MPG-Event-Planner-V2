@@ -144,14 +144,6 @@ export default function ServicesForm({ service }: ServicesFormProps) {
   return (
     <AdminLayout title={isEdit ? "Edit service" : "Create service"}>
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-6">
-        {/* Back link + header */}
-        <div>
-          <Link href="/admin/services" className="text-xs font-semibold text-muted hover:text-brand">← Services</Link>
-          <p className="mt-2 text-[11px] font-bold uppercase tracking-wider text-faint">Service editor</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-ink-text">{isEdit ? "Edit service" : "Create a service"}</h2>
-          <p className="mt-1 text-sm text-muted">Focus on what the service is, what clients receive, and one strong image.</p>
-        </div>
-
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Main column */}
           <div className="space-y-6 lg:col-span-2">

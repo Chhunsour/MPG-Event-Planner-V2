@@ -152,14 +152,6 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
   return (
     <AdminLayout title={isEdit ? "Edit project" : "Create project"}>
       <form onSubmit={handleSubmit} encType="multipart/form-data" className="space-y-6">
-        {/* Back link + header */}
-        <div>
-          <Link href="/admin/projects" className="text-xs font-semibold text-muted hover:text-brand">← Projects</Link>
-          <p className="mt-2 text-[11px] font-bold uppercase tracking-wider text-faint">Project editor</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-ink-text">{isEdit ? "Edit project" : "Create a project"}</h2>
-          <p className="mt-1 text-sm text-muted">Focus on the outcome, the client, and strong imagery.</p>
-        </div>
-
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Main column */}
           <div className="space-y-6 lg:col-span-2">

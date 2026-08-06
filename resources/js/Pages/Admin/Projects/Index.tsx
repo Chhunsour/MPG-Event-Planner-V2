@@ -78,19 +78,6 @@ export default function ProjectsIndex({ projects, services, years, status }: Pro
         </Link>
       }
     >
-      {/* Intro */}
-      <div className="mb-5 flex items-end justify-between">
-        <div>
-          <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Content library</p>
-          <h2 className="mt-1 text-2xl font-bold tracking-tight text-ink-text">Projects</h2>
-          <p className="mt-1 text-sm text-muted">Showcase completed work with images, details, and translations.</p>
-        </div>
-        <div className="text-right">
-          <strong className="text-2xl font-bold text-ink-text">{projects.total}</strong>
-          <span className="ml-1 text-xs text-faint">matching projects</span>
-        </div>
-      </div>
-
       {/* Filters */}
       <div className="mb-4 border border-line bg-paper p-4">
         <form method="GET" className="flex flex-wrap items-end gap-3">
