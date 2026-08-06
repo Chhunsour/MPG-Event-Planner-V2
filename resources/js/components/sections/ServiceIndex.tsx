@@ -71,8 +71,8 @@ export default function ServiceIndex({
 
   return (
     <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
-      {/* 2-Column Grid on Mobile & Tablet, 1-Column on Large Layout */}
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-7 lg:grid-cols-1 lg:gap-0">
+      {/* 2-Column Grid on Mobile, Tablet & Desktop Layout */}
+      <ul className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-7 lg:grid-cols-1 lg:gap-0">
         {serviceList.map((service, index) => {
           const isFlagship = service.is_featured;
           const isActive = activeSlug === service.slug;
@@ -85,43 +85,43 @@ export default function ServiceIndex({
                 onMouseEnter={() => service.image && activate(service.slug)}
                 onFocus={() => service.image && activate(service.slug)}
                 data-pressable
-                className={`group flex flex-col justify-between rounded-xl border border-line bg-paper-tint p-5 transition-all duration-200 hover:border-brand/40 hover:bg-paper hover:shadow-sm lg:flex-row lg:items-start lg:gap-5 lg:rounded-none lg:border-none lg:bg-transparent lg:p-0 lg:py-6 lg:hover:shadow-none ${
+                className={`group flex h-full flex-col justify-between rounded-xl border border-line bg-paper-tint p-3.5 transition-all duration-200 hover:border-brand/40 hover:bg-paper hover:shadow-sm sm:p-5 lg:flex-row lg:items-start lg:gap-5 lg:rounded-none lg:border-none lg:bg-transparent lg:p-0 lg:py-6 lg:hover:shadow-none ${
                   isActive ? "lg:bg-brand-tint/60" : ""
                 } lg:-mx-5 lg:px-5`}
               >
-                <div className="flex items-start gap-4">
-                  {/* Real Lucide Icon instead of Numbers */}
-                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white transition-colors">
-                    <IconComp className="h-4.5 w-4.5" aria-hidden="true" />
+                <div className="flex flex-col items-start gap-2.5 sm:flex-row sm:items-start sm:gap-4">
+                  {/* Real Lucide Icon */}
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-brand/10 text-brand group-hover:bg-brand group-hover:text-white transition-colors sm:h-9 sm:w-9">
+                    <IconComp className="h-4 w-4 sm:h-4.5 sm:w-4.5" aria-hidden="true" />
                   </div>
 
                   <span className="min-w-0 flex-1">
-                    <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="flex flex-wrap items-center gap-x-2 gap-y-1">
                       <span
-                        className={`${
-                          isFlagship ? "t-display-sm" : "t-heading"
+                        className={`text-xs font-bold leading-snug sm:text-sm ${
+                          isFlagship ? "t-display-sm text-brand" : "t-heading"
                         } text-ink-text transition-colors group-hover:text-brand`}
                       >
                         {service.title}
                       </span>
                       {isFlagship && (
-                        <span className="t-meta bg-accent-deep px-2 py-0.5 text-xs text-white rounded-sm font-semibold">
+                        <span className="t-meta bg-accent-deep px-1.5 py-0.5 text-[10px] text-white rounded-sm font-semibold">
                           {flagshipLabel}
                         </span>
                       )}
                     </span>
                     {service.short_description && (
-                      <span className="t-body mt-2 block text-xs leading-relaxed text-muted line-clamp-2 sm:text-sm">
+                      <span className="t-body mt-1.5 block text-[11px] leading-relaxed text-muted line-clamp-2 sm:text-xs">
                         {service.short_description}
                       </span>
                     )}
                   </span>
                 </div>
 
-                <span className="t-meta mt-4 flex items-center justify-end gap-1.5 text-xs text-brand transition-colors group-hover:translate-x-1 lg:mt-0 lg:pt-2 lg:text-faint lg:group-hover:text-brand">
+                <span className="t-meta mt-3 flex items-center justify-end gap-1 text-[11px] font-semibold text-brand transition-colors group-hover:translate-x-1 lg:mt-0 lg:pt-2 lg:text-faint lg:group-hover:text-brand sm:text-xs">
                   <span className="lg:hidden">{viewLabel}</span>
                   <ArrowUpRight
-                    className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-4 sm:w-4"
                     aria-hidden="true"
                   />
                 </span>
