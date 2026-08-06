@@ -31,15 +31,59 @@ export default function AboutBlock({
           />
         </ScrollReveal>
 
-        <div className="mt-10 grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
-          {/* Left Column Content & 2x2 Feature Card Grid */}
+        <div className="mt-8 grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
+          {/* Left Column Content Area */}
           <div className="lg:col-span-7">
             <ScrollReveal stagger>
               <p className="t-lead text-muted max-w-[54ch]">{dict.intro.description}</p>
               <p className="t-body mt-3 text-muted max-w-[54ch]">{dict.intro.para2}</p>
+            </ScrollReveal>
 
-              {/* 4 Core Pillars Grid with Real Icons */}
-              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {/* Showcase Image on Mobile (Placed directly under intro text on mobile view) */}
+            <div className="mt-6 block lg:hidden">
+              <ScrollReveal delay={100}>
+                <div className="relative overflow-hidden rounded-xl border border-line shadow-lg">
+                  <figure className="frame aspect-4/3 w-full sm:aspect-16/10">
+                    <img
+                      src={teamImage}
+                      alt={dict.about.imageAlt}
+                      loading="lazy"
+                      className="h-full w-full object-cover"
+                    />
+                    <div className="scrim-b absolute inset-0" />
+                    <figcaption className="t-meta absolute inset-x-0 bottom-0 z-10 p-4 text-white/90">
+                      {dict.about.capabilitiesLabel}
+                    </figcaption>
+                  </figure>
+
+                  {/* Floating Metric Badge 1 */}
+                  <div className="absolute top-4 left-4 z-20 flex items-center gap-3 rounded-lg border border-white/20 bg-ink/90 px-4 py-2.5 text-white shadow-xl backdrop-blur-md">
+                    <Award className="h-5 w-5 text-accent-bright shrink-0" />
+                    <div>
+                      <span className="t-heading block text-sm font-extrabold text-white">6+ Years</span>
+                      <span className="t-meta text-[11px] text-white/70">
+                        {locale === "km" ? "បទពិសោធន៍" : "Proven Track Record"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Floating Metric Badge 2 */}
+                  <div className="absolute bottom-14 right-4 z-20 flex items-center gap-3 rounded-lg border border-white/20 bg-paper/95 px-4 py-2.5 text-ink-text shadow-xl backdrop-blur-md">
+                    <CheckCircle2 className="h-5 w-5 text-brand shrink-0" />
+                    <div>
+                      <span className="t-heading block text-sm font-extrabold text-brand">500+ Events</span>
+                      <span className="t-meta text-[11px] text-faint">
+                        {locale === "km" ? "ព្រឹត្តិការណ៍ជោគជ័យ" : "Delivered Perfectly"}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            {/* 4 Core Pillars Grid with Real Icons */}
+            <ScrollReveal stagger className="mt-8">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {dict.intro.pillars.map((pillar, idx) => {
                   const IconComp = PILLAR_ICONS[idx % PILLAR_ICONS.length];
                   return (
@@ -76,11 +120,11 @@ export default function AboutBlock({
             </ScrollReveal>
           </div>
 
-          {/* Right Column Balanced Image Showcase with Floating Stat Badges */}
-          <div className="lg:col-span-5">
+          {/* Right Column Balanced Image Showcase on Desktop View */}
+          <div className="hidden lg:col-span-5 lg:block">
             <ScrollReveal delay={100}>
               <div className="relative overflow-hidden rounded-xl border border-line shadow-lg">
-                <figure className="frame aspect-4/3 w-full sm:aspect-16/10 lg:aspect-4/3">
+                <figure className="frame aspect-4/3 w-full lg:aspect-4/3">
                   <img
                     src={teamImage}
                     alt={dict.about.imageAlt}
