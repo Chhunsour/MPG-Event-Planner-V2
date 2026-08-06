@@ -61,6 +61,9 @@
   --color-sidebar: #0f1b28;
   --color-sidebar-raised: #1a2a3a;
 
+  --font-en: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-km: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
+  --font-zh: 'Noto Sans SC', sans-serif;
   --font-sans: var(--font-en), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -756,11 +759,19 @@ input[type="search"] {
 /* ═══════════════════════════════════════════════════════════════
    HARDENED KHMER GOOGLE SANS TYPOGRAPHY
    ═══════════════════════════════════════════════════════════════ */
+@font-face {
+  font-family: 'Google Sans Khmer';
+  src: local('Google Sans Khmer'), local('Kantumruy Pro'), local('Kantumruy'), local('Battambang');
+  font-display: swap;
+}
+
 html[lang="km"],
-:lang(km),
+html[lang="km"] body,
+body.font-km,
 .font-km,
-[lang="km"] {
-  font-family: var(--font-km) !important;
+[lang="km"],
+:lang(km) {
+  font-family: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
   font-feature-settings: "liga" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -780,7 +791,8 @@ html[lang="km"],
 :lang(km) input,
 :lang(km) textarea,
 :lang(km) select,
-.font-km {
-  font-family: var(--font-km) !important;
+.font-km,
+body.font-km * {
+  font-family: 'Google Sans Khmer', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
   line-height: 1.6;
 }

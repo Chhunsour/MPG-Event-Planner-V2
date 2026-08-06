@@ -18,7 +18,7 @@
         @vite(['resources/js/app.tsx', "resources/js/Pages/{$page['component']}.tsx"])
         @inertiaHead
     </head>
-    <body class="font-en bg-paper text-ink-text antialiased">
+    <body class="{{ app()->getLocale() === 'km' ? 'font-km' : (app()->getLocale() === 'zh' ? 'font-zh' : 'font-en') }} bg-paper text-ink-text antialiased">
         @inertia
     </body>
 </html>

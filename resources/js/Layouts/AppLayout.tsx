@@ -14,12 +14,33 @@ interface AppLayoutProps {
   services?: ApiService[];
 }
 
+import { useEffect } from "react";
+
 export default function AppLayout({
   children,
   locale,
   dict,
   services = [],
 }: AppLayoutProps) {
+  useEffect(() => {
+    document.documentElement.lang = locale;
+    const body = document.body;
+    const html = document.documentElement;
+
+    html.classList.remove("font-en", "font-km", "font-zh");
+    body.classList.remove("font-en", "font-km", "font-zh");
+
+    if (locale === "km") {
+      html.classList.add("font-km");
+      body.classList.add("font-km");
+    } else if (locale === "zh") {
+      html.classList.add("font-zh");
+      body.classList.add("font-zh");
+    } else {
+      html.classList.add("font-en");
+      body.classList.add("font-en");
+    }
+  }, [locale]);
   const hasPhone = !isPlaceholder(siteConfig.contact.phone);
   const hasEmail = !isPlaceholder(siteConfig.contact.email);
   const hasTelegram = !isPlaceholder(siteConfig.contact.telegram);
