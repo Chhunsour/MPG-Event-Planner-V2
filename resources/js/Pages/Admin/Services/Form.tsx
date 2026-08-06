@@ -233,28 +233,6 @@ export default function ServicesForm({ service }: ServicesFormProps) {
               </LangTabs>
             </div>
 
-            {/* Cover image */}
-            <div className="border border-line bg-paper p-5">
-              <div className="mb-4">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Cover</p>
-                <h3 className="text-base font-bold text-ink-text">Cover image</h3>
-                <p className="text-xs text-muted">Alt text is generated and remains editable.</p>
-              </div>
-              <ImageUploader
-                name="image"
-                removeName="remove_image"
-                initialPath={service.image ? `/storage/${service.image}` : null}
-                initialAlt={service.image_alt ?? ""}
-                altName="image_alt"
-                altValue={data.image_alt}
-                onFileChange={(file) => {
-                  setData("image", file);
-                  if (!file) setData("remove_image", true);
-                }}
-                onAltChange={(v) => setData("image_alt", v)}
-              />
-            </div>
-
             {/* Advanced settings */}
             <details className="group border border-line bg-paper">
               <summary className="flex cursor-pointer select-none items-center justify-between p-5 text-left outline-none [&::-webkit-details-marker]:hidden">
@@ -286,7 +264,7 @@ export default function ServicesForm({ service }: ServicesFormProps) {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24">
+            <div className="sticky top-24 space-y-6">
               <PublishingPanel
                 isPublished={data.is_published}
                 publishedAt={service.published_at}
@@ -315,6 +293,23 @@ export default function ServicesForm({ service }: ServicesFormProps) {
                   </button>
                 )}
               </PublishingPanel>
+
+              {/* Cover image (Sidebar) */}
+              <div className="border border-line bg-paper p-5">
+                <div className="mb-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Cover</p>
+                  <h3 className="text-base font-bold text-ink-text">Cover image</h3>
+                </div>
+                <ImageUploader
+                  name="image"
+                  removeName="remove_image"
+                  initialPath={service.image ? `/storage/${service.image}` : null}
+                  onFileChange={(file) => {
+                    setData("image", file);
+                    if (!file) setData("remove_image", true);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

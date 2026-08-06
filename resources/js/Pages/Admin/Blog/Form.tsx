@@ -184,27 +184,6 @@ export default function BlogForm({ post }: BlogFormProps) {
               </LangTabs>
             </div>
 
-            {/* Cover image */}
-            <div className="border border-line bg-paper p-5">
-              <div className="mb-4">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Cover</p>
-                <h3 className="text-base font-bold text-ink-text">Cover image</h3>
-              </div>
-              <ImageUploader
-                name="cover_image"
-                removeName="remove_cover_image"
-                initialPath={post.cover_image ? `/storage/${post.cover_image}` : null}
-                initialAlt={post.cover_image_alt ?? ""}
-                altName="cover_image_alt"
-                altValue={data.cover_image_alt}
-                onFileChange={(file) => {
-                  setData("cover_image", file);
-                  if (!file) setData("remove_cover_image", true);
-                }}
-                onAltChange={(v) => setData("cover_image_alt", v)}
-              />
-            </div>
-
             {/* Advanced settings */}
             <details className="group border border-line bg-paper">
               <summary className="flex cursor-pointer select-none items-center justify-between p-5 text-left outline-none [&::-webkit-details-marker]:hidden">
@@ -230,7 +209,7 @@ export default function BlogForm({ post }: BlogFormProps) {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24">
+            <div className="sticky top-24 space-y-6">
               <PublishingPanel
                 isPublished={data.is_published}
                 publishedAt={post.published_at}
@@ -255,6 +234,23 @@ export default function BlogForm({ post }: BlogFormProps) {
                   </form>
                 )}
               </PublishingPanel>
+
+              {/* Cover image (Sidebar) */}
+              <div className="border border-line bg-paper p-5">
+                <div className="mb-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Cover</p>
+                  <h3 className="text-base font-bold text-ink-text">Cover image</h3>
+                </div>
+                <ImageUploader
+                  name="cover_image"
+                  removeName="remove_cover_image"
+                  initialPath={post.cover_image ? `/storage/${post.cover_image}` : null}
+                  onFileChange={(file) => {
+                    setData("cover_image", file);
+                    if (!file) setData("remove_cover_image", true);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

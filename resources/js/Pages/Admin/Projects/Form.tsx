@@ -244,62 +244,6 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
               </LangTabs>
             </div>
 
-            {/* Cover image */}
-            <div className="border border-line bg-paper p-5">
-              <div className="mb-4">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Cover</p>
-                <h3 className="text-base font-bold text-ink-text">Cover image</h3>
-              </div>
-              <ImageUploader
-                name="cover_image"
-                removeName="remove_cover_image"
-                initialPath={project.cover_image ? `/storage/${project.cover_image}` : null}
-                initialAlt={project.cover_image_alt ?? ""}
-                altName="cover_image_alt"
-                altValue={data.cover_image_alt}
-                onFileChange={(file) => {
-                  setData("cover_image", file);
-                  if (!file) setData("remove_cover_image", true);
-                }}
-                onAltChange={(v) => setData("cover_image_alt", v)}
-              />
-            </div>
-
-            {/* Gallery */}
-            <div className="border border-line bg-paper p-5">
-              <div className="mb-4">
-                <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Gallery</p>
-                <h3 className="text-base font-bold text-ink-text">Project images</h3>
-                <p className="text-xs text-muted">Upload multiple images. They appear in the project gallery on the website.</p>
-              </div>
-
-              {visibleImages.length > 0 && (
-                <div className="mb-4 grid grid-cols-3 gap-3 sm:grid-cols-4">
-                  {visibleImages.map((img) => (
-                    <div key={img.id} className="group relative overflow-hidden border border-line">
-                      <img src={`/storage/${img.path}`} alt={img.alt_en ?? ""}
-                        className="h-24 w-full object-cover" />
-                      <button type="button" onClick={() => removeGalleryImage(img.id)}
-                        className="absolute right-1 top-1 bg-paper/90 p-1 text-red-500 opacity-0 transition-opacity group-hover:opacity-100">
-                        <Trash2 className="h-3.5 w-3.5" />
-                      </button>
-                      {galleryRemoved.includes(img.id) && (
-                        <input type="hidden" name={`gallery_removed[]`} value={img.id} />
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              <div>
-                <label className="mb-1.5 block text-[11px] font-bold uppercase tracking-wider text-muted">
-                  Add images
-                </label>
-                <input type="file" name="gallery[]" accept="image/*" multiple
-                  className="block w-full text-sm text-muted file:mr-3 file:border-0 file:bg-brand-tint file:px-4 file:py-2 file:text-xs file:font-semibold file:text-brand-deep hover:file:bg-sky-100" />
-              </div>
-            </div>
-
             {/* Advanced settings */}
             <details className="group border border-line bg-paper">
               <summary className="flex cursor-pointer select-none items-center justify-between p-5 text-left outline-none [&::-webkit-details-marker]:hidden">
@@ -343,7 +287,7 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
 
           {/* Sidebar */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24">
+            <div className="sticky top-24 space-y-6">
               <PublishingPanel
                 isPublished={data.is_published}
                 publishedAt={project.published_at}
@@ -368,6 +312,23 @@ export default function ProjectsForm({ project, services }: ProjectsFormProps) {
                   </form>
                 )}
               </PublishingPanel>
+
+              {/* Cover image (Sidebar) */}
+              <div className="border border-line bg-paper p-5">
+                <div className="mb-3">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-faint">Cover</p>
+                  <h3 className="text-base font-bold text-ink-text">Cover image</h3>
+                </div>
+                <ImageUploader
+                  name="cover_image"
+                  removeName="remove_cover_image"
+                  initialPath={project.cover_image ? `/storage/${project.cover_image}` : null}
+                  onFileChange={(file) => {
+                    setData("cover_image", file);
+                    if (!file) setData("remove_cover_image", true);
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>
