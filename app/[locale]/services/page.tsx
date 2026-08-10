@@ -13,5 +13,5 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
   const labels = ui[locale];
   const copy = messages[locale].services;
 
-  return <><PageIntro eyebrow={copy.label || labels.services} title={copy.title} description={copy.subtitle} /><section className="band-lg"><div className="shell grid gap-10 md:grid-cols-2 lg:grid-cols-3">{services.map((item) => <ContentCard key={item.id} item={item} locale={locale} type="service" />)}</div></section></>;
+  return <><PageIntro eyebrow={copy.label || labels.services} title={copy.title} description={copy.subtitle} /><section className="collection-section"><div className="shell collection-grid collection-grid--services">{services.map((item, index) => <ContentCard key={item.id} item={item} locale={locale} type="service" index={index} />)}</div></section></>;
 }

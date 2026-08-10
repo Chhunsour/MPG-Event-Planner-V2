@@ -2,6 +2,7 @@ import { PageIntro } from '@/components/site/page-intro';
 import { QuotationForm } from '@/components/site/quotation-form';
 import { messages, ui } from '@/lib/i18n';
 import type { Locale } from '@/lib/types';
+import { getSiteSettings } from '@/lib/content';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,7 +10,9 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const { locale: raw } = await params;
   const locale = (raw === 'km' || raw === 'zh' ? raw : 'en') as Locale;
   const labels = ui[locale];
+  const settings = await getSiteSettings();
   const copy = messages[locale].contact_form;
+  const detailLabels = locale === 'km' ? { brief: 'ព័ត៌មានកម្មវិធី', email: 'អ៊ីមែល', response: 'ការឆ្លើយតប' } : locale === 'zh' ? { brief: '活动需求', email: '邮箱', response: '回复时间' } : { brief: 'Event brief', email: 'Email', response: 'Response' };
 
-  return <><PageIntro eyebrow={labels.contact} title={labels.quotationTitle} description={labels.quotationIntro} /><section className="band-lg"><div className="shell grid gap-12 lg:grid-cols-[1fr_0.62fr]"><QuotationForm locale={locale} /><aside className="detail-aside"><p className="t-meta text-[var(--mpg-green-deep)]">{copy.officeLabel}</p><h2 className="t-display-sm mt-4">{copy.title}</h2><p className="mt-5 text-sm leading-7 text-[var(--text-muted)]">{copy.intro}</p><div className="mt-10 grid gap-3 border-t border-[var(--line)] pt-5 text-sm"><a href="mailto:hello@mpgeventplanner.com" className="font-semibold text-[var(--mpg-blue)] hover:underline">hello@mpgeventplanner.com</a><span className="text-[var(--text-muted)]">{copy.officeTitle}</span></div></aside></div></section></>;
+  return <><PageIntro eyebrow={labels.contact} title={labels.quotationTitle} description={labels.quotationIntro} /><section className="contact-section"><div className="shell contact-section__grid"><div className="contact-section__form" data-reveal><p className="micro-label">{detailLabels.brief}</p><h2>{copy.title}</h2><QuotationForm locale={locale} /></div><aside className="contact-card" data-reveal><div className="contact-card__image" aria-hidden="true" /><p className="micro-label micro-label--light">{copy.officeLabel}</p><h2>{copy.officeTitle}</h2><p>{copy.intro}</p><div><span>{detailLabels.email}</span><a href={`mailto:${settings.company_email}`}>{settings.company_email}</a></div>{settings.phone && <div><span>{labels.phone}</span><a href={`tel:${settings.phone.replace(/[^+\d]/g, '')}`}>{settings.phone}</a></div>}<div><span>{detailLabels.response}</span><p>{copy.reply_note}</p></div></aside></div></section></>;
 }

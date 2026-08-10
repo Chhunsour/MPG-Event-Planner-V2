@@ -15,7 +15,25 @@ function publishedNow<T extends { is_published: boolean; published_at: string | 
 
 export function publicImageUrl(client: SupabaseClient<Database>, bucket: string, path: string | null) {
   if (!path) return null;
+  if (path.startsWith('/')) return path;
   return client.storage.from(bucket).getPublicUrl(path).data.publicUrl;
+}
+
+export type SiteSettings = {
+  company_email: string;
+  phone: string;
+  telegram: string;
+  instagram: string;
+  facebook: string;
+};
+
+export async function getSiteSettings(): Promise<SiteSettings> {
+  const defaults: SiteSettings = { company_email: 'hello@mpgeventplanner.com', phone: '', telegram: '', instagram: '', facebook: '' };
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('site_settings').select('key,value');
+  if (error || !data) return defaults;
+  const values = Object.fromEntries(data.map((row) => [row.key, typeof row.value === 'string' ? row.value : '']));
+  return { ...defaults, ...values };
 }
 
 export async function getPublicContent() {
@@ -57,4 +75,3 @@ export async function getBlogPost(slug: string) {
   if (error) throw error;
   return data && publishedNow(data) ? data : null;
 }
-

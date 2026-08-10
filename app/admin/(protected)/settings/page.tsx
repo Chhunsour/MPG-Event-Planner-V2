@@ -1,4 +1,18 @@
+import { AdminPageHeader } from '@/components/admin/admin-page-header';
+import { AdminSubmitButton } from '@/components/admin/admin-submit-button';
 import { createClient } from '@/lib/supabase/server';
 import { saveSettings } from '../../actions';
 
-export default async function SettingsPage() { const supabase = await createClient(); const { data } = await supabase.from('site_settings').select('*'); const settings = Object.fromEntries((data ?? []).map((row) => [row.key, typeof row.value === 'string' ? row.value : ''])); return <><h1 className="t-heading text-4xl">Site settings</h1><form action={saveSettings} className="mt-8 max-w-2xl space-y-5 bg-white p-6 md:p-8">{[['company_email', 'Company email'], ['phone', 'Phone'], ['telegram', 'Telegram'], ['instagram', 'Instagram'], ['facebook', 'Facebook']].map(([name, label]) => <label key={name} className="block text-sm font-bold">{label}<input name={name} defaultValue={settings[name] || ''} className="mt-1 w-full border border-line px-3 py-2 font-normal" /></label>)}<button className="btn btn-primary" type="submit">Save settings</button></form></>; }
+export default async function SettingsPage() {
+  const supabase = await createClient();
+  const { data } = await supabase.from('site_settings').select('*');
+  const settings = Object.fromEntries((data ?? []).map((row) => [row.key, typeof row.value === 'string' ? row.value : '']));
+  const fields = [
+    ['company_email', 'Company email', 'email', 'hello@mpgeventplanner.com'],
+    ['phone', 'Phone', 'tel', '+855 …'],
+    ['telegram', 'Telegram URL', 'url', 'https://t.me/…'],
+    ['instagram', 'Instagram URL', 'url', 'https://instagram.com/…'],
+    ['facebook', 'Facebook URL', 'url', 'https://facebook.com/…'],
+  ] as const;
+  return <><AdminPageHeader eyebrow="Configuration" title="Site settings" description="Keep the contact details and social links used across the website up to date." /><form action={saveSettings} className="admin-settings-form">{fields.map(([name, label, type, placeholder]) => <label key={name}>{label}<input type={type} name={name} defaultValue={settings[name] || ''} placeholder={placeholder} /></label>)}<div><AdminSubmitButton>Save settings</AdminSubmitButton></div></form></>;
+}

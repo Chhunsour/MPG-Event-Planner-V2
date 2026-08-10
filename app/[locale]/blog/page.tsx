@@ -13,5 +13,5 @@ export default async function BlogPage({ params }: { params: Promise<{ locale: s
   const labels = ui[locale];
   const copy = messages[locale].blog;
 
-  return <><PageIntro eyebrow={copy.label || labels.journal} title={copy.title} description={copy.subtitle} /><section className="band-lg"><div className="shell grid gap-10 md:grid-cols-2 lg:grid-cols-3">{blog.map((item) => <ContentCard key={item.id} item={item} locale={locale} type="blog" />)}</div></section></>;
+  return <><PageIntro eyebrow={copy.label || labels.blog} title={copy.title} description={copy.subtitle} /><section className="collection-section"><div className="shell collection-grid collection-grid--blog">{blog.map((item, index) => <ContentCard key={item.id} item={item} locale={locale} type="blog" index={index} />)}</div></section></>;
 }

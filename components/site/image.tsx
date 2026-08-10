@@ -17,10 +17,9 @@ export function SiteImage({ src, alt, className, priority = false }: SiteImagePr
       src={src}
       alt={alt}
       fill
-      priority={priority}
+      preload={priority}
       sizes="(max-width: 768px) 100vw, 50vw"
       className={className ?? 'object-cover'}
     />
   );
 }
-

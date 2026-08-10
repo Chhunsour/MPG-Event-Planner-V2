@@ -61,7 +61,7 @@ export async function saveService(formData: FormData) {
   const { user } = await requireAdmin();
   const supabase = await createClient();
   const id = text(formData, 'id');
-  const existing = id ? await supabase.from('services').select('cover_image,gallery').eq('id', Number(id)).maybeSingle() : { data: null };
+  const existing = id ? await supabase.from('services').select('cover_image,gallery,published_at').eq('id', Number(id)).maybeSingle() : { data: null };
   const cover = await uploadImage(formData, 'cover_image', 'services');
   const gallery = [...(existing.data?.gallery ?? []), ...await uploadImages(formData, 'gallery_images', 'services')];
   const title = languages(formData, 'title');
@@ -70,7 +70,7 @@ export async function saveService(formData: FormData) {
   const seoTitle = fallbackLocalized(languages(formData, 'seo_title'), title);
   const seoDescription = fallbackLocalized(languages(formData, 'seo_description'), description);
   const isPublished = formData.get('is_published') === 'on';
-  const record = { slug: slugify(text(formData, 'slug') || title.en), title, description, content, cover_image: cover ?? existing.data?.cover_image ?? null, gallery, display_order: Number(text(formData, 'display_order') || 0), is_published: isPublished, published_at: isPublished ? new Date().toISOString() : null, seo_title: seoTitle, seo_description: seoDescription, image_alt: languages(formData, 'image_alt'), tags: text(formData, 'tags').split(',').map((tag) => tag.trim()).filter(Boolean) };
+  const record = { slug: slugify(text(formData, 'slug') || title.en), title, description, content, cover_image: cover ?? existing.data?.cover_image ?? null, gallery, display_order: Number(text(formData, 'display_order') || 0), is_published: isPublished, published_at: isPublished ? existing.data?.published_at ?? new Date().toISOString() : null, seo_title: seoTitle, seo_description: seoDescription, image_alt: languages(formData, 'image_alt'), tags: text(formData, 'tags').split(',').map((tag) => tag.trim()).filter(Boolean) };
   const result = id ? await supabase.from('services').update(record).eq('id', Number(id)) : await supabase.from('services').insert(record);
   if (result.error) throw result.error;
   if (cover && existing.data?.cover_image) await supabase.storage.from('services').remove([existing.data.cover_image]);
@@ -82,7 +82,7 @@ export async function saveProject(formData: FormData) {
   await requireAdmin();
   const supabase = await createClient();
   const id = text(formData, 'id');
-  const existing = id ? await supabase.from('projects').select('cover_image,gallery').eq('id', Number(id)).maybeSingle() : { data: null };
+  const existing = id ? await supabase.from('projects').select('cover_image,gallery,published_at').eq('id', Number(id)).maybeSingle() : { data: null };
   const cover = await uploadImage(formData, 'cover_image', 'projects');
   const gallery = [...(existing.data?.gallery ?? []), ...await uploadImages(formData, 'gallery_images', 'projects')];
   const title = languages(formData, 'title');
@@ -90,7 +90,7 @@ export async function saveProject(formData: FormData) {
   const seoTitle = fallbackLocalized(languages(formData, 'seo_title'), title);
   const seoDescription = fallbackLocalized(languages(formData, 'seo_description'), description);
   const isPublished = formData.get('is_published') === 'on';
-  const record = { slug: slugify(text(formData, 'slug') || title.en), title, description, content: languages(formData, 'content'), category: optional(formData, 'category'), client_name: optional(formData, 'client_name'), location: optional(formData, 'location'), event_date: optional(formData, 'event_date'), cover_image: cover ?? existing.data?.cover_image ?? null, gallery, display_order: Number(text(formData, 'display_order') || 0), is_featured: formData.get('is_featured') === 'on', is_published: isPublished, published_at: isPublished ? new Date().toISOString() : null, seo_title: seoTitle, seo_description: seoDescription, image_alt: languages(formData, 'image_alt'), tags: text(formData, 'tags').split(',').map((tag) => tag.trim()).filter(Boolean) };
+  const record = { slug: slugify(text(formData, 'slug') || title.en), title, description, content: languages(formData, 'content'), category: optional(formData, 'category'), client_name: optional(formData, 'client_name'), location: optional(formData, 'location'), event_date: optional(formData, 'event_date'), cover_image: cover ?? existing.data?.cover_image ?? null, gallery, display_order: Number(text(formData, 'display_order') || 0), is_featured: formData.get('is_featured') === 'on', is_published: isPublished, published_at: isPublished ? existing.data?.published_at ?? new Date().toISOString() : null, seo_title: seoTitle, seo_description: seoDescription, image_alt: languages(formData, 'image_alt'), tags: text(formData, 'tags').split(',').map((tag) => tag.trim()).filter(Boolean) };
   const result = id ? await supabase.from('projects').update(record).eq('id', Number(id)) : await supabase.from('projects').insert(record);
   if (result.error) throw result.error;
   if (cover && existing.data?.cover_image) await supabase.storage.from('projects').remove([existing.data.cover_image]);
@@ -101,7 +101,7 @@ export async function saveBlog(formData: FormData) {
   await requireAdmin();
   const supabase = await createClient();
   const id = text(formData, 'id');
-  const existing = id ? await supabase.from('blog_posts').select('cover_image').eq('id', Number(id)).maybeSingle() : { data: null };
+  const existing = id ? await supabase.from('blog_posts').select('cover_image,published_at').eq('id', Number(id)).maybeSingle() : { data: null };
   const cover = await uploadImage(formData, 'cover_image', 'blog');
   const title = languages(formData, 'title');
   const excerpt = languages(formData, 'excerpt');
@@ -109,7 +109,7 @@ export async function saveBlog(formData: FormData) {
   const seoTitle = fallbackLocalized(languages(formData, 'seo_title'), title);
   const seoDescription = fallbackLocalized(languages(formData, 'seo_description'), excerpt);
   const isPublished = formData.get('is_published') === 'on';
-  const record = { slug: slugify(text(formData, 'slug') || title.en), title, excerpt, content, category: optional(formData, 'category'), tags: text(formData, 'tags').split(',').map((tag) => tag.trim()).filter(Boolean), author_name: optional(formData, 'author_name'), cover_image: cover ?? existing.data?.cover_image ?? null, is_published: isPublished, published_at: isPublished ? new Date().toISOString() : null, seo_title: seoTitle, seo_description: seoDescription, image_alt: languages(formData, 'image_alt') };
+  const record = { slug: slugify(text(formData, 'slug') || title.en), title, excerpt, content, category: optional(formData, 'category'), tags: text(formData, 'tags').split(',').map((tag) => tag.trim()).filter(Boolean), author_name: optional(formData, 'author_name'), cover_image: cover ?? existing.data?.cover_image ?? null, is_published: isPublished, published_at: isPublished ? existing.data?.published_at ?? new Date().toISOString() : null, seo_title: seoTitle, seo_description: seoDescription, image_alt: languages(formData, 'image_alt') };
   const result = id ? await supabase.from('blog_posts').update(record).eq('id', Number(id)) : await supabase.from('blog_posts').insert(record);
   if (result.error) throw result.error;
   if (cover && existing.data?.cover_image) await supabase.storage.from('blog').remove([existing.data.cover_image]);

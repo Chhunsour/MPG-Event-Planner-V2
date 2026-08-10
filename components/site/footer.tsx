@@ -1,27 +1,39 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
 import type { Locale } from '@/lib/types';
 import { ui } from '@/lib/i18n';
+import { getSiteSettings } from '@/lib/content';
 
-export function SiteFooter({ locale }: { locale: Locale }) {
+export async function SiteFooter({ locale }: { locale: Locale }) {
   const labels = ui[locale];
+  const settings = await getSiteSettings();
+  const links = [[labels.about, 'about'], [labels.services, 'services'], [labels.projects, 'projects'], [labels.blog, 'blog']] as const;
   return (
-    <footer className="bg-[var(--ink)] text-white">
-      <div className="shell grid gap-10 py-14 md:grid-cols-[1fr_auto] md:items-end">
-        <div>
-          <p className="t-meta text-[var(--mpg-green-bright)]">MPG / Event Production</p>
-          <p className="mt-4 max-w-lg text-2xl font-bold leading-tight">{labels.footer}</p>
-          <p className="mt-6 max-w-md text-sm leading-7 text-white/65">Phnom Penh, Cambodia · hello@mpgeventplanner.com</p>
-        </div>
-        <div className="flex flex-col items-start gap-3 md:items-end">
-          <Link href={`/${locale}/contact`} className="btn btn-onink">{labels.getStarted}<ArrowUpRight className="h-4 w-4" /></Link>
-          <div className="flex gap-4 text-xs text-white/60">
-            <Link href={`/${locale}/privacy`} className="hover:text-white">Privacy</Link>
-            <Link href="/admin/login" className="hover:text-white">Admin</Link>
-          </div>
+    <footer className="site-footer">
+      <div className="shell site-footer__lead" data-reveal>
+        <p className="micro-label micro-label--light">Your event starts here</p>
+        <div className="site-footer__statement">
+          <h2>{labels.footer}</h2>
+          <Link href={`/${locale}/contact`} className="cta-island cta-island--light"><span>{labels.getStarted}</span><i aria-hidden="true">↗</i></Link>
         </div>
       </div>
-      <div className="shell border-t border-white/15 py-4 text-xs text-white/50">© {new Date().getFullYear()} MPG Event Planner. All rights reserved.</div>
+      <div className="shell site-footer__grid">
+        <div className="site-footer__brand">
+          <Image src="/images/mpg-logo.png" alt="MPG Event Planner" width={183} height={61} />
+          <p>Event planning and production<br />Phnom Penh, Cambodia</p>
+        </div>
+        <nav aria-label="Footer navigation">{links.map(([label, href]) => <Link key={href} href={`/${locale}/${href}`}>{label}</Link>)}</nav>
+        <div className="site-footer__contact">
+          <a href={`mailto:${settings.company_email}`}>{settings.company_email}</a>
+          {settings.phone && <a href={`tel:${settings.phone.replace(/[^+\d]/g, '')}`}>{settings.phone}</a>}
+          {settings.telegram && <a href={settings.telegram} target="_blank" rel="noreferrer">Telegram</a>}
+          {settings.instagram && <a href={settings.instagram} target="_blank" rel="noreferrer">Instagram</a>}
+          {settings.facebook && <a href={settings.facebook} target="_blank" rel="noreferrer">Facebook</a>}
+          <Link href={`/${locale}/privacy`}>Privacy</Link>
+          <Link href="/admin/login">Admin</Link>
+        </div>
+      </div>
+      <div className="shell site-footer__legal"><span>© {new Date().getFullYear()} MPG Event Planner</span><span>Planned here. Remembered everywhere.</span></div>
     </footer>
   );
 }

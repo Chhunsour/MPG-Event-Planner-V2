@@ -1,17 +1,18 @@
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
 import { localized, publicImageUrl } from '@/lib/content';
 import { createClient } from '@/lib/supabase/server';
 import type { BlogPost, Locale, Project, Service } from '@/lib/types';
 import { SiteImage } from '@/components/site/image';
+import { ui } from '@/lib/i18n';
 
 type ContentCardProps = {
   item: Service | Project | BlogPost;
   locale: Locale;
   type: 'service' | 'project' | 'blog';
+  index?: number;
 };
 
-export async function ContentCard({ item, locale, type }: ContentCardProps) {
+export async function ContentCard({ item, locale, type, index = 0 }: ContentCardProps) {
   const supabase = await createClient();
   const bucket = type === 'service' ? 'services' : type === 'project' ? 'projects' : 'blog';
   const href = type === 'service' ? 'services' : type === 'project' ? 'projects' : 'blog';
@@ -19,13 +20,16 @@ export async function ContentCard({ item, locale, type }: ContentCardProps) {
   const title = localized(item.title, locale);
   const description = localized(type === 'blog' ? (item as BlogPost).excerpt : (item as Service | Project).description, locale);
   const category = type === 'blog' ? (item as BlogPost).category : type === 'project' ? (item as Project).category : null;
+  const labels = ui[locale];
 
   return (
-    <Link href={`/${locale}/${href}/${item.slug}`} className="group block">
-      <div className="frame relative aspect-[4/3]"><SiteImage src={image} alt={localized(item.image_alt, locale, title)} /></div>
-      <div className="mt-4 flex items-start justify-between gap-5 border-t border-[var(--line)] pt-4">
-        <div><p className="t-meta text-[var(--mpg-green-deep)]">{type === 'blog' ? category ?? 'MPG Journal' : type === 'project' ? category ?? 'Project' : 'Capability'}</p><h2 className="t-heading mt-2">{title}</h2><p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{description}</p></div>
-        <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-[var(--mpg-blue)] transition group-hover:-translate-y-1 group-hover:translate-x-1" />
+    <Link href={`/${locale}/${href}/${item.slug}`} className={`editorial-card editorial-card--${type}`} data-reveal data-spotlight>
+      <div className="editorial-card__image"><SiteImage src={image} alt={localized(item.image_alt, locale, title)} priority={index === 0} /></div>
+      <div className="editorial-card__body">
+        <div className="editorial-card__meta"><p>{type === 'blog' ? category ?? 'MPG Blog' : type === 'project' ? category ?? labels.projects : labels.services}</p></div>
+        <h2>{title}</h2>
+        <p className="editorial-card__description">{description}</p>
+        <span className="editorial-card__arrow">{labels.readMore}<i aria-hidden="true">↗</i></span>
       </div>
     </Link>
   );

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { ArrowRight, Check, MoveUpRight } from 'lucide-react';
 import { SectionHeading } from '@/components/site/section-heading';
 import { SiteImage } from '@/components/site/image';
 import { getPublicContent, localized, publicImageUrl } from '@/lib/content';
@@ -14,95 +13,152 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const locale = (raw === 'km' || raw === 'zh' ? raw : 'en') as Locale;
   const labels = ui[locale];
   const copy = messages[locale];
+  const stageCopy = locale === 'km' ? {
+    place: 'ភ្នំពេញ · កម្ពុជា', heroLabel: 'គំនិត / មនុស្ស / ពេលចាប់ផ្តើម', scroll: 'ស្វែងយល់ពីការងាររបស់យើង', explore: 'មើលសេវា', accountable: 'ក្រុមការងារតែមួយទទួលខុសត្រូវ ចាប់ពីផែនការដំបូងរហូតដល់បញ្ចប់។', closing: 'កាលបរិច្ឆេទបន្ទាប់របស់យើង',
+  } : locale === 'zh' ? {
+    place: '金边 · 柬埔寨', heroLabel: '创意 / 人群 / 开场时刻', scroll: '探索我们的作品', explore: '了解服务', accountable: '从第一份需求到最后一件设备，由同一团队全程负责。', closing: '我们日程中的下一个日期',
+  } : {
+    place: 'Phnom Penh · Cambodia', heroLabel: 'Ideas / people / showtime', scroll: 'Discover our work', explore: 'Explore', accountable: 'One accountable crew—from the first brief to the last road case.', closing: 'The next date on our calendar',
+  };
   const { services, projects, blog } = await getPublicContent();
-  const featuredProjects = projects.filter((project) => project.is_featured).slice(0, 3);
+  const featuredProjects = projects.filter((project) => project.is_featured);
+  const homeProjects = (featuredProjects.length ? featuredProjects : projects).slice(0, 3);
   const supabase = await createClient();
-  const heroImage = publicImageUrl(supabase, 'projects', featuredProjects[0]?.cover_image ?? null);
 
   return (
     <>
-      <section className="hero relative overflow-hidden text-white">
-        <div className="hero__stage relative">
-          <div className="hero__photo absolute inset-0">
-            <SiteImage src={heroImage ?? '/images/mpg/hero-main.webp'} alt="MPG event production" priority />
-          </div>
-          <div className="hero-veil absolute inset-0" />
-          <div className="hero-grid absolute inset-0" />
-          <div className="shell hero__content relative z-10 flex min-h-[30rem] flex-col justify-end gap-7 py-14 lg:min-h-[38rem] lg:max-w-6xl lg:py-20">
-            <div className="hero__kicker t-meta text-white/75"><span className="h-2 w-2 bg-[var(--mpg-green-bright)]" /> {copy.hero.place} <span>{copy.hero.credit}</span></div>
-            <h1 className="hero__headline t-hero max-w-3xl"><span className="hero__headline t-hero-strong">{copy.hero.headline_line1}</span><br /><span className="hero__headline t-hero-soft text-white/70">{copy.hero.headline_highlight}</span></h1>
-            <div className="flex max-w-xl flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
-              <p className="t-lead max-w-md text-white/75">{copy.hero.description}</p>
-              <Link href={`/${locale}/contact`} className="btn btn-onblue shrink-0">{labels.getStarted}<MoveUpRight className="h-4 w-4" /></Link>
+      <section className="show-hero">
+        <div className="show-hero__photo"><SiteImage src="/images/mpg/hero-backstage-v2.png" alt={copy.hero.imageAlt} priority /></div>
+        <div className="show-hero__wash" aria-hidden="true" />
+        <div className="show-hero__grid" aria-hidden="true" />
+        <div className="shell show-hero__content">
+          <div className="show-hero__topline"><p>{copy.hero.credit}</p><span>{stageCopy.place}</span></div>
+          <div className="show-hero__statement">
+            <p className="micro-label micro-label--light">{stageCopy.heroLabel}</p>
+            <h1><span>{copy.hero.headline_line1}</span><em>{copy.hero.headline_highlight}</em></h1>
+            <div className="show-hero__support">
+              <p>{copy.hero.description}</p>
+              <div className="show-hero__actions">
+                <Link href={`/${locale}/contact`} className="cta-island"><span>{labels.getStarted}</span><i aria-hidden="true">↗</i></Link>
+                <Link href={`/${locale}/projects`} className="text-link text-link--light">{copy.hero.ctaProjects}<span aria-hidden="true">↗</span></Link>
+              </div>
             </div>
           </div>
-          <div className="hero__rail absolute inset-x-0 bottom-0 z-10 overflow-hidden border-t border-white/15 py-3 text-xs uppercase tracking-[0.18em] text-white/65">
-            <div className="animate-marquee-smooth gap-8">
-              {[...['Grand openings', 'Corporate events', 'Product launches', 'Exhibitions', 'Ceremonies', 'Production rental'], ...['Grand openings', 'Corporate events', 'Product launches', 'Exhibitions', 'Ceremonies', 'Production rental']].map((item, index) => <span key={`${item}-${index}`} className="flex items-center gap-8 whitespace-nowrap"><span className="h-1.5 w-1.5 bg-[var(--mpg-green-bright)]" />{item}</span>)}
-            </div>
-          </div>
+          <div className="show-hero__scroll"><span>{stageCopy.scroll}</span><i aria-hidden="true" /></div>
         </div>
       </section>
 
-      <section className="band-lg">
-        <div className="shell grid gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+      <section className="manifesto-section">
+        <div className="shell manifesto-section__grid">
           <SectionHeading index="01" eyebrow={copy.intro.label} title={copy.intro.title} />
-          <div className="grid gap-8 sm:grid-cols-2">
-            <p className="t-lead text-[var(--text-muted)]">{copy.intro.description}</p>
-            <ul className="grid gap-3 text-sm text-[var(--text-muted)]">
-              {copy.intro.pillars.map((item) => <li key={item.num} className="flex gap-3 border-t border-[var(--line)] pt-3"><Check className="mt-0.5 h-4 w-4 shrink-0 text-[var(--mpg-green)]" />{item.label}</li>)}
-            </ul>
+          <div className="manifesto-section__copy" data-reveal>
+            <p className="manifesto-section__lead">{copy.intro.description}</p>
+            <p>{copy.intro.para2}</p>
+          </div>
+          <ol className="manifesto-steps" data-reveal>
+            {copy.intro.pillars.map((item) => <li key={item.num}><span>{item.num}</span><p>{item.label}</p></li>)}
+          </ol>
+        </div>
+      </section>
+
+      <section className="service-stage">
+        <div className="shell">
+          <div className="content-section__head">
+            <SectionHeading index="02" eyebrow={copy.services.label} title={copy.services.title} />
+            <Link href={`/${locale}/services`} className="text-link">{labels.viewAll} {labels.services}<span>↗</span></Link>
+          </div>
+          <div className="home-content-grid home-content-grid--services">
+            {services.slice(0, 3).map((service, index) => {
+              const image = publicImageUrl(supabase, 'services', service.cover_image);
+              return (
+                <Link key={service.id} href={`/${locale}/services/${service.slug}`} className="home-card home-card--service" data-reveal>
+                  <span className="home-card__image"><SiteImage src={image} alt={localized(service.image_alt, locale, localized(service.title, locale))} /></span>
+                  <span className="home-card__body">
+                    <small>{labels.services} · {String(index + 1).padStart(2, '0')}</small>
+                    <strong>{localized(service.title, locale)}</strong>
+                    <span>{localized(service.description, locale)}</span>
+                    <i>{stageCopy.explore} <b aria-hidden="true">↗</b></i>
+                  </span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section className="bg-[var(--paper-tint)] py-16">
+      <section className="flagship-section">
+        <div className="flagship-section__image" data-reveal><SiteImage src="/images/mpg/grand-opening-editorial-v2.png" alt={copy.featured.imageAlt} /></div>
+        <div className="flagship-section__panel" data-reveal>
+          <p className="micro-label micro-label--light">{copy.featured.tag}</p>
+          <h2>{copy.featured.titleLine1}<br /><em>{copy.featured.titleLine2}</em></h2>
+          <p className="flagship-section__description">{copy.featured.description}</p>
+          <ul>{copy.featured.bullets.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ul>
+          <Link href={`/${locale}/contact`} className="cta-island cta-island--light"><span>{copy.featured.cta}</span><i>↗</i></Link>
+        </div>
+      </section>
+
+      <section className="work-section">
         <div className="shell">
-          <SectionHeading index="02" eyebrow={copy.services.label} title={copy.services.title} />
-          <div className="mt-10 grid gap-px border border-[var(--line-strong)] bg-[var(--line-strong)] md:grid-cols-3">
-            {services.slice(0, 6).map((service, index) => (
-              <Link key={service.id} href={`/${locale}/services/${service.slug}`} className="group bg-white p-6 transition hover:bg-[var(--mpg-blue)] hover:text-white">
-                <div className="flex items-center justify-between"><span className="t-meta text-[var(--mpg-green-deep)] group-hover:text-[var(--mpg-green-bright)]">{String(index + 1).padStart(2, '0')}</span><ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" /></div>
-                <h3 className="t-heading mt-12">{localized(service.title, locale)}</h3>
-                <p className="mt-3 text-sm leading-6 text-[var(--text-muted)] group-hover:text-white/70">{localized(service.description, locale)}</p>
+          <div className="content-section__head">
+            <SectionHeading index="03" eyebrow={copy.projects.label} title={copy.projects.sectionTitle} />
+            <Link href={`/${locale}/projects`} className="text-link">{copy.projects.viewAll}<span>↗</span></Link>
+          </div>
+          <div className="home-content-grid home-content-grid--projects">
+            {homeProjects.map((project) => (
+              <Link key={project.id} href={`/${locale}/projects/${project.slug}`} className="home-card home-card--project" data-reveal>
+                <span className="home-card__image"><SiteImage src={publicImageUrl(supabase, 'projects', project.cover_image)} alt={localized(project.image_alt, locale, localized(project.title, locale))} /></span>
+                <span className="home-card__body">
+                  <small>{project.category ?? 'Event production'}</small>
+                  <strong>{localized(project.title, locale)}</strong>
+                  <i>{labels.readMore} <b aria-hidden="true">↗</b></i>
+                </span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="band-lg">
+      <section className="process-section">
+        <div className="process-section__beam" aria-hidden="true" />
         <div className="shell">
-          <SectionHeading index="03" eyebrow={copy.projects.label} title={copy.projects.sectionTitle} />
-          <div className="mt-10 grid gap-4 md:grid-cols-3">
-            {featuredProjects.map((project) => {
-              const client = publicImageUrl(supabase, 'projects', project.cover_image);
-              return <Link key={project.id} href={`/${locale}/projects/${project.slug}`} className="group">
-                <div className="frame relative aspect-[4/5]"><SiteImage src={client} alt={localized(project.title, locale)} /></div>
-                <div className="mt-4 flex items-start justify-between gap-4"><div><p className="t-meta text-[var(--mpg-green-deep)]">{project.category ?? 'Event production'}</p><h3 className="t-heading mt-2">{localized(project.title, locale)}</h3></div><MoveUpRight className="h-4 w-4 shrink-0 text-[var(--mpg-blue)]" /></div>
-              </Link>;
-            })}
+          <SectionHeading index="04" eyebrow={copy.process.label} title={copy.process.title} inverse />
+          <div className="process-section__intro" data-reveal><p>{copy.why_choose.subtitle}</p><span>{stageCopy.accountable}</span></div>
+          <ol className="process-line">
+            {copy.process.steps.map((item, index) => <li key={item.num} data-reveal><span className="process-line__node" /><p className="process-line__num">{item.num}</p><h3>{item.title}</h3><p>{item.desc}</p><i>{String(index + 1).padStart(2, '0')}</i></li>)}
+          </ol>
+        </div>
+      </section>
+
+      <section className="blog-section">
+        <div className="shell">
+          <div className="content-section__head">
+            <SectionHeading index="05" eyebrow={copy.blog.label} title={copy.blog.title} />
+            <Link href={`/${locale}/blog`} className="text-link">{labels.viewAll} {labels.blog}<span>↗</span></Link>
+          </div>
+          <div className="home-content-grid home-content-grid--blog">
+            {blog.slice(0, 3).map((post) => (
+              <Link key={post.id} href={`/${locale}/blog/${post.slug}`} className="home-card home-card--blog" data-reveal>
+                <span className="home-card__image"><SiteImage src={publicImageUrl(supabase, 'blog', post.cover_image)} alt={localized(post.image_alt, locale, localized(post.title, locale))} /></span>
+                <span className="home-card__body">
+                  <small>{post.category ?? 'MPG Blog'}</small>
+                  <strong>{localized(post.title, locale)}</strong>
+                  <span>{localized(post.excerpt, locale)}</span>
+                  <i>{labels.readMore} <b aria-hidden="true">↗</b></i>
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="trust-band on-dark">
-        <div className="trust-band__watermark">MPG</div>
-        <div className="shell relative z-10">
-          <SectionHeading index="04" eyebrow={copy.why_choose.label} title={copy.why_choose.title} inverse />
-          <div className="mt-12 grid gap-10 lg:grid-cols-[1fr_1fr]">
-            <p className="t-display-sm max-w-xl text-white">{copy.why_choose.subtitle}</p>
-            <ol className="track grid gap-8 text-white">
-              {copy.process.steps.map((item) => <li key={item.num} className="track__step"><span className="track__node" /><span className="track__num">{item.num}</span><h3 className="mt-3 text-lg font-bold">{item.title}</h3><p className="mt-2 text-sm leading-6 text-white/65">{item.desc}</p></li>)}
-            </ol>
-          </div>
-        </div>
-      </section>
-
-      <section className="band-lg">
-        <div className="shell grid gap-10 lg:grid-cols-[1fr_0.8fr]">
-          <div><SectionHeading index="05" eyebrow={copy.blog.label} title={copy.blog.title} /><div className="mt-10 grid gap-6">{blog.slice(0, 3).map((post) => <Link key={post.id} href={`/${locale}/blog/${post.slug}`} className="group border-t border-[var(--line)] pt-4"><div className="flex items-start justify-between gap-6"><div><p className="t-meta text-[var(--text-faint)]">{post.category ?? copy.blog.title}</p><h3 className="mt-3 text-xl font-bold transition group-hover:text-[var(--mpg-blue)]">{localized(post.title, locale)}</h3><p className="mt-2 text-sm leading-6 text-[var(--text-muted)]">{localized(post.excerpt, locale)}</p></div><ArrowRight className="mt-1 h-5 w-5 shrink-0 transition group-hover:translate-x-1" /></div></Link>)}</div></div>
-          <div className="flex items-end justify-start lg:justify-end"><Link href={`/${locale}/contact`} className="btn btn-primary">{labels.enquire}<ArrowRight className="h-4 w-4" /></Link></div>
+      <section className="closing-call">
+        <div className="closing-call__image"><SiteImage src="/images/mpg/contact-quote.webp" alt="MPG team preparing an event" /></div>
+        <div className="closing-call__veil" />
+        <div className="shell closing-call__content" data-reveal>
+          <p className="micro-label micro-label--light">{stageCopy.closing}</p>
+          <h2>{labels.quotationTitle}</h2>
+          <p>{labels.quotationIntro}</p>
+          <Link href={`/${locale}/contact`} className="cta-island cta-island--light"><span>{labels.enquire}</span><i>↗</i></Link>
         </div>
       </section>
     </>
