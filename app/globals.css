@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap');
+
 
 /* ═══════════════════════════════════════════════════════════════
    OFFICIAL GOOGLE SANS WEBFONT (DESIGNED BY GOOGLE)
@@ -63,7 +65,7 @@
 
   /* ─── Fonts (loaded via Google Fonts & CDN Fonts in Blade template) ─── */
   --font-en: 'Google Sans', 'Product Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-km: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
+  --font-km: 'Google Sans', 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
   --font-zh: 'Google Sans', 'Noto Sans SC', sans-serif;
 }
 
@@ -796,50 +798,28 @@ input[type="search"] {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   GLOBAL HARDENED GOOGLE SANS TYPOGRAPHY (DESIGNED BY GOOGLE)
+   KHMER TYPOGRAPHY (GOOGLE SANS — STRICTLY SCOPED TO KHMER ONLY)
    ═══════════════════════════════════════════════════════════════ */
-*,
-*::before,
-*::after,
-html,
-body,
-button,
-input,
-select,
-textarea,
-h1, h2, h3, h4, h5, h6, p, span, a, label, li {
-  font-family: 'Google Sans', 'Google Sans Khmer', 'Kantumruy Pro', sans-serif !important;
-}
-
 html[lang="km"],
 html[lang="km"] body,
 body.font-km,
 .font-km,
 [lang="km"],
 :lang(km) {
-  font-family: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
+  font-family: 'Google Sans', 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif !important;
   font-feature-settings: "liga" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-:lang(km) h1,
-:lang(km) h2,
-:lang(km) h3,
-:lang(km) h4,
-:lang(km) h5,
-:lang(km) h6,
-:lang(km) p,
-:lang(km) span,
-:lang(km) a,
-:lang(km) label,
-:lang(km) button,
-:lang(km) input,
-:lang(km) textarea,
-:lang(km) select,
-.font-km,
+:lang(km) h1, :lang(km) h2, :lang(km) h3, :lang(km) h4, :lang(km) h5, :lang(km) h6,
+:lang(km) p, :lang(km) span, :lang(km) a, :lang(km) label, :lang(km) button,
+:lang(km) input, :lang(km) textarea, :lang(km) select,
+.font-km h1, .font-km h2, .font-km h3, .font-km h4, .font-km h5, .font-km h6,
+.font-km p, .font-km span, .font-km a, .font-km label, .font-km button,
+.font-km input, .font-km textarea, .font-km select,
 body.font-km * {
-  font-family: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif !important;
+  font-family: 'Google Sans', 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif !important;
   line-height: 1.6;
 }
 
