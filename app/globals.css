@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,400..700;1,400..700&family=Noto+Sans+Khmer:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+
 
 
 
@@ -66,7 +66,7 @@
 
   /* ─── Fonts (loaded via Google Fonts & CDN Fonts in Blade template) ─── */
   --font-en: 'Google Sans', 'Product Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-km: 'Google Sans', 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif;
+  --font-km: 'Google Sans', sans-serif;
   --font-zh: 'Google Sans', 'Noto Sans SC', sans-serif;
 }
 
@@ -807,7 +807,7 @@ body.font-km,
 .font-km,
 [lang="km"],
 :lang(km) {
-  font-family: 'Google Sans', 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif !important;
+  font-family: 'Google Sans', sans-serif !important;
   font-feature-settings: "liga" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -820,7 +820,7 @@ body.font-km,
 .font-km p, .font-km span, .font-km a, .font-km label, .font-km button,
 .font-km input, .font-km textarea, .font-km select,
 body.font-km * {
-  font-family: 'Google Sans', 'Kantumruy Pro', 'Noto Sans Khmer', sans-serif !important;
+  font-family: 'Google Sans', sans-serif !important;
   line-height: 1.6;
 }
 
