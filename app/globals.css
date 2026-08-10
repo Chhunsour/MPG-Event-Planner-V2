@@ -30,6 +30,43 @@
   src: url('/fonts/google-sans/GoogleSans-Bold.woff') format('woff');
 }
 
+/* KHMER SCRIPT GLYPHS FOR GOOGLE SANS */
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/kantumruypro/v12/1q2TY5aECkp34vEBSPFOmJxwvk_pilU8OGNfyg1urEs0.ttf') format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/kantumruypro/v12/1q2TY5aECkp34vEBSPFOmJxwvk_pilU8OGNfyg1crEs0.ttf') format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/kantumruypro/v12/1q2TY5aECkp34vEBSPFOmJxwvk_pilU8OGNfyg2wq0s0.ttf') format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF;
+}
+
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('https://fonts.gstatic.com/s/kantumruypro/v12/1q2TY5aECkp34vEBSPFOmJxwvk_pilU8OGNfyg2Jq0s0.ttf') format('truetype');
+  unicode-range: U+1780-17FF, U+19E0-19FF;
+}
+
 /* ═══════════════════════════════════════════════════════════════
    MPG EVENT PLANNER — "PRODUCTION GRID" DESIGN SYSTEM
    ═══════════════════════════════════════════════════════════════ */
