@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import type { Json } from '@/lib/types';
-import { localized } from '@/lib/content';
+import { localized } from '@/lib/i18n';
 import { AutoTranslateAllButton } from './translation-button';
 import { AdminSubmitButton } from './admin-submit-button';
 

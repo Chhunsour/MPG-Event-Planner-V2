@@ -1,13 +1,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database, Locale, LocalizedText, BlogPost, Project, Service } from '@/lib/types';
+import type { Database, Locale, BlogPost, Project, Service } from '@/lib/types';
 import { createClient } from '@/lib/supabase/server';
+import { localized } from '@/lib/i18n';
 
-export function localized(value: unknown, locale: Locale, fallback = ''): string {
-  if (typeof value === 'string') return value;
-  if (!value || typeof value !== 'object' || Array.isArray(value)) return fallback;
-  const map = value as LocalizedText;
-  return map[locale] || map.en || Object.values(map).find((item) => item?.trim()) || fallback;
-}
+export { localized };
+
 
 function publishedNow<T extends { is_published: boolean; published_at: string | null }>(row: T) {
   return row.is_published && (!row.published_at || new Date(row.published_at).getTime() <= Date.now());

@@ -71,3 +71,11 @@ export const ui: Record<Locale, {
 export function localeFromParam(value: string): Locale {
   return value === 'km' || value === 'zh' ? value : 'en';
 }
+
+export function localized(value: unknown, locale: Locale, fallback = ''): string {
+  if (typeof value === 'string') return value;
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return fallback;
+  const map = value as Record<string, string | undefined>;
+  return map[locale] || map.en || Object.values(map).find((item): item is string => Boolean(item?.trim())) || fallback;
+}
+
