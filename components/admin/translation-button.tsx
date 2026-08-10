@@ -2,7 +2,17 @@
 
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-import { translateField } from '@/app/admin/actions';
+
+async function fetchTranslation(source: string, target: 'km' | 'zh', format: 'text' | 'html'): Promise<string> {
+  const res = await fetch('/api/admin/translate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ source, target, format }),
+  });
+  const data = (await res.json()) as { value?: string; error?: string };
+  if (!res.ok || data.error) throw new Error(data.error ?? 'Translation failed');
+  return data.value ?? '';
+}
 
 export function TranslationButton({ source, target, targetField, format = 'text' }: { source: string; target: 'km' | 'zh'; targetField: string; format?: 'text' | 'html' }) {
   const [busy, setBusy] = useState(false);
@@ -15,10 +25,10 @@ export function TranslationButton({ source, target, targetField, format = 'text'
     try {
       const sourceValue = (form?.elements.namedItem(source) as HTMLInputElement | HTMLTextAreaElement | null)?.value ?? '';
       if (!sourceValue.trim()) return;
-      const result = await translateField(sourceValue, target, format);
+      const translatedText = await fetchTranslation(sourceValue, target, format);
       const field = form?.elements.namedItem(targetField) as HTMLInputElement | HTMLTextAreaElement | null;
       if (field) {
-        field.value = result.value;
+        field.value = translatedText;
         field.dispatchEvent(new Event('input', { bubbles: true }));
       }
     } catch (err) {
@@ -79,20 +89,20 @@ export function AutoTranslateAllButton() {
         count++;
         setStatus(`Translating field ${count}/${active.length}…`);
 
-        const [kmResult, zhResult] = await Promise.all([
-          translateField(sourceVal, 'km', item.format),
-          translateField(sourceVal, 'zh', item.format),
+        const [kmValue, zhValue] = await Promise.all([
+          fetchTranslation(sourceVal, 'km', item.format),
+          fetchTranslation(sourceVal, 'zh', item.format),
         ]);
 
         const kmField = form.elements.namedItem(item.targetKM) as HTMLInputElement | HTMLTextAreaElement | null;
-        if (kmField && kmResult.value) {
-          kmField.value = kmResult.value;
+        if (kmField && kmValue) {
+          kmField.value = kmValue;
           kmField.dispatchEvent(new Event('input', { bubbles: true }));
         }
 
         const zhField = form.elements.namedItem(item.targetZH) as HTMLInputElement | HTMLTextAreaElement | null;
-        if (zhField && zhResult.value) {
-          zhField.value = zhResult.value;
+        if (zhField && zhValue) {
+          zhField.value = zhValue;
           zhField.dispatchEvent(new Event('input', { bubbles: true }));
         }
       }
@@ -115,4 +125,3 @@ export function AutoTranslateAllButton() {
     </div>
   );
 }
-
