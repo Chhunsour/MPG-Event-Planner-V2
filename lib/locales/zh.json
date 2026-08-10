@@ -1,0 +1,430 @@
+{
+  "nav": {
+    "home": "首页",
+    "about": "关于我们",
+    "services": "策划服务",
+    "projects": "案例作品",
+    "blog": "博客",
+    "contact": "联系我们",
+    "requestQuote": "获取报价",
+    "langSelect": "语言",
+    "menu": "菜单",
+    "openMenu": "打开菜单",
+    "closeMenu": "关闭菜单",
+    "skip": "跳至主要内容",
+    "mainNav": "主导航",
+    "callUs": "致电我们"
+  },
+  "hero": {
+    "title": "柬埔寨专业活动策划公司",
+    "company": "MPG 活动策划",
+    "place": "柬埔寨",
+    "headline_line1": "我们专注策划。",
+    "headline_highlight": "您尽情庆祝。",
+    "description": "剪彩开业典礼、企业活动、新品发布会、展览，以及覆盖柬埔寨全境的全案活动制作。",
+    "ctaPlan": "获取报价",
+    "ctaProjects": "查看案例",
+    "imageAlt": "在柬埔寨举办的企业开业典礼剪彩现场",
+    "stripLabel": "我们承接的活动",
+    "credit": "MPG / 活动制作"
+  },
+  "intro": {
+    "label": "关于我们",
+    "title": "您在柬埔寨值得信赖的活动伙伴",
+    "subtitle": "我们策划，您来庆祝",
+    "statement_line1": "从第一个想法",
+    "statement_line2": "到最后一次掌声。",
+    "description": "MPG 活动策划是一家位于金边的活动策划与制作公司。我们为企业、门店、学校、非政府组织及个人客户，在柬埔寨全境策划、搭建并执行各类活动。",
+    "para2": "一支团队负责整场活动：创意与预算、舞台与背景板、音响与灯光、装饰布置、来宾动线，以及活动当天的现场统筹。",
+    "pillars": [
+      { "num": "01", "label": "策划" },
+      { "num": "02", "label": "制作" },
+      { "num": "03", "label": "设备" },
+      { "num": "04", "label": "现场" }
+    ]
+  },
+  "featured": {
+    "tag": "核心服务",
+    "title": "开业典礼",
+    "titleLine1": "开业典礼",
+    "titleLine2": "剪彩仪式",
+    "description": "我们的核心服务。从入口拱门、舞台背景板，到剪彩托盘、音响、灯光与来宾接待——整场典礼由我们筹备，并在当天执行到底。",
+    "capabilitiesLabel": "服务内容",
+    "bullets": [
+      "舞台与背景板",
+      "剪彩仪式",
+      "装饰布置",
+      "音响与灯光",
+      "来宾接待",
+      "活动设备",
+      "现场统筹"
+    ],
+    "cta": "策划您的开业典礼",
+    "imageAlt": "MPG 活动策划筹备的开业典礼舞台、花艺拱门与剪彩绸带"
+  },
+  "services": {
+    "title": "专业活动策划服务",
+    "subtitle": "为柬埔寨的企业发布、公开典礼与展览提供量身定制的方案。",
+    "label": "服务范围",
+    "indexTitle": "服务目录",
+    "indexIntro": "六项服务，一支制作团队。开业典礼是我们的专长。",
+    "view": "查看服务",
+    "headline1": "服务能力与",
+    "headline2": "活动制作。",
+    "includedLabel": "包含内容",
+    "requestFor": "获取报价",
+    "noServices": "暂无可用服务。",
+    "items": {
+      "grand_opening": {
+        "title": "开业典礼",
+        "short": "剪彩、舞台、装饰与整场典礼制作。",
+        "desc": "全案制作、贵宾礼仪、剪彩布置、定制装饰与舞台流程编排。",
+        "capabilities": ["入口拱门与背景板", "剪彩布置", "音响与舞台灯光", "来宾与贵宾接待"]
+      },
+      "product_launch": {
+        "title": "新品与销售发布会",
+        "short": "发布舞台、LED 屏幕与媒体发布布置。",
+        "desc": "具有影响力的发布活动、体验式布置与创意媒体活动，助力产品进入市场。",
+        "capabilities": ["发布舞台与揭幕", "LED 屏幕与视觉", "演讲音响", "媒体接待布置"]
+      },
+      "groundbreaking": {
+        "title": "奠基仪式",
+        "short": "面向工程与开发项目的户外仪式搭建。",
+        "desc": "为工程节点仪式提供专业统筹，包含安全措施与舞台搭建。",
+        "capabilities": ["户外篷房与座位", "礼仪沙堆与铁锹", "现场供电与音响", "各省物流运输"]
+      },
+      "roadshow": {
+        "title": "路演与展览",
+        "short": "展位搭建、商场活动与多城市路演支持。",
+        "desc": "定制展位搭建、商场活动，以及覆盖主要省份的路演统筹。",
+        "capabilities": ["定制展位搭建", "品牌展示", "音响与演示", "城市间运输"]
+      },
+      "seminar": {
+        "title": "研讨会与企业活动",
+        "short": "会议、年会、晚宴与颁奖典礼。",
+        "desc": "会议、股东年会、晚宴、团队建设与商务论坛。",
+        "capabilities": ["舞台与演讲台", "会议音响", "屏幕与投影", "流程管理"]
+      },
+      "rental": {
+        "title": "活动设备租赁",
+        "short": "舞台、桁架、音响、灯光与 LED 屏幕，含操作团队。",
+        "desc": "高清 LED 屏幕、专业音响与灯光设备、舞台结构、贵宾座椅与篷房。",
+        "capabilities": ["舞台与桁架结构", "音响系统", "舞台灯光", "LED 屏幕"]
+      }
+    }
+  },
+  "projects": {
+    "title": "已完成的活动案例",
+    "subtitle": "浏览我们在金边及柬埔寨各省完成的活动作品。",
+    "label": "精选案例",
+    "sectionTitle": "精选案例",
+    "sectionIntro": "看看我们所搭建与执行的活动类型。",
+    "headline1": "我们制作过的",
+    "headline2": "活动现场。",
+    "filter_all": "全部",
+    "filter_grand_opening": "开业典礼",
+    "filter_corporate": "企业活动",
+    "filter_launch": "新品发布",
+    "filter_exhibitions": "展览",
+    "filter_rental": "设备与制作",
+    "client": "客户",
+    "location": "地点",
+    "year": "年份",
+    "eventType": "活动类型",
+    "scope": "服务范围",
+    "view_image": "查看图片",
+    "viewAll": "查看全部案例",
+    "filterLabel": "按活动类型筛选",
+    "searchPlaceholder": "搜索项目…",
+    "empty": "该分类暂无案例。",
+    "items": {
+      "outdoor_opening": {
+        "title": "户外开业剪彩典礼",
+        "scope": "入口拱门、红毯、剪彩、来宾座位与音响"
+      },
+      "indoor_opening": {
+        "title": "企业总部开业典礼",
+        "scope": "舞台背景板、花艺拱门、剪彩布置与来宾座位"
+      },
+      "corporate_ceremony": {
+        "title": "企业典礼与颁奖之夜",
+        "scope": "舞台搭建、灯光设计、音响与流程管理"
+      },
+      "product_launch": {
+        "title": "新品发布舞台",
+        "scope": "发布舞台、LED 屏幕、灯光与演讲音响"
+      },
+      "conference": {
+        "title": "会议与商务峰会",
+        "scope": "宽幅 LED 屏幕、舞台灯光、会议音响与座位"
+      },
+      "exhibition": {
+        "title": "展览展位搭建",
+        "scope": "定制展位搭建、LED 横幅、展示与品牌视觉"
+      },
+      "groundbreaking": {
+        "title": "奠基仪式",
+        "scope": "户外篷房、礼仪沙堆与铁锹、座位与音响"
+      },
+      "production": {
+        "title": "活动制作与设备",
+        "scope": "桁架结构、线阵音响、舞台灯光与 LED 屏幕"
+      }
+    }
+  },
+  "why_choose": {
+    "label": "为什么选择 MPG",
+    "title": "为什么选择 MPG 活动策划？",
+    "subtitle": "以可靠的执行力交付高品质活动。",
+    "reasons": [
+      {
+        "title": "一支团队，全程执行。",
+        "desc": "策划、搭建、设备与现场统筹由同一支团队负责，不会在供应商之间出现脱节。"
+      },
+      {
+        "title": "围绕您的活动定制。",
+        "desc": "舞台、背景板与场地布局，均依据您的品牌、场地与来宾人数设计。"
+      },
+      {
+        "title": "制作能力就绪。",
+        "desc": "舞台、音响、灯光与屏幕均为自有设备，由我们自己的团队安装与操作。"
+      },
+      {
+        "title": "本地经验。",
+        "desc": "我们在金边及各省执行活动，熟悉柬埔寨典礼的惯例与流程。"
+      }
+    ]
+  },
+  "process": {
+    "label": "合作流程",
+    "title": "我们的工作流程",
+    "subtitle": "我们如何把您的想法变成一场顺利完成的活动。",
+    "steps": [
+      {
+        "num": "01",
+        "title": "沟通需求",
+        "desc": "确认活动目标、类型、来宾人数与预算。"
+      },
+      {
+        "num": "02",
+        "title": "提交方案",
+        "desc": "您将收到场地布局、设备清单与明确报价。"
+      },
+      {
+        "num": "03",
+        "title": "细化策划",
+        "desc": "设计背景板、确认流程并准备相关许可。"
+      },
+      {
+        "num": "04",
+        "title": "搭建准备",
+        "desc": "先在场外制作，再到现场安装并完成全部测试。"
+      },
+      {
+        "num": "05",
+        "title": "现场执行",
+        "desc": "活动当天由我们的团队执行，结束后负责撤场。"
+      }
+    ]
+  },
+  "clients": {
+    "label": "服务对象",
+    "title": "面向各类机构的活动服务。",
+    "description": "从一间门店的开业，到大型企业典礼，都由同一支团队策划并执行。",
+    "segments": ["企业", "门店与零售", "学校", "非政府组织", "个人客户"]
+  },
+  "testimonials": {
+    "title": "深受企业与品牌信赖",
+    "subtitle": "与柬埔寨的企业、非政府组织及中小企业长期合作。",
+    "disclaimer": "备注：真实客户标识与评价将在品牌最终确认后置于此处。"
+  },
+  "cta": {
+    "label": "开始沟通",
+    "title": "正在柬埔寨筹备活动？",
+    "titleLine1": "您的下一场活动",
+    "titleLine2": "从这里开始。",
+    "subtitle": "告诉我们日期、场地与大致来宾人数，我们会回复清晰的方案与报价。",
+    "phone_cta": "致电我们",
+    "email_cta": "发送邮件",
+    "telegram_cta": "Telegram",
+    "messenger_cta": "Facebook",
+    "quote_cta": "获取活动报价"
+  },
+  "about": {
+    "label": "关于 MPG 活动策划",
+    "headline1": "全程执行。",
+    "headline2": "品质不妥协。",
+    "storyLabel": "我们的根基",
+    "storyTitle": "为端到端执行活动而组建。",
+    "standardsLabel": "工作标准",
+    "standardsTitle": "我们的执行标准",
+    "standards": [
+      {
+        "title": "结构安全",
+        "desc": "舞台与桁架结构按承重要求搭建，室内室外同样适用。"
+      },
+      {
+        "title": "清晰音响",
+        "desc": "音响系统按场地调试，并在来宾入场前完成测试。"
+      },
+      {
+        "title": "典礼礼仪",
+        "desc": "剪彩、座位安排与来宾次序遵循柬埔寨典礼惯例。"
+      }
+    ],
+    "capabilitiesLabel": "自有能力",
+    "imageAlt": "MPG 制作团队正在准备舞台、桁架与音响设备"
+  },
+  "footer": {
+    "about_desc": "柬埔寨的活动策划、制作与设备租赁服务。我们策划，您来庆祝。",
+    "quick_links": "导航",
+    "services_title": "服务",
+    "contact_info": "联系方式",
+    "copyright": "版权所有。MPG 活动策划。",
+    "address_label": "办公地址",
+    "phone_label": "电话",
+    "email_label": "邮箱",
+    "flagship": "核心服务"
+  },
+  "contact_form": {
+    "title": "先发一条简短消息",
+    "subtitle": "留下您的姓名和 Telegram 绑定的电话号码。邮箱选填，我们的团队会尽快联系您。",
+    "headline1": "先从",
+    "headline2": "一条消息开始。",
+    "intro": "不需要填写很长的报价表。留下关键信息，剩余细节我们会通过 Telegram 或电话与您沟通。",
+    "officeLabel": "办公室",
+    "officeTitle": "金边",
+    "directLabel": "直接联系",
+    "messagingLabel": "即时通讯",
+    "steps": {
+      "details": "联系方式",
+      "event": "您需要什么？",
+      "services": "所需服务",
+      "additional": "补充说明"
+    },
+    "labels": {
+      "name": "姓名 / 联系人",
+      "company": "公司 / 机构",
+      "phone": "电话或 Telegram 号码",
+      "email": "电子邮箱",
+      "contact_method": "希望的联系方式",
+      "event_type": "您需要什么帮助？",
+      "event_date": "预计活动日期",
+      "event_location": "活动地点 / 省份",
+      "guests": "预计来宾人数",
+      "budget": "预算范围（美元）",
+      "services": "所需服务",
+      "additional": "简单介绍一下您的活动",
+      "consent": "我同意 MPG 活动策划使用以上信息来准备并与我沟通报价。"
+    },
+    "helpers": {
+      "phone": "请填写团队可以通过 Telegram 联系到您的号码。",
+      "email": "选填 — 如果您需要书面方案会很有帮助。",
+      "event_date": "日期尚未确定可留空。",
+      "services": "勾选您需要的项目，后续可以调整。",
+      "additional": "简单说明即可，提交后我们再沟通详细安排。"
+    },
+    "optional": "选填",
+    "placeholders": {
+      "name": "例如：陈先生",
+      "company": "例如：湄公贸易有限公司",
+      "phone": "例如：+855 12 345 678（Telegram）",
+      "email": "例如：name@company.com",
+      "event_location": "例如：金边，或具体场地名称",
+      "guests": "例如：150",
+      "additional": "例如：金边开业典礼，需要舞台和装饰…",
+      "select_method": "选择联系方式",
+      "select_type": "选择活动类型",
+      "select_budget": "选择预算范围"
+    },
+    "options": {
+      "contact_methods": {
+        "phone": "电话",
+        "email": "邮件",
+        "telegram": "Telegram",
+        "whatsapp": "WhatsApp"
+      },
+      "event_types": {
+        "grand_opening": "开业典礼",
+        "product_launch": "新品 / 销售发布会",
+        "groundbreaking": "奠基仪式",
+        "roadshow": "路演 / 展览",
+        "seminar": "研讨会 / 企业活动",
+        "rental": "仅租赁设备",
+        "other": "其他活动"
+      },
+      "budget_ranges": {
+        "unsure": "尚未确定",
+        "under_5k": "5,000 美元以下",
+        "5k_10k": "5,000 – 10,000 美元",
+        "10k_25k": "10,000 – 25,000 美元",
+        "25k_50k": "25,000 – 50,000 美元",
+        "above_50k": "50,000 美元以上"
+      },
+      "services": {
+        "stage": "舞台与背景板",
+        "ribbon": "剪彩仪式",
+        "decoration": "装饰与花艺",
+        "sound": "音响与灯光",
+        "led": "LED 屏幕",
+        "tent": "篷房与座椅",
+        "mc": "主持与表演",
+        "coordination": "来宾接待"
+      }
+    },
+    "validation": {
+      "required": "此项为必填",
+      "name_required": "请填写您的姓名",
+      "phone_required": "请填写我们可以通过电话或 Telegram 联系到您的号码",
+      "location_required": "请告诉我们活动地点",
+      "invalid_email": "请填写有效的电子邮箱",
+      "consent": "请先同意后再提交",
+      "spam_detected": "提交被垃圾信息拦截。",
+      "too_fast": "请稍候片刻再重新提交。",
+      "server_error": "未能发送您的请求，请改用电话或消息联系我们。",
+      "summary": "请检查标红的项目。"
+    },
+    "submitting": "正在发送…",
+    "submit": "发送我的消息",
+    "reply_note": "我们会尽快联系您，通常在 24 小时内回复。"
+  },
+  "thank_you": {
+    "label": "已收到请求",
+    "title": "感谢您 —— 请求已送达我们的团队。",
+    "message": "我们已收到您的活动信息。我们的策划人员将在 24 小时内，通过您选择的方式与您联系并提供方案。",
+    "action": "返回首页",
+    "secondary": "查看案例",
+    "details_title": "接下来的流程",
+    "steps": [
+      "我们会核对活动信息，并确认该日期的档期。",
+      "我们会准备场地布局、设备清单与报价。",
+      "我们会联系您确认并调整方案。"
+    ]
+  },
+  "privacy": {
+    "title": "隐私政策",
+    "last_updated": "最后更新：2026 年 7 月 31 日",
+    "content": "MPG 活动策划重视您的隐私。我们通过报价表单收集的信息，仅用于准备准确的方案、协调活动执行，以及就您的活动与您联系。您的信息将被安全存储，未经您明确许可，绝不会与第三方共享。"
+  },
+  "common": {
+    "breadcrumb": "面包屑导航",
+    "close": "关闭",
+    "required": "必填"
+  },
+  "blog": {
+    "title": "博客",
+    "label": "行业资讯",
+    "headline1": "我们的",
+    "headline2": "博客",
+    "subtitle": "行业见解、活动策划技巧，以及来自我们团队的幕后故事。",
+    "readMore": "阅读文章",
+    "by": "作者",
+    "publishedOn": "发布于",
+    "backToList": "返回博客",
+    "noPosts": "暂无博客文章。请稍后再来查看！",
+    "filterAll": "全部",
+    "searchPlaceholder": "搜索文章…",
+    "metaTitle": "博客 — 活动策划技巧与行业见解",
+    "metaDescription": "阅读来自柬埔寨 MPG 活动策划团队的专业活动策划建议、幕后故事和行业见解。"
+  }
+}

@@ -1,0 +1,4 @@
+import Link from 'next/link';
+import { createClient } from '@/lib/supabase/server';
+
+export default async function QuotationsPage() { const supabase = await createClient(); const { data } = await supabase.from('quotations').select('*').order('created_at', { ascending: false }); return <><h1 className="t-heading text-4xl">Quotation requests</h1><div className="mt-8 divide-y divide-line border-y border-line bg-white">{(data ?? []).map((item) => <Link key={item.id} href={`/admin/quotations/${item.id}`} className="block p-5 hover:bg-paper-tint"><div className="flex flex-wrap justify-between gap-3"><div><h2 className="font-bold">{item.customer_name} <span className="font-normal text-muted">· {item.reference_code}</span></h2><p className="text-sm text-muted">{item.event_type} · {item.event_location} · {new Date(item.created_at).toLocaleDateString()}</p></div><span className="text-sm font-bold uppercase text-brand">{item.status}</span></div></Link>)}</div></>; }

@@ -1,0 +1,466 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "services": "Services",
+    "projects": "Projects",
+    "blog": "Blog",
+    "contact": "Contact",
+    "requestQuote": "Request a Quote",
+    "langSelect": "Language",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skip": "Skip to main content",
+    "mainNav": "Main navigation",
+    "callUs": "Call us"
+  },
+  "hero": {
+    "title": "Professional Event Planning in Cambodia",
+    "company": "MPG Event Planner",
+    "place": "Cambodia",
+    "headline_line1": "WE PLAN EVENTS.",
+    "headline_highlight": "YOU CELEBRATE.",
+    "description": "Grand openings, corporate events, product launches, exhibitions and complete event production across Cambodia.",
+    "ctaPlan": "Request a Quote",
+    "ctaProjects": "View Our Work",
+    "imageAlt": "Ribbon-cutting at a corporate grand opening ceremony organised in Cambodia",
+    "stripLabel": "What we produce",
+    "credit": "MPG / Event Production"
+  },
+  "intro": {
+    "label": "Who we are",
+    "title": "Your Trusted Event Partner in Cambodia",
+    "subtitle": "We Create, You Celebrate",
+    "statement_line1": "FROM FIRST IDEA",
+    "statement_line2": "TO FINAL APPLAUSE.",
+    "description": "MPG Event Planner is an event planning and production company based in Phnom Penh. We work with companies, shops, schools, NGOs and private clients to plan, build and run events across Cambodia.",
+    "para2": "One team handles the whole event: concept and budget, stage and backdrop, sound and lighting, decoration, guest flow, and management on site the day it happens.",
+    "pillars": [
+      { "num": "01", "label": "Planning" },
+      { "num": "02", "label": "Production" },
+      { "num": "03", "label": "Equipment" },
+      { "num": "04", "label": "On-site" }
+    ]
+  },
+  "featured": {
+    "tag": "Flagship service",
+    "title": "Grand Opening Ceremony",
+    "titleLine1": "GRAND OPENING",
+    "titleLine2": "CEREMONY",
+    "description": "Our main service. From the entrance arch and stage backdrop to the ribbon-cutting tray, sound, lighting and guest coordination — we prepare the whole ceremony and run it on the day.",
+    "capabilitiesLabel": "What is included",
+    "bullets": [
+      "Stage & backdrop",
+      "Ribbon cutting",
+      "Decoration",
+      "Sound & lighting",
+      "Guest coordination",
+      "Event equipment",
+      "On-site management"
+    ],
+    "cta": "Plan Your Grand Opening",
+    "imageAlt": "Grand opening ceremony stage, floral arch and ribbon prepared by MPG Event Planner"
+  },
+  "services": {
+    "title": "Our Professional Event Services",
+    "subtitle": "Tailored solutions for corporate launches, public ceremonies, and exhibitions in Cambodia.",
+    "label": "What we do",
+    "indexTitle": "Service Index",
+    "indexIntro": "Six services, one production team. Grand openings are our specialty.",
+    "view": "View service",
+    "headline1": "CAPABILITIES &",
+    "headline2": "EVENT PRODUCTION.",
+    "includedLabel": "Included",
+    "requestFor": "Request a quote",
+    "noServices": "No services available yet.",
+    "items": {
+      "grand_opening": {
+        "title": "Grand Opening Ceremony",
+        "short": "Ribbon cutting, stage, decoration and full ceremony production.",
+        "desc": "Complete production, VIP protocol, ribbon-cutting setup, custom decoration, and stage choreography.",
+        "capabilities": [
+          "Entrance arch & backdrop",
+          "Ribbon-cutting setup",
+          "Sound & stage lighting",
+          "Guest & VIP coordination"
+        ]
+      },
+      "product_launch": {
+        "title": "Product & Sales Launching",
+        "short": "Launch stages, LED screens and press-ready presentation setups.",
+        "desc": "Impactful launch campaigns, experiential setups, and creative media events to boost market entry.",
+        "capabilities": [
+          "Launch stage & reveal",
+          "LED screen & visuals",
+          "Presentation sound",
+          "Press & media setup"
+        ]
+      },
+      "groundbreaking": {
+        "title": "Groundbreaking Ceremony",
+        "short": "Outdoor ceremony builds for construction and development milestones.",
+        "desc": "Professional logistics for construction milestone ceremonies, complete with safety protocols and grand stage building.",
+        "capabilities": [
+          "Outdoor canopy & seating",
+          "Ceremonial sand & shovels",
+          "Power & sound on site",
+          "Provincial logistics"
+        ]
+      },
+      "roadshow": {
+        "title": "Roadshow & Exhibition",
+        "short": "Booth construction, activations and multi-city roadshow support.",
+        "desc": "Custom exhibition booth construction, mall activations, and mobile roadshow coordination across major provinces.",
+        "capabilities": [
+          "Custom booth build",
+          "Branded displays",
+          "Sound & presentation",
+          "Transport between cities"
+        ]
+      },
+      "seminar": {
+        "title": "Seminar & Corporate Event",
+        "short": "Conferences, annual meetings, gala dinners and award nights.",
+        "desc": "Conferences, annual general meetings, gala dinners, team building, and professional business forums.",
+        "capabilities": [
+          "Stage & podium setup",
+          "Conference sound",
+          "Screen & projection",
+          "Programme management"
+        ]
+      },
+      "rental": {
+        "title": "Event Equipment Rental",
+        "short": "Staging, truss, sound, lighting and LED screens with our crew.",
+        "desc": "Premium LED walls, professional sound and lighting rigs, stage structures, VIP seating, and tents.",
+        "capabilities": [
+          "Stage & truss structures",
+          "Sound systems",
+          "Stage lighting",
+          "LED screens"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "title": "Our Completed Event Projects",
+    "subtitle": "Explore our portfolio of events produced across Phnom Penh and the provinces of Cambodia.",
+    "label": "Selected work",
+    "sectionTitle": "Selected Work",
+    "sectionIntro": "A look at the kind of events we build and run.",
+    "headline1": "EVENTS WE HAVE",
+    "headline2": "PRODUCED.",
+    "filter_all": "All Work",
+    "filter_grand_opening": "Grand Opening",
+    "filter_corporate": "Corporate Events",
+    "filter_launch": "Product Launches",
+    "filter_exhibitions": "Exhibitions",
+    "filter_rental": "Equipment & Production",
+    "client": "Client",
+    "location": "Location",
+    "year": "Year",
+    "eventType": "Event type",
+    "scope": "Scope of work",
+    "view_image": "View Image",
+    "viewAll": "View all work",
+    "filterLabel": "Filter work by event type",
+    "searchPlaceholder": "Search projects…",
+    "empty": "No work in this category yet.",
+    "items": {
+      "outdoor_opening": {
+        "title": "Outdoor Grand Opening Ceremony",
+        "scope": "Entrance arch, red carpet, ribbon cutting, guest seating and sound"
+      },
+      "indoor_opening": {
+        "title": "Corporate Headquarters Opening",
+        "scope": "Stage backdrop, floral arch, ribbon-cutting setup and guest seating"
+      },
+      "corporate_ceremony": {
+        "title": "Corporate Ceremony & Awards Night",
+        "scope": "Stage build, lighting design, sound and programme management"
+      },
+      "product_launch": {
+        "title": "Product Launch Stage",
+        "scope": "Launch stage, LED wall, lighting and presentation sound"
+      },
+      "conference": {
+        "title": "Conference & Business Summit",
+        "scope": "Wide LED screen, stage lighting, conference sound and seating"
+      },
+      "exhibition": {
+        "title": "Exhibition Booth Build",
+        "scope": "Custom booth construction, LED banner, displays and branding"
+      },
+      "groundbreaking": {
+        "title": "Groundbreaking Ceremony",
+        "scope": "Outdoor canopy, ceremonial sand and shovels, seating and sound"
+      },
+      "production": {
+        "title": "Event Production & Equipment",
+        "scope": "Truss structure, line array sound, stage lighting and LED wall"
+      }
+    }
+  },
+  "why_choose": {
+    "label": "Why MPG",
+    "title": "Why Choose MPG Event Planner?",
+    "subtitle": "Delivering excellence with execution you can trust.",
+    "reasons": [
+      {
+        "title": "ONE TEAM. FULL EXECUTION.",
+        "desc": "Planning, build, equipment and on-site management stay with one team, so nothing is lost between suppliers."
+      },
+      {
+        "title": "BUILT AROUND YOUR EVENT.",
+        "desc": "Stage, backdrop and layout are designed for your brand, your venue and your guest count."
+      },
+      {
+        "title": "PRODUCTION READY.",
+        "desc": "Our own staging, sound, lighting and screens, set up and operated by our own crew."
+      },
+      {
+        "title": "LOCAL EXPERIENCE.",
+        "desc": "We work in Phnom Penh and the provinces, and we know how Cambodian ceremonies are run."
+      }
+    ]
+  },
+  "process": {
+    "label": "How we work",
+    "title": "Our Working Process",
+    "subtitle": "How we turn your ideas into a flawlessly executed event.",
+    "steps": [
+      {
+        "num": "01",
+        "title": "Consultation",
+        "desc": "We align on your goals, event type, guest count and budget."
+      },
+      {
+        "num": "02",
+        "title": "Proposal",
+        "desc": "You receive a layout, an equipment list and a clear price."
+      },
+      {
+        "num": "03",
+        "title": "Planning",
+        "desc": "We design the backdrop, confirm the programme and prepare permissions."
+      },
+      {
+        "num": "04",
+        "title": "Preparation",
+        "desc": "We build off site, then set up and test everything at the venue."
+      },
+      {
+        "num": "05",
+        "title": "Execution",
+        "desc": "Our team runs the event on the day and packs down afterwards."
+      }
+    ]
+  },
+  "clients": {
+    "label": "Who we work with",
+    "title": "Events for every kind of organisation.",
+    "description": "From a single shop opening to a national corporate ceremony, the same team plans and runs it.",
+    "segments": [
+      "Companies",
+      "Shops & retail",
+      "Schools",
+      "NGOs",
+      "Individuals"
+    ]
+  },
+  "testimonials": {
+    "title": "Trusted by Companies & Brands",
+    "subtitle": "Working alongside Cambodia's leading enterprises, NGOs, and SMEs.",
+    "disclaimer": "Note: Real client logos and testimonials will be placed here upon final brand sign-off."
+  },
+  "cta": {
+    "label": "Start a conversation",
+    "title": "Planning an Event in Cambodia?",
+    "titleLine1": "YOUR NEXT EVENT",
+    "titleLine2": "STARTS HERE.",
+    "subtitle": "Tell us the date, the venue and roughly how many guests you expect. We will come back with a clear proposal and price.",
+    "phone_cta": "Call Us",
+    "email_cta": "Email Us",
+    "telegram_cta": "Telegram",
+    "messenger_cta": "Facebook",
+    "quote_cta": "Request an Event Quote"
+  },
+  "about": {
+    "label": "About MPG Event Planner",
+    "headline1": "FULL EXECUTION.",
+    "headline2": "ZERO COMPROMISE.",
+    "storyLabel": "Our foundation",
+    "storyTitle": "Built to run events end to end.",
+    "standardsLabel": "How we work",
+    "standardsTitle": "Our operating standards",
+    "standards": [
+      {
+        "title": "Structural safety",
+        "desc": "Stage and truss structures are built to hold their load, indoors and outdoors."
+      },
+      {
+        "title": "Clear sound",
+        "desc": "Sound systems are set for the room and tested before guests arrive."
+      },
+      {
+        "title": "Ceremony protocol",
+        "desc": "Ribbon-cutting, seating and guest order follow Cambodian ceremonial practice."
+      }
+    ],
+    "capabilitiesLabel": "In-house capability",
+    "imageAlt": "MPG Event Planner production crew preparing staging, truss and sound equipment"
+  },
+  "footer": {
+    "about_desc": "Event planning, production and equipment rental in Cambodia. We Create, You Celebrate.",
+    "quick_links": "Navigation",
+    "services_title": "Services",
+    "contact_info": "Contact",
+    "copyright": "All rights reserved. MPG Event Planner.",
+    "address_label": "Office",
+    "phone_label": "Phone",
+    "email_label": "Email",
+    "flagship": "Flagship"
+  },
+  "contact_form": {
+    "title": "Start with a quick message",
+    "subtitle": "Share your name and the phone number connected to Telegram. Email is optional — our team will contact you as soon as possible.",
+    "headline1": "START WITH",
+    "headline2": "A QUICK MESSAGE.",
+    "intro": "No long quotation form. Give us the essentials and our team will ask for the remaining details by Telegram or phone.",
+    "officeLabel": "Office",
+    "officeTitle": "Phnom Penh",
+    "directLabel": "Direct contact",
+    "messagingLabel": "Messaging",
+    "steps": {
+      "details": "Your contact",
+      "event": "What do you need?",
+      "services": "Services",
+      "additional": "Additional information"
+    },
+    "labels": {
+      "name": "Full name / contact person",
+      "company": "Company / organisation",
+      "phone": "Phone or Telegram number",
+      "email": "Email address",
+      "contact_method": "Preferred contact method",
+      "event_type": "What do you need help with?",
+      "event_date": "Preferred event date",
+      "event_location": "Event location / province",
+      "guests": "Estimated number of guests",
+      "budget": "Estimated budget range (USD)",
+      "services": "Required services",
+      "additional": "Tell us briefly about your event",
+      "consent": "I agree that MPG Event Planner may use these details to prepare and discuss my quotation."
+    },
+    "helpers": {
+      "phone": "Use the number our team can reach on Telegram.",
+      "email": "Optional — useful if you would like a written proposal.",
+      "event_date": "Leave empty if the date is not fixed yet.",
+      "services": "Select everything you need — you can change this later.",
+      "additional": "A short note is enough. We can discuss the details after you submit."
+    },
+    "optional": "Optional",
+    "placeholders": {
+      "name": "e.g. Sokha Chan",
+      "company": "e.g. Mekong Trading Co., Ltd",
+      "phone": "e.g. +855 12 345 678 (Telegram)",
+      "email": "e.g. name@company.com",
+      "event_location": "e.g. Phnom Penh, or the venue name",
+      "guests": "e.g. 150",
+      "additional": "e.g. Grand opening in Phnom Penh, stage and decoration needed…",
+      "select_method": "Select contact method",
+      "select_type": "Select event type",
+      "select_budget": "Select budget range"
+    },
+    "options": {
+      "contact_methods": {
+        "phone": "Phone call",
+        "email": "Email",
+        "telegram": "Telegram",
+        "whatsapp": "WhatsApp"
+      },
+      "event_types": {
+        "grand_opening": "Grand Opening Ceremony",
+        "product_launch": "Product / Sales Launching",
+        "groundbreaking": "Groundbreaking Ceremony",
+        "roadshow": "Roadshow / Exhibition",
+        "seminar": "Seminar / Corporate Event",
+        "rental": "Equipment Rental Only",
+        "other": "Other event"
+      },
+      "budget_ranges": {
+        "unsure": "Not sure yet",
+        "under_5k": "Under $5,000",
+        "5k_10k": "$5,000 – $10,000",
+        "10k_25k": "$10,000 – $25,000",
+        "25k_50k": "$25,000 – $50,000",
+        "above_50k": "Above $50,000"
+      },
+      "services": {
+        "stage": "Stage & backdrop",
+        "ribbon": "Ribbon cutting",
+        "decoration": "Decoration & flowers",
+        "sound": "Sound & lighting",
+        "led": "LED screen",
+        "tent": "Tent & seating",
+        "mc": "MC & performance",
+        "coordination": "Guest coordination"
+      }
+    },
+    "validation": {
+      "required": "This field is required",
+      "name_required": "Please enter your name",
+      "phone_required": "Please enter the phone or Telegram number we can reach",
+      "location_required": "Please tell us where the event will be",
+      "invalid_email": "Please enter a valid email address",
+      "consent": "Please agree before submitting",
+      "spam_detected": "Submission blocked by our spam check.",
+      "too_fast": "Please wait a moment before submitting again.",
+      "server_error": "We could not send your request. Please call or message us instead.",
+      "summary": "Please check the highlighted fields."
+    },
+    "submitting": "Sending request…",
+    "submit": "Send my message",
+    "reply_note": "We will contact you as soon as possible, usually within 24 hours."
+  },
+  "thank_you": {
+    "label": "Request received",
+    "title": "Thank you — your request is with our team.",
+    "message": "We have received your event details. One of our planners will contact you by your preferred method within 24 hours with a proposal.",
+    "action": "Back to homepage",
+    "secondary": "See our work",
+    "details_title": "What happens next",
+    "steps": [
+      "We review your event details and check availability for the date.",
+      "We prepare a layout, equipment list and price.",
+      "We contact you to confirm and adjust the proposal."
+    ]
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "last_updated": "Last updated: July 31, 2026",
+    "content": "At MPG Event Planner, we value your privacy. We collect the information provided through our quotation form solely to prepare accurate proposals, coordinate event logistics, and contact you about your event. Your details are stored securely and are never shared with third parties without your explicit permission."
+  },
+  "common": {
+    "breadcrumb": "Breadcrumb",
+    "close": "Close",
+    "required": "required"
+  },
+  "blog": {
+    "title": "Blog",
+    "label": "INSIGHTS & NEWS",
+    "headline1": "OUR",
+    "headline2": "BLOG",
+    "subtitle": "Industry insights, event tips, and behind-the-scenes stories from our team.",
+    "readMore": "Read Article",
+    "by": "By",
+    "publishedOn": "Published on",
+    "backToList": "Back to Blog",
+    "noPosts": "No blog posts yet. Check back soon!",
+    "filterAll": "All",
+    "searchPlaceholder": "Search articles…",
+    "metaTitle": "Blog — Event Planning Tips & Insights",
+    "metaDescription": "Read expert event planning advice, behind-the-scenes stories, and industry insights from the MPG Event Planner team in Cambodia."
+  }
+}
