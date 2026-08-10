@@ -129,7 +129,7 @@
   --color-sidebar-raised: #1a2a3a;
 
   --font-en: 'Google Sans', 'Product Sans', 'Manrope', ui-sans-serif, system-ui, sans-serif;
-  --font-km: 'Google Sans Khmer', 'Google Sans', 'Kantumruy Pro', 'Kantumruy', 'Battambang', 'Noto Sans Khmer', sans-serif;
+  --font-km: 'Google Sans', sans-serif;
   --font-zh: 'Google Sans', 'Noto Sans SC', sans-serif;
   --font-sans: 'Google Sans', 'Product Sans', var(--font-en), ui-sans-serif, system-ui, sans-serif;
 }
