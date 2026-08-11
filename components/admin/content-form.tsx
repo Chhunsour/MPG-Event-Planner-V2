@@ -6,6 +6,8 @@ import type { Json } from '@/lib/types';
 import { localized } from '@/lib/i18n';
 import { AutoTranslateAllButton } from './translation-button';
 import { AdminSubmitButton } from './admin-submit-button';
+import { RichTextEditor } from './rich-text-editor';
+import { FeaturedImageField } from './featured-image-field';
 
 type Kind = 'service' | 'project' | 'blog';
 type Action = (formData: FormData) => Promise<void>;
@@ -43,7 +45,8 @@ export function ContentForm({ kind, action, item }: { kind: Kind; action: Action
                 className={`wp-lang-tab ${activeTab === 'en' ? 'is-active' : ''}`}
                 onClick={() => setActiveTab('en')}
               >
-                <span className="wp-flag">🇬🇧</span> English
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/flags/uk.svg" alt="UK" className="inline-block w-4 h-3 object-cover rounded-xs mr-1.5" /> English
               </button>
               <button
                 type="button"
@@ -52,7 +55,8 @@ export function ContentForm({ kind, action, item }: { kind: Kind; action: Action
                 className={`wp-lang-tab ${activeTab === 'km' ? 'is-active' : ''}`}
                 onClick={() => setActiveTab('km')}
               >
-                <span className="wp-flag">🇰🇭</span> Khmer
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/flags/cambodia.svg" alt="Khmer" className="inline-block w-4 h-3 object-cover rounded-xs mr-1.5" /> Khmer
               </button>
               <button
                 type="button"
@@ -61,7 +65,8 @@ export function ContentForm({ kind, action, item }: { kind: Kind; action: Action
                 className={`wp-lang-tab ${activeTab === 'zh' ? 'is-active' : ''}`}
                 onClick={() => setActiveTab('zh')}
               >
-                <span className="wp-flag">🇨🇳</span> Chinese
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/images/flags/china.svg" alt="Chinese" className="inline-block w-4 h-3 object-cover rounded-xs mr-1.5" /> Chinese
               </button>
               <button
                 type="button"
@@ -70,7 +75,10 @@ export function ContentForm({ kind, action, item }: { kind: Kind; action: Action
                 className={`wp-lang-tab ${activeTab === 'all' ? 'is-active' : ''}`}
                 onClick={() => setActiveTab('all')}
               >
-                <span className="wp-flag">🌐</span> All Languages
+                <svg className="w-3.5 h-3.5 text-slate-500 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.6 9h16.8M3.6 15h16.8" />
+                </svg> All Languages
               </button>
             </div>
             <AutoTranslateAllButton />
@@ -130,18 +138,17 @@ export function ContentForm({ kind, action, item }: { kind: Kind; action: Action
           <div className="wp-metabox">
             <div className="wp-metabox-header">
               <h3>Body Content</h3>
-              <small>Main text and HTML content for this {kind}</small>
+              <small>Main text, images, and HTML content for this {kind}</small>
             </div>
             <div className="wp-metabox-content">
               {(['en', 'km', 'zh'] as const).map((locale) => (
                 <div key={locale} className={`wp-field-locale ${activeTab === 'all' || activeTab === locale ? 'is-visible' : 'is-hidden'}`}>
                   {activeTab === 'all' && <span className="wp-locale-tag">{locale.toUpperCase()}</span>}
-                  <textarea
+                  <RichTextEditor
                     name={`content_${locale}`}
                     defaultValue={value(content, locale)}
-                    rows={12}
                     placeholder={`Write content body in ${locale.toUpperCase()}…`}
-                    className="wp-textarea wp-content-textarea"
+                    locale={locale}
                   />
                 </div>
               ))}
@@ -151,8 +158,11 @@ export function ContentForm({ kind, action, item }: { kind: Kind; action: Action
           {/* WordPress Yoast-Style SEO Meta Box */}
           <div className="wp-metabox wp-seo-metabox">
             <details className="wp-details">
-              <summary className="wp-details-summary">
-                <span className="wp-seo-icon">🔍</span> Search Engine Optimization (SEO) & Accessibility
+              <summary className="wp-details-summary flex items-center gap-2">
+                <svg className="w-4 h-4 text-sky-600 inline" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+                <span>Search Engine Optimization (SEO) & Accessibility</span>
               </summary>
               <div className="wp-metabox-content wp-seo-content">
                 <div className="wp-field-group">
@@ -251,36 +261,11 @@ export function ContentForm({ kind, action, item }: { kind: Kind; action: Action
           </div>
 
           {/* Featured Image & Gallery Box */}
-          <div className="wp-sidebar-box">
-            <div className="wp-sidebar-header">
-              <h3>Featured Image</h3>
-            </div>
-            <div className="wp-sidebar-body">
-              {typeof item?.cover_image === 'string' && item.cover_image && (
-                <div className="wp-image-preview">
-                  <img
-                    src={`/storage/${item.cover_image}`}
-                    alt="Cover preview"
-                    onError={(e) => { e.currentTarget.style.display = 'none'; }}
-                  />
-                  <span className="wp-image-hint">Current Cover Image</span>
-                </div>
-              )}
-              <div className="wp-field-group">
-                <label className="wp-label">{Boolean(item?.cover_image) ? 'Replace Image' : 'Set Cover Image'}</label>
-                <input type="file" name="cover_image" accept="image/jpeg,image/png,image/webp" className="wp-file-input" />
-                <small className="wp-hint">JPG, PNG or WebP up to 10 MB</small>
-              </div>
-
-              {kind !== 'blog' && (
-                <div className="wp-field-group wp-gallery-group">
-                  <label className="wp-label">Gallery Images</label>
-                  <input type="file" name="gallery_images" multiple accept="image/jpeg,image/png,image/webp" className="wp-file-input" />
-                  <small className="wp-hint">Upload extra photos for detail slider</small>
-                </div>
-              )}
-            </div>
-          </div>
+          <FeaturedImageField
+            initialImage={typeof item?.cover_image === 'string' ? item.cover_image : null}
+            kind={kind}
+            initialGallery={Array.isArray(item?.gallery) ? (item.gallery as string[]) : null}
+          />
 
           {/* Categories & Attributes Box */}
           <div className="wp-sidebar-box">

@@ -9,6 +9,7 @@ const links = [
   ['Projects', '/admin/projects'],
   ['Blog', '/admin/blog'],
   ['Quotes', '/admin/quotations'],
+  ['Alerts', '/admin/announcements'],
   ['Media', '/admin/media'],
   ['Settings', '/admin/settings'],
 ] as const;

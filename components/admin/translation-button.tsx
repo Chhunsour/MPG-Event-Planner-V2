@@ -118,8 +118,11 @@ export function AutoTranslateAllButton() {
 
   return (
     <div className="admin-auto-translate-all">
-      <button type="button" onClick={translateAll} disabled={busy} className="btn btn-outline admin-auto-translate-all-btn">
-        {busy ? status ?? 'Translating all…' : '⚡ Auto Translate All (KM & ZH)'}
+      <button type="button" onClick={translateAll} disabled={busy} className="btn btn-outline admin-auto-translate-all-btn flex items-center gap-1.5">
+        <svg className="w-3.5 h-3.5 text-sky-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+        <span>{busy ? status ?? 'Translating all…' : 'Auto Translate All (KM & ZH)'}</span>
       </button>
       {!busy && status && <span className="admin-auto-translate-status">{status}</span>}
     </div>

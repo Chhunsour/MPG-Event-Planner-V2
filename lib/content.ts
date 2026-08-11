@@ -17,20 +17,87 @@ export function publicImageUrl(client: SupabaseClient<Database>, bucket: string,
 }
 
 export type SiteSettings = {
+  company_name: string;
   company_email: string;
   phone: string;
+  phone_secondary: string;
+  office_address: string;
+  working_hours: string;
   telegram: string;
-  instagram: string;
+  whatsapp: string;
   facebook: string;
+  instagram: string;
+  linkedin: string;
+  youtube: string;
+  site_title: string;
+  site_description: string;
+  inquiry_notification_email: string;
+  google_analytics_id: string;
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const defaults: SiteSettings = { company_email: 'hello@mpgeventplanner.com', phone: '', telegram: '', instagram: '', facebook: '' };
+  const defaults: SiteSettings = {
+    company_name: 'MPG Event Planner',
+    company_email: 'hello@mpgeventplanner.com',
+    phone: '',
+    phone_secondary: '',
+    office_address: 'Phnom Penh, Cambodia',
+    working_hours: 'Mon - Sat: 8:00 AM - 6:00 PM',
+    telegram: '',
+    whatsapp: '',
+    facebook: '',
+    instagram: '',
+    linkedin: '',
+    youtube: '',
+    site_title: 'MPG Event Planner — Professional Event Planning in Cambodia',
+    site_description: 'Grand openings, corporate events, product launches, exhibitions and complete event production across Cambodia.',
+    inquiry_notification_email: '',
+    google_analytics_id: '',
+  };
   const supabase = await createClient();
   const { data, error } = await supabase.from('site_settings').select('key,value');
   if (error || !data) return defaults;
   const values = Object.fromEntries(data.map((row) => [row.key, typeof row.value === 'string' ? row.value : '']));
   return { ...defaults, ...values };
+}
+
+export type Announcement = {
+  id: string;
+  title: { en?: string; km?: string; zh?: string };
+  link: string;
+  is_active: boolean;
+};
+
+export async function getActiveAnnouncement(): Promise<Announcement | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase.from('announcements').select('*').eq('is_active', true).limit(1).maybeSingle();
+  if (error || !data) {
+    return {
+      id: 'default',
+      title: {
+        en: 'Booking open for 2026 Corporate Ceremonies & Grand Openings across Cambodia!',
+        km: 'បើកទទួលការកក់សម្រាប់ការរៀបចំកម្មវិធី និងពិធីបើកសម្ពោធឆ្នាំ ២០២៦!',
+        zh: '2026年柬埔寨企业典礼与开业仪式策划现已全面开放预订！',
+      },
+      link: '/contact',
+      is_active: true,
+    };
+  }
+
+  const rawTitle = data.title && typeof data.title === 'object' && !Array.isArray(data.title)
+    ? (data.title as Record<string, string>)
+    : {};
+
+  return {
+    id: data.id,
+    title: {
+      en: String(rawTitle.en ?? ''),
+      km: String(rawTitle.km ?? ''),
+      zh: String(rawTitle.zh ?? ''),
+    },
+    link: data.link || '/contact',
+    is_active: data.is_active ?? true,
+  };
 }
 
 export async function getPublicContent() {

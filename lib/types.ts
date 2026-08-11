@@ -100,6 +100,15 @@ type QuotationRow = {
   updated_at: string;
 };
 
+type AnnouncementRow = {
+  id: string;
+  title: Json;
+  link: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 type TableDefinition<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
   Row: Row;
   Insert: Insert;
@@ -121,6 +130,7 @@ export type Database = {
       projects: TableDefinition<ProjectRow>;
       blog_posts: TableDefinition<BlogPostRow>;
       quotations: TableDefinition<QuotationRow>;
+      announcements: TableDefinition<AnnouncementRow>;
       translation_cache: TableDefinition<{
         cache_key: string;
         source_text: string;

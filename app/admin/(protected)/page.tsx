@@ -32,10 +32,11 @@ export default async function AdminDashboard() {
           </div>
         </div>
         <aside className="admin-panel admin-quick-actions">
-          <div className="admin-panel__head"><div><p>Shortcuts</p><h2>Create content</h2></div></div>
+          <div className="admin-panel__head"><div><p>Shortcuts</p><h2>Manage & Create</h2></div></div>
           <Link href="/admin/services/new"><span>New service</span><i>→</i></Link>
           <Link href="/admin/projects/new"><span>New project</span><i>→</i></Link>
           <Link href="/admin/blog/new"><span>New blog post</span><i>→</i></Link>
+          <Link href="/admin/announcements"><span>Header Notification Alert</span><i>→</i></Link>
           <Link href="/admin/media"><span>Upload media</span><i>→</i></Link>
         </aside>
       </section>

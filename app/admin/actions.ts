@@ -140,10 +140,58 @@ export async function updateQuotation(id: string, formData: FormData) {
 export async function saveSettings(formData: FormData) {
   await requireAdmin();
   const supabase = await createClient();
-  const values: Record<string, Json> = { company_email: text(formData, 'company_email'), phone: text(formData, 'phone'), telegram: text(formData, 'telegram'), instagram: text(formData, 'instagram'), facebook: text(formData, 'facebook') };
-  const { error } = await supabase.from('site_settings').upsert(Object.entries(values).map(([key, value]) => ({ key, value })));
+  const keys = [
+    'company_name',
+    'company_email',
+    'phone',
+    'phone_secondary',
+    'office_address',
+    'working_hours',
+    'telegram',
+    'whatsapp',
+    'facebook',
+    'instagram',
+    'linkedin',
+    'youtube',
+    'site_title',
+    'site_description',
+    'inquiry_notification_email',
+    'google_analytics_id',
+  ];
+  const entries = keys.map((key) => ({ key, value: text(formData, key) }));
+  const { error } = await supabase.from('site_settings').upsert(entries);
   if (error) throw error;
   redirect('/admin/settings');
+}
+
+export async function saveAnnouncement(formData: FormData) {
+  await requireAdmin();
+  const supabase = await createClient();
+  const title = languages(formData, 'title');
+  const link = text(formData, 'link') || '/contact';
+  const is_active = formData.get('is_active') === 'on';
+
+  const { data: existing } = await supabase.from('announcements').select('id').limit(1).maybeSingle();
+  const id = existing?.id || crypto.randomUUID();
+
+  const { error } = await supabase.from('announcements').upsert({
+    id,
+    title,
+    link,
+    is_active,
+    updated_at: new Date().toISOString(),
+  });
+
+  if (error) throw error;
+  redirect('/admin/announcements');
+}
+
+export async function toggleAnnouncement(id: string, active: boolean) {
+  await requireAdmin();
+  const supabase = await createClient();
+  const { error } = await supabase.from('announcements').update({ is_active: active }).eq('id', id);
+  if (error) throw error;
+  redirect('/admin/announcements');
 }
 
 export async function uploadMedia(formData: FormData) {
