@@ -3,9 +3,11 @@ import { AdminPageHeader } from '@/components/admin/admin-page-header';
 import { AdminSubmitButton } from '@/components/admin/admin-submit-button';
 import { AutoTranslateAllButton } from '@/components/admin/translation-button';
 import { createClient } from '@/lib/supabase/server';
+import { requireCrewRole } from '@/lib/auth';
 import { saveAnnouncement, toggleAnnouncement } from '../../actions';
 
 export default async function AnnouncementsPage() {
+  await requireCrewRole(['owner', 'admin']);
   const supabase = await createClient();
 
   const [announcementsRes, quotationsRes] = await Promise.all([

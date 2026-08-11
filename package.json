@@ -8,6 +8,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "seo:check": "node scripts/check-seo.mjs",
+    "security:check": "node scripts/check-security.mjs",
     "lint": "eslint ."
   },
   "dependencies": {

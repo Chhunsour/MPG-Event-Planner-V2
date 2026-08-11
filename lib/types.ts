@@ -109,6 +109,29 @@ type AnnouncementRow = {
   updated_at: string;
 };
 
+type CrewInvitationRow = {
+  id: string;
+  email: string;
+  role: 'owner' | 'admin' | 'editor' | 'viewer';
+  token: string;
+  invited_by: string | null;
+  status: 'pending' | 'accepted' | 'revoked' | 'expired';
+  created_at: string;
+  expires_at: string;
+};
+
+type ActivityLogRow = {
+  id: string;
+  user_id: string | null;
+  user_email: string | null;
+  action: string;
+  target_type: string;
+  target_id: string | null;
+  details: Json;
+  ip_address: string | null;
+  created_at: string;
+};
+
 type TableDefinition<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
   Row: Row;
   Insert: Insert;
@@ -123,9 +146,15 @@ export type Database = {
         id: string;
         display_name: string | null;
         is_admin: boolean;
+        role: 'owner' | 'admin' | 'editor' | 'viewer';
+        status: 'active' | 'invited' | 'disabled';
+        invited_by: string | null;
+        invited_at: string | null;
         created_at: string;
         updated_at: string;
       }>;
+      crew_invitations: TableDefinition<CrewInvitationRow>;
+      activity_logs: TableDefinition<ActivityLogRow>;
       services: TableDefinition<ServiceRow>;
       projects: TableDefinition<ProjectRow>;
       blog_posts: TableDefinition<BlogPostRow>;
@@ -147,7 +176,17 @@ export type Database = {
       }>;
     };
     Views: Record<string, never>;
-    Functions: Record<string, never>;
+    Functions: {
+      log_activity: {
+        Args: {
+          p_action: string;
+          p_target_type: string;
+          p_target_id?: string | null;
+          p_details?: Json;
+        };
+        Returns: string;
+      };
+    };
     Enums: Record<string, never>;
     CompositeTypes: Record<string, never>;
   };
@@ -157,4 +196,5 @@ export type Service = ServiceRow;
 export type Project = ProjectRow;
 export type BlogPost = BlogPostRow;
 export type Quotation = QuotationRow;
-
+export type CrewInvitation = CrewInvitationRow;
+export type ActivityLog = ActivityLogRow;

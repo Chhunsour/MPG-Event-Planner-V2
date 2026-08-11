@@ -1,9 +1,11 @@
 import { AdminPageHeader } from '@/components/admin/admin-page-header';
 import { AdminSubmitButton } from '@/components/admin/admin-submit-button';
 import { createClient } from '@/lib/supabase/server';
+import { requireCrewRole } from '@/lib/auth';
 import { saveSettings } from '../../actions';
 
 export default async function SettingsPage() {
+  await requireCrewRole(['owner', 'admin']);
   const supabase = await createClient();
   const { data } = await supabase.from('site_settings').select('*');
   const settings = Object.fromEntries((data ?? []).map((row) => [row.key, typeof row.value === 'string' ? row.value : '']));

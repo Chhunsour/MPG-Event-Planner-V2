@@ -1,12 +1,14 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { AdminNav } from '@/components/admin/admin-nav';
-import { requireAdmin } from '@/lib/auth';
+import { requireCrewRole } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 import { logout } from '../actions';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { profile } = await requireAdmin();
+  const { profile } = await requireCrewRole(['owner', 'admin', 'editor', 'viewer']);
   const supabase = await createClient();
   const { count: newQuotesCount } = await supabase
     .from('quotations')
@@ -37,13 +39,18 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
               )}
             </Link>
 
-            <span>{profile.display_name || 'Administrator'}</span>
+            <span className="font-medium text-white flex items-center gap-2">
+              {profile.display_name || 'Crew Member'}
+              <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
+                {profile.role}
+              </span>
+            </span>
             <form action={logout}>
               <button type="submit">Sign out</button>
             </form>
           </div>
         </div>
-        <div className="shell"><AdminNav /></div>
+        <div className="shell"><AdminNav role={profile.role} /></div>
       </header>
       <main className="shell admin-main">{children}</main>
     </div>
