@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { PageIntro } from '@/components/site/page-intro';
+import { LocationMapCard } from '@/components/site/location-map-card';
 import { QuotationForm } from '@/components/site/quotation-form';
 import { FaqSection } from '@/components/site/faq-section';
 import { messages, ui } from '@/lib/i18n';
@@ -75,7 +76,9 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
 
   return (
     <>
-      <PageIntro eyebrow={labels.contact} title={labels.quotationTitle} description={labels.quotationIntro} />
+      <PageIntro eyebrow={labels.contact} title={labels.quotationTitle} description={labels.quotationIntro}>
+        <LocationMapCard locale={locale} className="mt-4" />
+      </PageIntro>
       <section className="contact-section">
         <div className="shell contact-section__grid">
           <div className="contact-section__form" data-reveal>

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import type { Locale } from '@/lib/types';
 import { ui } from '@/lib/i18n';
 import { getSiteSettings } from '@/lib/content';
+import { LocationMapCard } from '@/components/site/location-map-card';
 
 export async function SiteFooter({ locale }: { locale: Locale }) {
   const labels = ui[locale];
@@ -12,9 +13,16 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
     <footer className="site-footer">
       <div className="shell site-footer__lead" data-reveal>
         <p className="micro-label micro-label--light">Your event starts here</p>
-        <div className="site-footer__statement">
-          <h2>{labels.footer}</h2>
-          <Link href={`/${locale}/contact`} className="cta-island cta-island--light"><span>{labels.getStarted}</span><i aria-hidden="true">↗</i></Link>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-6">
+          <div className="lg:col-span-7 space-y-6">
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">{labels.footer}</h2>
+            <div>
+              <Link href={`/${locale}/contact`} className="cta-island cta-island--light"><span>{labels.getStarted}</span><i aria-hidden="true">↗</i></Link>
+            </div>
+          </div>
+          <div className="lg:col-span-5">
+            <LocationMapCard locale={locale} />
+          </div>
         </div>
       </div>
       <div className="shell site-footer__grid">
