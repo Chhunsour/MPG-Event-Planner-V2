@@ -32,30 +32,30 @@ if (!url || !key) {
 const supabase = createClient(url, key);
 
 async function main() {
-  console.log('Updating database records with new high-quality cover images...');
+  console.log('Updating database records with authentic Cambodian MPG event photography...');
 
   const services = [
-    { slug: 'grand-opening', cover_image: '/images/mpg/service-grand-opening.png' },
+    { slug: 'grand-opening', cover_image: '/images/mpg/grand-opening-editorial-v2.png' },
     { slug: 'product-launch', cover_image: '/images/mpg/service-product-launch.png' },
-    { slug: 'groundbreaking', cover_image: '/images/mpg/service-groundbreaking.png' },
-    { slug: 'roadshow-exhibition', cover_image: '/images/mpg/service-roadshow.png' },
-    { slug: 'seminar-corporate', cover_image: '/images/mpg/service-seminar.png' },
-    { slug: 'equipment-rental', cover_image: '/images/mpg/service-rental.png' },
+    { slug: 'groundbreaking', cover_image: '/images/mpg/service-groundbreaking.webp' },
+    { slug: 'roadshow-exhibition', cover_image: '/images/mpg/service-roadshow.webp' },
+    { slug: 'seminar-corporate', cover_image: '/images/mpg/service-seminar.webp' },
+    { slug: 'equipment-rental', cover_image: '/images/mpg/service-rental.webp' },
   ];
 
   const projects = [
-    { slug: 'outdoor-grand-opening', cover_image: '/images/mpg/project-outdoor-grand-opening.png' },
-    { slug: 'corporate-headquarters-opening', cover_image: '/images/mpg/project-corporate-hq-opening.png' },
-    { slug: 'corporate-ceremony', cover_image: '/images/mpg/project-corporate-ceremony.png' },
-    { slug: 'product-launch-stage', cover_image: '/images/mpg/project-product-launch-stage.png' },
-    { slug: 'conference-summit', cover_image: '/images/mpg/project-conference-summit.png' },
-    { slug: 'exhibition-build', cover_image: '/images/mpg/project-exhibition-build.png' },
+    { slug: 'outdoor-grand-opening', cover_image: '/images/mpg/grand-opening-editorial-v2.png' },
+    { slug: 'corporate-headquarters-opening', cover_image: '/images/mpg/grand-opening-feature.png' },
+    { slug: 'corporate-ceremony', cover_image: '/images/mpg/contact-quote.webp' },
+    { slug: 'product-launch-stage', cover_image: '/images/mpg/project-5.webp' },
+    { slug: 'conference-summit', cover_image: '/images/mpg/service-seminar.webp' },
+    { slug: 'exhibition-build', cover_image: '/images/mpg/service-roadshow.webp' },
   ];
 
   const blogPosts = [
-    { slug: 'planning-a-landmark-grand-opening', cover_image: '/images/mpg/blog-landmark-grand-opening.png' },
-    { slug: 'lighting-sound-and-the-room', cover_image: '/images/mpg/blog-lighting-sound.png' },
-    { slug: 'taking-an-event-beyond-phnom-penh', cover_image: '/images/mpg/blog-beyond-phnom-penh.png' },
+    { slug: 'planning-a-landmark-grand-opening', cover_image: '/images/mpg/project-1.webp' },
+    { slug: 'lighting-sound-and-the-room', cover_image: '/images/mpg/service-rental.webp' },
+    { slug: 'taking-an-event-beyond-phnom-penh', cover_image: '/images/mpg/hero-backstage-v2.png' },
   ];
 
   for (const s of services) {
@@ -73,7 +73,7 @@ async function main() {
     if (error) console.error(`Error updating blog post ${b.slug}:`, error.message);
   }
 
-  console.log('Database cover images updated successfully!');
+  console.log('Database records updated with authentic Cambodian photography successfully!');
 }
 
 main().catch(err => console.error(err));
