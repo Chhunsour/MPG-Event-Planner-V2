@@ -580,8 +580,7 @@ html[lang="zh"] .hero__headline { line-height: 1.22; }
    STRUCTURAL DETAILS
    ═══════════════════════════════════════════════════════════════ */
 
-.rule-tick { display: flex; align-items: center; gap: 0.75rem; }
-.rule-tick::before { content: ""; width: 28px; height: 3px; background: var(--mpg-green); flex-shrink: 0; }
+.rule-tick::before { display: none !important; }
 
 .hr { border-top: 1px solid var(--line); }
 .hr-ink { border-top: 1px solid var(--line-on-dark); }
@@ -595,7 +594,7 @@ html[lang="zh"] .hero__headline { line-height: 1.22; }
 .on-dark .sec-head, .sec-head--dark { border-top-color: var(--line-on-dark); }
 .sec-head__num { font-family: var(--font-en), ui-sans-serif, sans-serif; font-variant-numeric: tabular-nums; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.08em; line-height: 1; color: var(--mpg-green); flex-shrink: 0; }
 .on-dark .sec-head__num, .sec-head--dark .sec-head__num { color: var(--mpg-green-bright); }
-.sec-head__tick { height: 3px; width: 28px; background: var(--mpg-green); flex-shrink: 0; }
+.sec-head__tick { display: none !important; }
 .on-dark .sec-head__tick, .sec-head--dark .sec-head__tick { background: var(--mpg-green-bright); }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -999,7 +998,7 @@ body.font-km * {
 .mobile-menu nav a i { font-style: normal; font-size: 1rem; }
 
 .micro-label { display: flex; align-items: center; gap: .75rem; font-size: .67rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--stage-blue); }
-.micro-label::before { content: ''; width: 1.5rem; height: 2px; background: var(--stage-green); }
+.micro-label::before { display: none !important; }
 .micro-label--light { color: rgb(255 255 255 / .68); }
 .text-link { display: inline-flex; align-items: center; gap: .65rem; padding-block: .35rem; border-bottom: 1px solid currentColor; color: var(--stage-ink); font-size: .72rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; transition: color .25s var(--stage-ease), gap .35s var(--stage-ease); }
 .text-link:hover { color: var(--stage-blue); gap: .95rem; }
@@ -1030,7 +1029,7 @@ body.font-km * {
 .section-heading { max-width: 48rem; }
 .section-heading__meta { display: flex; align-items: center; gap: .8rem; color: var(--stage-blue); }
 .section-heading__meta span, .section-heading__meta p { font-size: .64rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-.section-heading__meta i { width: 2rem; height: 2px; background: var(--stage-green); }
+.section-heading__meta i { display: none !important; }
 .section-heading h2 { margin-top: 1rem; font-size: clamp(2.3rem, 4.7vw, 4.8rem); line-height: .98; letter-spacing: -.055em; }
 .section-heading--inverse .section-heading__meta { color: #7ce98b; }
 .section-heading--inverse h2 { color: white; }
