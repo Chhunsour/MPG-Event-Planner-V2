@@ -12,16 +12,16 @@ export async function SiteFooter({ locale }: { locale: Locale }) {
   return (
     <footer className="site-footer">
       <div className="shell site-footer__lead" data-reveal>
-        <p className="micro-label micro-label--light">Your event starts here</p>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-6">
-          <div className="lg:col-span-7 space-y-6">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">{labels.footer}</h2>
-            <div>
-              <Link href={`/${locale}/contact`} className="cta-island cta-island--light"><span>{labels.getStarted}</span><i aria-hidden="true">↗</i></Link>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           <div className="lg:col-span-5">
             <LocationMapCard locale={locale} />
+          </div>
+          <div className="lg:col-span-7 space-y-5">
+            <p className="micro-label micro-label--light">Your event starts here</p>
+            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-tight">{labels.footer}</h2>
+            <div className="pt-2">
+              <Link href={`/${locale}/contact`} className="cta-island cta-island--light"><span>{labels.getStarted}</span><i aria-hidden="true">↗</i></Link>
+            </div>
           </div>
         </div>
       </div>
