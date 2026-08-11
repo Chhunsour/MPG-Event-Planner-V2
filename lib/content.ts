@@ -27,6 +27,7 @@ export type SiteSettings = {
   whatsapp: string;
   facebook: string;
   instagram: string;
+  tiktok: string;
   linkedin: string;
   youtube: string;
   site_title: string;
@@ -47,6 +48,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     whatsapp: '',
     facebook: '',
     instagram: '',
+    tiktok: '',
     linkedin: '',
     youtube: '',
     site_title: 'MPG Event Planner — Professional Event Planning in Cambodia',
