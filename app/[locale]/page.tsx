@@ -8,6 +8,7 @@ import { messages, ui } from '@/lib/i18n';
 import { type Locale } from '@/lib/types';
 import { createClient } from '@/lib/supabase/server';
 import { buildPageMetadata } from '@/lib/seo';
+import { getFaqs } from '@/lib/faqs';
 
 export const dynamic = 'force-dynamic';
 
@@ -237,56 +238,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             ? '关于在柬埔寨举办活动与典礼的常见疑问解答'
             : 'Clear answers to common questions about event planning and production in Cambodia.'
         }
-        faqs={
-          locale === 'km'
-            ? [
-                {
-                  question: 'តើ MPG Event Planner ផ្តល់សេវាកម្មរៀបចំកម្មវិធីអ្វីខ្លះនៅកម្ពុជា?',
-                  answer: 'MPG Event Planner ផ្តល់សេវាកម្មរៀបចំកម្មវិធីពេញលេញ រួមមាន ពិធីបើកសម្ពោធ កម្មវិធីសាជីវកម្ម ការរៀបចំឆាក ភ្លើង សំឡេង អេក្រង់ LED និងការគ្រប់គ្រងកម្មវិធីទូទាំងប្រទេសកម្ពុជា។',
-                },
-                {
-                  question: 'តើការរៀបចំកម្មវិធីគួរកក់ទុកមុនប៉ុន្មានថ្ងៃ?',
-                  answer: 'យើងខ្ញុំអនុសាសន៍ឱ្យកក់ទុកមុនពី ២ ទៅ ៦ សប្តាហ៍ សម្រាប់កម្មវិធីសាជីវកម្ម និងពិធីបើកសម្ពោធធំៗ ដើម្បីមានពេលគ្រប់គ្រាន់ក្នុងការរចនា និងរៀបចំ។',
-                },
-                {
-                  question: 'តើ MPG Event Planner ផ្តល់សេវាកម្មនៅខេត្តណាខ្លះ?',
-                  answer: 'ទីស្នាក់ការកណ្តាលរបស់យើងស្ថិតនៅរាជធានីភ្នំពេញ ហើយយើងខ្ញុំផ្តល់សេវាកម្មរៀបចំកម្មវិធីទូទាំង ២៥ រាជធានី-ខេត្ត ក្នុងព្រះរាជាណាចក្រកម្ពុជា។',
-                },
-              ]
-            : locale === 'zh'
-            ? [
-                {
-                  question: 'MPG Event Planner 在柬埔寨提供哪些活动策划服务？',
-                  answer: '我们提供一站式活动策划服务，包括企业开业典礼、周年庆典、产品发布会、舞台与音响灯光设计搭建以及全国性的活动制作。',
-                },
-                {
-                  question: '需要提前多久预订活动策划服务？',
-                  answer: '建议提前 2 至 6 周进行预订，以便我们的专业团队有充裕时间完成场地设计、审批流程、设备准备与彩排。',
-                },
-                {
-                  question: '服务范围是否涵盖金边以外的城市？',
-                  answer: '我们的总部位于金边，服务范围覆盖柬埔寨全境，包括暹粒、西哈努克港、马德望及贡布等城市。',
-                },
-              ]
-            : [
-                {
-                  question: 'What event planning services does MPG Event Planner provide in Cambodia?',
-                  answer: 'MPG Event Planner provides end-to-end event planning, stage design, LED screen and audio-visual rentals, grand opening ceremonies, corporate galas, product launches, exhibitions, and venue production across Phnom Penh and all provinces in Cambodia.',
-                },
-                {
-                  question: 'Where is MPG Event Planner located and what areas do you serve?',
-                  answer: 'Our headquarters is located in Phnom Penh, Cambodia. We service corporate and private events nationwide across Cambodia, including Siem Reap, Sihanoukville, Battambang, and Kampot.',
-                },
-                {
-                  question: 'How early should we book an event planner for a corporate event or grand opening?',
-                  answer: 'We recommend booking 2 to 6 weeks in advance for corporate ceremonies and major exhibitions to allow adequate time for concept approval, permits, stage fabrication, and technical rehearsals.',
-                },
-                {
-                  question: 'How can I request a quotation for event production?',
-                  answer: 'You can submit your event brief via our online Contact & Quotation form, or email hello@mpgeventplanner.com. Our team responds within 24 hours with a custom proposal and cost estimate.',
-                },
-              ]
-        }
+        faqs={getFaqs(locale)}
       />
 
       <section className="closing-call">
