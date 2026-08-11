@@ -1,10 +1,36 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageIntro } from '@/components/site/page-intro';
 import { messages, ui } from '@/lib/i18n';
 import type { Locale } from '@/lib/types';
+import { buildPageMetadata } from '@/lib/seo';
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale: raw } = await params;
+  const locale = (raw === 'km' || raw === 'zh' ? raw : 'en') as Locale;
+  
+  const titles: Record<Locale, string> = {
+    en: 'About MPG Event Planner — Event Production Crew in Phnom Penh',
+    km: 'អំពី MPG Event Planner — ក្រុមផលិតកម្មវិធីនៅភ្នំពេញ',
+    zh: '关于 MPG 活动策划 — 柬埔寨金边专业活动执行团队',
+  };
+  const descriptions: Record<Locale, string> = {
+    en: 'Learn about MPG Event Planner, Phnom Penh’s premier event production agency. Our accountable crew handles stage fabrication, technical direction, and seamless event execution across Cambodia.',
+    km: 'ស្វែងយល់អំពី MPG Event Planner ក្រុមហ៊ុនផលិតកម្មវិធីឈានមុខគេនៅភ្នំពេញ។ ក្រុមការងារដែលមានបទពិសោធន៍ខ្ពស់ក្នុងការរៀបចំពិធី និងគ្រប់គ្រងបច្ចេកទេសទូទាំងកម្ពុជា។',
+    zh: '了解金边领先的活动制作机构 MPG Event Planner。我们拥有经验丰富且高效的全职团队，专注于现场搭建、技术执行与全案控制。',
+  };
+
+  return buildPageMetadata({
+    title: titles[locale],
+    description: descriptions[locale],
+    pathname: `/${locale}/about`,
+    locale,
+    image: '/images/mpg/about-team.png',
+  });
+}
 
 export default async function AboutPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale: raw } = await params;

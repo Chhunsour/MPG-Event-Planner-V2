@@ -1,6 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database, Locale, BlogPost, Project, Service } from '@/lib/types';
-import { createClient } from '@/lib/supabase/server';
+import { createPublicClient } from '@/lib/supabase/public';
 import { localized } from '@/lib/i18n';
 
 export { localized };
@@ -24,72 +24,52 @@ export type SiteSettings = {
   office_address: string;
   working_hours: string;
   telegram: string;
-  whatsapp: string;
   facebook: string;
   instagram: string;
   tiktok: string;
   linkedin: string;
-  youtube: string;
-  site_title: string;
-  site_description: string;
-  inquiry_notification_email: string;
-  google_analytics_id: string;
+  footer_text: { en: string; km: string; zh: string };
+};
+
+export const defaultSettings: SiteSettings = {
+  company_name: 'MPG Event Planner',
+  company_email: 'hello@mpgeventplanner.com',
+  phone: '+855 12 345 678',
+  phone_secondary: '+855 98 765 432',
+  office_address: 'Phnom Penh, Cambodia',
+  working_hours: 'Monday – Saturday: 8:00 AM – 6:00 PM',
+  telegram: 'https://t.me/mpgeventplanner',
+  facebook: 'https://facebook.com/mpgeventplanner',
+  instagram: 'https://instagram.com/mpgeventplanner',
+  tiktok: 'https://tiktok.com/@mpgeventplanner',
+  linkedin: 'https://linkedin.com/company/mpgeventplanner',
+  footer_text: {
+    en: 'Professional event planning, grand opening ceremonies, corporate events, and venue production in Phnom Penh, Cambodia.',
+    km: 'សេវាកម្មរៀបចំកម្មវិធី សាជីវកម្ម ពិធីបើកសម្ពោធ ការដំឡើងឆាក និងឧបករណ៍បច្ចេកវិទ្យាគ្រប់ប្រភេទនៅកម្ពុជា។',
+    zh: '金边及柬埔寨全国首选的企业活动策划、开业典礼、舞台设计与音响灯光设备租赁服务。',
+  },
 };
 
 export async function getSiteSettings(): Promise<SiteSettings> {
-  const defaults: SiteSettings = {
-    company_name: 'MPG Event Planner',
-    company_email: 'hello@mpgeventplanner.com',
-    phone: '',
-    phone_secondary: '',
-    office_address: 'Phnom Penh, Cambodia',
-    working_hours: 'Mon - Sat: 8:00 AM - 6:00 PM',
-    telegram: '',
-    whatsapp: '',
-    facebook: '',
-    instagram: '',
-    tiktok: '',
-    linkedin: '',
-    youtube: '',
-    site_title: 'MPG Event Planner — Professional Event Planning in Cambodia',
-    site_description: 'Grand openings, corporate events, product launches, exhibitions and complete event production across Cambodia.',
-    inquiry_notification_email: '',
-    google_analytics_id: '',
-  };
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase.from('site_settings').select('key,value');
-  if (error || !data) return defaults;
+  if (error || !data) return defaultSettings;
   const values = Object.fromEntries(data.map((row) => [row.key, typeof row.value === 'string' ? row.value : '']));
-  return { ...defaults, ...values };
+  return { ...defaultSettings, ...values };
 }
 
 export type Announcement = {
-  id: string;
+  id: string | number;
   title: { en?: string; km?: string; zh?: string };
   link: string;
   is_active: boolean;
 };
 
-export async function getActiveAnnouncement(): Promise<Announcement | null> {
-  const supabase = await createClient();
-  const { data, error } = await supabase.from('announcements').select('*').eq('is_active', true).limit(1).maybeSingle();
-  if (error || !data) {
-    return {
-      id: 'default',
-      title: {
-        en: 'Booking open for 2026 Corporate Ceremonies & Grand Openings across Cambodia!',
-        km: 'បើកទទួលការកក់សម្រាប់ការរៀបចំកម្មវិធី និងពិធីបើកសម្ពោធឆ្នាំ ២០២៦!',
-        zh: '2026年柬埔寨企业典礼与开业仪式策划现已全面开放预订！',
-      },
-      link: '/contact',
-      is_active: true,
-    };
-  }
-
-  const rawTitle = data.title && typeof data.title === 'object' && !Array.isArray(data.title)
-    ? (data.title as Record<string, string>)
-    : {};
-
+export async function getAnnouncement(): Promise<Announcement | null> {
+  const supabase = createPublicClient();
+  const { data, error } = await supabase.from('announcements').select('*').eq('is_active', true).maybeSingle();
+  if (error || !data) return null;
+  const rawTitle = (data.title || {}) as Record<string, string>;
   return {
     id: data.id,
     title: {
@@ -103,7 +83,7 @@ export async function getActiveAnnouncement(): Promise<Announcement | null> {
 }
 
 export async function getPublicContent() {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const [services, projects, blog] = await Promise.all([
     supabase.from('services').select('*').eq('is_published', true).order('display_order').order('id'),
     supabase.from('projects').select('*').eq('is_published', true).order('display_order').order('id'),
@@ -122,21 +102,21 @@ export async function getPublicContent() {
 }
 
 export async function getService(slug: string) {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase.from('services').select('*').eq('slug', slug).maybeSingle();
   if (error) throw error;
   return data && publishedNow(data) ? data : null;
 }
 
 export async function getProject(slug: string) {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase.from('projects').select('*').eq('slug', slug).maybeSingle();
   if (error) throw error;
   return data && publishedNow(data) ? data : null;
 }
 
 export async function getBlogPost(slug: string) {
-  const supabase = await createClient();
+  const supabase = createPublicClient();
   const { data, error } = await supabase.from('blog_posts').select('*').eq('slug', slug).maybeSingle();
   if (error) throw error;
   return data && publishedNow(data) ? data : null;
