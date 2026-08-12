@@ -1,3 +1,4 @@
+import { Compass, Layers, Sliders, Radio, ArrowUpRight } from 'lucide-react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SectionHeading } from '@/components/site/section-heading';
@@ -9,6 +10,8 @@ import { type Locale } from '@/lib/types';
 import { createClient } from '@/lib/supabase/server';
 import { buildPageMetadata } from '@/lib/seo';
 import { getFaqs } from '@/lib/faqs';
+
+const PILLAR_ICONS = [Compass, Layers, Sliders, Radio];
 
 export const dynamic = 'force-dynamic';
 
@@ -83,9 +86,42 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <p className="manifesto-section__lead">{copy.intro.description}</p>
             <p>{copy.intro.para2}</p>
           </div>
-          <ol className="manifesto-steps" data-reveal>
-            {copy.intro.pillars.map((item) => <li key={item.num}><span className="w-2 h-2 rounded-full bg-[#1e9a2a] inline-block mb-3" /><p>{item.label}</p></li>)}
-          </ol>
+          <div className="manifesto-steps-container" data-reveal>
+            <div className="manifesto-steps-track" aria-hidden="true" />
+            <ol className="manifesto-steps">
+              {copy.intro.pillars.map((item, idx) => {
+                const IconComponent = PILLAR_ICONS[idx % PILLAR_ICONS.length];
+                const tag = 'tag' in item && typeof item.tag === 'string' ? item.tag : null;
+                const desc = 'desc' in item && typeof item.desc === 'string' ? item.desc : null;
+                return (
+                  <li key={item.num} className="manifesto-step-card group">
+                    <div>
+                      <div className="manifesto-step-card__head">
+                        <span className="manifesto-step-card__num">
+                          <span className="manifesto-step-card__dot" aria-hidden="true" />
+                          {item.num}
+                        </span>
+                        <div className="manifesto-step-card__icon">
+                          <IconComponent className="w-5 h-5" aria-hidden="true" />
+                        </div>
+                      </div>
+                      <div className="manifesto-step-card__body">
+                        {tag ? <span className="manifesto-step-card__tag">{tag}</span> : null}
+                        <h3 className="manifesto-step-card__title">{item.label}</h3>
+                        {desc ? <p className="manifesto-step-card__desc">{desc}</p> : null}
+                      </div>
+                    </div>
+                    <div className="manifesto-step-card__foot">
+                      <span>Phase {item.num}</span>
+                      <span className="manifesto-step-card__arrow" aria-hidden="true">
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
         </div>
       </section>
 

@@ -37,10 +37,10 @@
     "description": "MPG Event Planner is an event planning and production company based in Phnom Penh. We work with companies, shops, schools, NGOs and private clients to plan, build and run events across Cambodia.",
     "para2": "One team handles the whole event: concept and budget, stage and backdrop, sound and lighting, decoration, guest flow, and management on site the day it happens.",
     "pillars": [
-      { "num": "01", "label": "Planning" },
-      { "num": "02", "label": "Production" },
-      { "num": "03", "label": "Equipment" },
-      { "num": "04", "label": "On-site" }
+      { "num": "01", "label": "Planning", "tag": "Strategy & Concept", "desc": "Creative concepts, budget control, 3D stage floor plans & timeline management." },
+      { "num": "02", "label": "Production", "tag": "Build & Fabrication", "desc": "Custom stage structures, entrance arches, LED backdrops & physical branding." },
+      { "num": "03", "label": "Equipment", "tag": "AV & Stage Tech", "desc": "P3 HD LED walls, line-array concert sound systems & programmable DMX lighting." },
+      { "num": "04", "label": "On-site", "tag": "Live Execution", "desc": "Dedicated show direction, VIP protocol management & real-time stage control." }
     ]
   },
   "featured": {
