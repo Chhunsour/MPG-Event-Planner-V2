@@ -7,13 +7,11 @@ import { messages, ui } from '@/lib/i18n';
 import type { Locale } from '@/lib/types';
 import { buildPageMetadata } from '@/lib/seo';
 import {
-  ShieldCheck,
   Lock,
   EyeOff,
   Mail,
   Phone,
   ArrowRight,
-  Database,
   UserCheck,
 } from 'lucide-react';
 
@@ -33,9 +31,9 @@ export async function generateMetadata({
     zh: '隐私政策与数据安全 — MPG 活动策划',
   };
   const descriptions: Record<Locale, string> = {
-    en: 'Comprehensive privacy policy and data governance standards of MPG Event Planner. Learn how we secure event inquiries, quotation briefs, and telemetry.',
-    km: 'គោលការណ៍ឯកជនភាព និងស្តង់ដារសុវត្ថិភាពទិន្នន័យរបស់ MPG Event Planner នៅកម្ពុជា។ របៀបដែលយើងការពារព័ត៌មាន និងសំណើកម្មវិធី។',
-    zh: 'MPG 活动策划的完整隐私政策与数据治理标准。了解我们如何保护活动方案咨询与数据安全。',
+    en: 'Comprehensive privacy policy and data governance standards of MPG Event Planner in Phnom Penh, Cambodia.',
+    km: 'គោលការណ៍ឯកជនភាព និងស្តង់ដារសុវត្ថិភាពទិន្នន័យរបស់ MPG Event Planner នៅកម្ពុជា។',
+    zh: 'MPG 活动策划的完整隐私政策与数据治理标准。',
   };
 
   return buildPageMetadata({
@@ -76,102 +74,102 @@ export default async function PrivacyPage({
     en: [
       {
         icon: EyeOff,
-        title: 'Zero Advertising Trackers',
-        desc: 'We never install Meta, Google Ads, or TikTok tracking pixels. Your browsing activity is never shared with advertisers or data brokers.',
+        title: 'Zero Ad Trackers',
+        desc: 'No Meta or advertising pixels. Your browsing is never shared with third-party brokers.',
       },
       {
         icon: Lock,
-        title: 'Confidential Event Briefs',
-        desc: 'Event layouts, budgets, VIP guest counts, and creative concepts remain strictly confidential to your dedicated production team.',
+        title: 'Strict Confidentiality',
+        desc: 'Event layouts, budgets, and VIP briefs remain private to your dedicated production crew.',
       },
       {
         icon: UserCheck,
-        title: 'Full Data Ownership',
-        desc: 'You can request instant export, update, or permanent deletion of your inquiry data and records at any point.',
+        title: 'Full Data Control',
+        desc: 'Request instant export, update, or permanent deletion of your inquiry data at any time.',
       },
     ],
     km: [
       {
         icon: EyeOff,
-        title: 'គ្មានកម្មវិធីតាមដានពាណិជ្ជកម្ម',
-        desc: 'យើងមិនប្រើប្រាស់ Pixel តាមដានរបស់ក្រុមហ៊ុនពាណិជ្ជកម្មឡើយ។ ទិន្នន័យរបស់អ្នកមិនត្រូវបានចែករំលែកជាមួយភាគីទីបីជាដាច់ខាត។',
+        title: 'គ្មានកម្មវិធីតាមដាន',
+        desc: 'មិនប្រើប្រាស់ Pixel ពាណិជ្ជកម្មឡើយ។ ទិន្នន័យមិនត្រូវបានចែករំលែកជាមួយភាគីទីបីជាដាច់ខាត។',
       },
       {
         icon: Lock,
-        title: 'ការសម្ងាត់នៃគម្រោងកម្មវិធី',
-        desc: 'ប្លង់កម្មវិធី ថវិកា ចំនួនភ្ញៀវកិត្តិយស និងគំនិតច្នៃប្រឌិត ត្រូវបានរក្សាជាការសម្ងាត់យ៉ាងតឹងរ៉ឹងបំផុត។',
+        title: 'ការសម្ងាត់កម្រិតខ្ពស់',
+        desc: 'ប្លង់កម្មវិធី ថវិកា និងគម្រោង ត្រូវបានរក្សាជាការសម្ងាត់យ៉ាងតឹងរ៉ឹងបំផុត។',
       },
       {
         icon: UserCheck,
         title: 'សិទ្ធិពេញលេញលើទិន្នន័យ',
-        desc: 'អ្នកអាចស្នើសុំកែប្រែ ទាញយក ឬលុបទិន្នន័យសំណើរបស់អ្នកចេញពីប្រព័ន្ធរបស់យើងគ្រប់ពេលវេលា។',
+        desc: 'អ្នកអាចស្នើសុំកែប្រែ ឬលុបទិន្នន័យសំណើរបស់អ្នកចេញពីប្រព័ន្ធរបស់យើងគ្រប់ពេលវេលា។',
       },
     ],
     zh: [
       {
         icon: EyeOff,
-        title: '零第三方广告追踪',
-        desc: '我们不安装任何营销追踪像素。您的浏览记录绝不会与广告商或数据中介共享。',
+        title: '零营销追踪',
+        desc: '不安装第三方营销像素。您的浏览记录绝不与广告商或数据中介共享。',
       },
       {
         icon: Lock,
-        title: '活动策划方案严格保密',
-        desc: '场地布局、预算明细、贵宾名单及创意执行方案仅限指定制作团队内部查阅。',
+        title: '方案严格保密',
+        desc: '场地布局、预算明细及执行方案仅限指定制作团队内部查阅。',
       },
       {
         icon: UserCheck,
-        title: '完全掌控自身数据',
-        desc: '您可随时申请查阅、更新或请求永久删除您提交的活动方案咨询记录。',
+        title: '数据自主掌控',
+        desc: '您可随时申请查阅、更新或请求永久删除提交的活动方案咨询记录。',
       },
     ],
   }[locale];
 
   const dataTable = {
     en: {
-      title: 'Data Transparency & Retention Schedule',
-      headers: ['Data Category', 'Specific Elements', 'Purpose', 'Retention Period'],
+      title: 'Data Retention & Purpose Schedule',
+      headers: ['Data Category', 'Elements', 'Purpose', 'Retention Period'],
       rows: [
         [
           'Quotation Inquiries',
-          'Name, email, phone, Telegram, event date, venue, budget tier',
-          'Preparing customized proposals & coordinating stage logistics',
-          'Duration of inquiry + 12 months for active event records',
+          'Name, email, phone, event date, venue, budget tier',
+          'Proposal estimation & staging logistics',
+          'Duration of inquiry + 12 months',
         ],
         [
           'Lightweight Telemetry',
-          'Page URL, referrer, device type, browser, country/locale',
-          'Aggregated performance optimization (consented sessions)',
-          '90 days aggregated server logs',
+          'Page URL, referrer, device, browser, language',
+          'Site performance optimization (consented)',
+          '90 days aggregate logs',
         ],
         [
           'Cookie Preferences',
-          'Local consent choice (Accepted / Declined)',
-          'Remembering your preference on future visits',
-          '12 months (or until cleared by user)',
+          'Consent choice (Accepted / Declined)',
+          'Remembering preference on future visits',
+          '12 months (or until cleared)',
         ],
       ],
     },
     km: {
       title: 'តារាងតម្លាភាព និងរយៈពេលរក្សាទុកទិន្នន័យ',
-      headers: ['ប្រភេទព័ត៌មាន', 'ធាតុជាក់លាក់', 'គោលបំណង', 'រយៈពេលរក្សាទុក'],
+      headers: ['ប្រភេទព័ត៌មាន', 'ធាតុជាក់លាក់', 'គោលបំណង', 'រយៈពេល'],
       rows: [
         [
           'សំណើតម្លៃ និងគម្រោង',
-          'ឈ្មោះ អ៊ីមែល លេខទូរស័ព្ទ Telegram កាលបរិច្ឆេទ ទីកន្លែង និងកញ្ចប់ថវិកា',
-          'ការរៀបចំសំណើតម្លៃ និងសម្របសម្រួលការងារបច្ចេកទេស',
-          'ពេញមួយរយៈពេលនៃគម្រោង + ១២ ខែសម្រាប់ឯកសារយោង',
+          'ឈ្មោះ អ៊ីមែល លេខទូរស័ព្ទ កាលបរិច្ឆេទ ទីកន្លែង',
+          'ការរៀបចំសំណើតម្លៃ និងសម្របសម្រួលបច្ចេកទេស',
+          'ពេញមួយគម្រោង + ១២ ខែ',
         ],
         [
           'ទិន្នន័យវិភាគកម្រិតស្រាល',
           'ទំព័រទស្សនា ប្រភព ប្រភេទឧបករណ៍ និងភាសា',
-          'ការកែលម្អគុណភាព និងល្បឿនគេហទំព័រ (ដោយមានការយល់ព្រម)',
+          'ការកែលម្អគុណភាពគេហទំព័រ (ដោយមានការយល់ព្រម)',
           '៩០ ថ្ងៃ',
         ],
         [
           'ការចងចាំ Cookie',
-          'ជម្រើសឯកជនភាពរបស់អ្នក (យល់ព្រម / មិនយល់ព្រម)',
-          'ចងចាំជម្រើសរបស់អ្នកសម្រាប់ទស្សនកិច្ចបន្ទាប់',
-          '១២ ខែ (ឬរហូតដល់អ្នកកំណត់ឡើងវិញ)',
+          'ជម្រើសឯកជនភាពរបស់អ្នក',
+          'ចងចាំជម្រើសសម្រាប់ទស្សនកិច្ចបន្ទាប់',
+          '១២ ខែ',
         ],
       ],
     },
@@ -181,47 +179,32 @@ export default async function PrivacyPage({
       rows: [
         [
           '活动方案咨询',
-          '姓名、电子邮件、电话、Telegram、活动日期、场地、预算',
+          '姓名、邮箱、电话、日期、场地、预算',
           '定制活动提案与技术物流协调',
-          '咨询周期内及活动执行后 12 个月',
+          '咨询周期内及执行后 12 个月',
         ],
         [
           '轻量级流量指标',
-          '访问页面、来源渠道、设备类型、浏览器版本、语言',
-          '优化网站访问性能与用户体验（需用户同意）',
-          '90 天聚合服务器日志',
+          '访问页面、来源渠道、设备、浏览器、语言',
+          '优化网站访问体验（需用户同意）',
+          '90 天聚合日志',
         ],
         [
           'Cookie 偏好记录',
           '本地偏好状态（已同意 / 仅必要）',
-          '记录您的偏好选择以便后续访问',
-          '12 个月（或直至用户重置）',
+          '记录偏好以便后续访问',
+          '12 个月',
         ],
       ],
     },
   }[locale];
 
-  const policyArticles = [
-    {
-      title: copy.section1_title,
-      content: copy.section1_desc,
-    },
-    {
-      title: copy.section2_title,
-      content: copy.section2_desc,
-    },
-    {
-      title: copy.section3_title,
-      content: copy.section3_desc,
-    },
-    {
-      title: copy.section4_title,
-      content: copy.section4_desc,
-    },
-    {
-      title: copy.section5_title,
-      content: copy.section5_desc,
-    },
+  const policySections = [
+    { title: copy.section1_title, content: copy.section1_desc },
+    { title: copy.section2_title, content: copy.section2_desc },
+    { title: copy.section3_title, content: copy.section3_desc },
+    { title: copy.section4_title, content: copy.section4_desc },
+    { title: copy.section5_title, content: copy.section5_desc },
   ];
 
   return (
@@ -238,108 +221,102 @@ export default async function PrivacyPage({
       />
 
       <section className="band-lg pt-0">
-        <div className="shell max-w-4xl mx-auto space-y-12">
-          {/* Top Editorial Pillars */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 sm:p-8 rounded-3xl bg-slate-900/[0.02] border border-slate-900/10">
-            {pillars.map((pillar, i) => {
-              const Icon = pillar.icon;
-              return (
-                <div key={i} className="space-y-2.5">
-                  <div className="flex items-center gap-2 text-slate-900">
-                    <Icon className="w-4 h-4 text-[#1e9a2a]" />
-                    <h2 className="text-xs font-extrabold uppercase tracking-wider">
-                      {pillar.title}
-                    </h2>
+        <div className="shell max-w-4xl mx-auto">
+          {/* Unified Document Surface */}
+          <div className="bg-white border border-slate-200/90 rounded-2xl p-6 sm:p-10 shadow-sm space-y-8">
+            {/* Top Bar: Last Updated & Privacy Manager */}
+            <div className="space-y-4 pb-6 border-b border-slate-100">
+              <div className="flex items-center justify-between text-xs text-slate-500">
+                <span className="font-semibold uppercase tracking-wider">{copy.last_updated}</span>
+                <span className="text-[#1e9a2a] font-medium">
+                  {locale === 'en' ? 'Privacy Standards' : locale === 'km' ? 'ស្តង់ដារឯកជនភាព' : '隐私合规标准'}
+                </span>
+              </div>
+              <PrivacyManager locale={locale} />
+            </div>
+
+            {/* Core Principles (3 Columns) */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-2">
+              {pillars.map((pillar, i) => {
+                const Icon = pillar.icon;
+                return (
+                  <div key={i} className="space-y-1.5">
+                    <div className="flex items-center gap-2 text-slate-900">
+                      <Icon className="w-4 h-4 text-[#1e9a2a] shrink-0" />
+                      <h3 className="text-xs font-bold uppercase tracking-wider">{pillar.title}</h3>
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed">{pillar.desc}</p>
                   </div>
-                  <p className="text-xs text-slate-600 leading-relaxed">{pillar.desc}</p>
+                );
+              })}
+            </div>
+
+            {/* Continuous Policy Flow */}
+            <div className="space-y-8 pt-6 border-t border-slate-100">
+              {policySections.map((sec, idx) => (
+                <div key={idx} className="space-y-2">
+                  <h2 className="text-base font-bold text-slate-900 tracking-tight">
+                    {sec.title}
+                  </h2>
+                  <p className="text-sm text-slate-600 leading-relaxed">
+                    {sec.content}
+                  </p>
+
+                  {/* Embed Data Table under the 4th section (Data Security & Retention) */}
+                  {idx === 3 && (
+                    <div className="mt-4 pt-2">
+                      <div className="overflow-x-auto rounded-xl border border-slate-200/80 bg-slate-50/50">
+                        <table className="w-full text-left text-xs text-slate-700">
+                          <thead className="bg-slate-100/80 border-b border-slate-200 font-bold uppercase text-[11px] text-slate-900">
+                            <tr>
+                              {dataTable.headers.map((h, i) => (
+                                <th key={i} className="p-3 whitespace-nowrap">
+                                  {h}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-slate-200/60">
+                            {dataTable.rows.map((row, i) => (
+                              <tr key={i} className="hover:bg-white transition-colors">
+                                <td className="p-3 font-semibold text-slate-900 whitespace-nowrap">{row[0]}</td>
+                                <td className="p-3 text-slate-600">{row[1]}</td>
+                                <td className="p-3 text-slate-600">{row[2]}</td>
+                                <td className="p-3 font-mono text-[11px] text-slate-500 whitespace-nowrap">{row[3]}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              );
-            })}
-          </div>
-
-          {/* Interactive Privacy Manager Widget */}
-          <PrivacyManager locale={locale} />
-
-          {/* Data Transparency Schedule Table */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Database className="w-4 h-4 text-[#1e9a2a]" />
-              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-900">
-                {dataTable.title}
-              </h2>
-            </div>
-            <div className="overflow-x-auto rounded-2xl border border-slate-900/10 shadow-sm bg-white">
-              <table className="w-full text-left text-xs text-slate-700">
-                <thead className="bg-slate-50 border-b border-slate-900/10 font-bold uppercase text-[11px] text-slate-900">
-                  <tr>
-                    {dataTable.headers.map((h, i) => (
-                      <th key={i} className="p-4 whitespace-nowrap">
-                        {h}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-slate-100">
-                  {dataTable.rows.map((row, i) => (
-                    <tr key={i} className="hover:bg-slate-50/50 transition-colors">
-                      <td className="p-4 font-semibold text-slate-900 whitespace-nowrap">{row[0]}</td>
-                      <td className="p-4 text-slate-600">{row[1]}</td>
-                      <td className="p-4 text-slate-600">{row[2]}</td>
-                      <td className="p-4 font-mono text-[11px] text-slate-500 whitespace-nowrap">{row[3]}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          {/* Policy Articles */}
-          <div className="space-y-6 pt-4 border-t border-slate-200/80">
-            {policyArticles.map((article, idx) => (
-              <article
-                key={idx}
-                className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-900/10 shadow-[0_2px_12px_rgba(6,20,33,0.03)] hover:border-slate-900/20 transition-all space-y-2"
-              >
-                <h3 className="text-sm sm:text-base font-bold text-slate-900">
-                  {article.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                  {article.content}
-                </p>
-              </article>
-            ))}
-          </div>
-
-          {/* Data Protection Lead / Contact Box */}
-          <div className="p-7 sm:p-8 rounded-3xl bg-slate-900 text-white shadow-xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-            <div className="space-y-2 max-w-lg">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#58d46b]">
-                {ui[locale].contact}
-              </span>
-              <h3 className="text-lg sm:text-xl font-bold text-white">
-                {copy.contact_title}
-              </h3>
-              <p className="text-xs text-slate-300 leading-relaxed">
-                {copy.contact_desc}
-              </p>
+              ))}
             </div>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-              <a
-                href={`mailto:${settings.company_email}`}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 text-xs font-medium text-white transition-colors"
-              >
-                <Mail className="w-3.5 h-3.5 text-[#58d46b]" />
-                <span>{settings.company_email}</span>
-              </a>
+            {/* Unified Contact Footer */}
+            <div className="pt-8 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 text-xs text-slate-600">
+              <div>
+                <h3 className="font-bold text-slate-900 text-sm mb-1">{copy.contact_title}</h3>
+                <p>{copy.contact_desc}</p>
+              </div>
 
-              <Link
-                href={`/${locale}/contact`}
-                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-[#1e9a2a] hover:bg-[#147a22] text-xs font-semibold text-white shadow-sm transition-all"
-              >
-                <span>{ui[locale].contact}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              <div className="flex items-center gap-3 shrink-0">
+                <a
+                  href={`mailto:${settings.company_email}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5 text-[#1e9a2a]" />
+                  <span>{settings.company_email}</span>
+                </a>
+                <a
+                  href={`tel:${settings.phone}`}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-medium transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[#1e9a2a]" />
+                  <span>{settings.phone}</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
