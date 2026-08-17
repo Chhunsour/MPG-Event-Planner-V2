@@ -50,7 +50,9 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
             </form>
           </div>
         </div>
-        <div className="shell"><AdminNav role={profile.role} /></div>
+        <div className="border-t border-slate-100/90 py-1.5">
+          <div className="shell"><AdminNav role={profile.role} /></div>
+        </div>
       </header>
       <main className="shell admin-main">{children}</main>
     </div>
