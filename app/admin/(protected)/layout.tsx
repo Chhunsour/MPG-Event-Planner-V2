@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { AdminNav } from '@/components/admin/admin-nav';
 import { requireCrewRole } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
-import { logout } from '../actions';
 
 export const dynamic = 'force-dynamic';
 
@@ -39,12 +38,14 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
               )}
             </Link>
 
-            <span className="font-medium text-slate-800">
-              {profile.display_name || 'Crew Member'}
-            </span>
-            <form action={logout}>
-              <button type="submit">Sign out</button>
-            </form>
+            <Link
+              href="/admin/settings"
+              className="text-xs font-semibold text-slate-700 hover:text-blue-600 transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-lg hover:bg-slate-100/80"
+              title="Manage account & settings"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              <span>{profile.display_name || 'Crew Member'}</span>
+            </Link>
           </div>
         </div>
         <div className="border-t border-slate-100/90 py-1.5">

@@ -2,7 +2,7 @@ import { AdminPageHeader } from '@/components/admin/admin-page-header';
 import { AdminSubmitButton } from '@/components/admin/admin-submit-button';
 import { createClient } from '@/lib/supabase/server';
 import { requireCrewRole } from '@/lib/auth';
-import { saveSettings } from '../../actions';
+import { saveSettings, logout } from '../../actions';
 
 export default async function SettingsPage() {
   await requireCrewRole(['owner', 'admin']);
@@ -140,6 +140,37 @@ export default async function SettingsPage() {
           <AdminSubmitButton>Save All Settings</AdminSubmitButton>
         </div>
       </form>
+
+      {/* Account & Session Security */}
+      <div className="mt-8 max-w-4xl wp-metabox border-slate-200/90 bg-white shadow-xs">
+        <div className="wp-metabox-header flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <svg className="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+            <div>
+              <h3>Admin Session & Account Security</h3>
+              <small>End your authenticated session safely to prevent unauthorized browser access</small>
+            </div>
+          </div>
+        </div>
+        <div className="wp-metabox-content flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-2">
+          <p className="text-xs text-slate-600 max-w-lg leading-relaxed">
+            Signing out will immediately invalidate your active browser session tokens. You will be redirected to the admin login page and will need your password to log back in.
+          </p>
+          <form action={logout}>
+            <button
+              type="submit"
+              className="px-4 py-2 text-xs font-bold text-red-700 bg-red-50 hover:bg-red-100 rounded-xl border border-red-200 transition-colors shadow-2xs cursor-pointer inline-flex items-center gap-2 whitespace-nowrap"
+            >
+              <svg className="w-4 h-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+              Sign Out from Admin
+            </button>
+          </form>
+        </div>
+      </div>
     </>
   );
 }
