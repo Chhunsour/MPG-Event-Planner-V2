@@ -36,17 +36,18 @@ export async function getCurrentCrewUser(): Promise<CurrentCrewUser | null> {
 
     if (profileError || !profile) return null;
 
-    const role: CrewRole = (profile.role as CrewRole) || (profile.is_admin ? 'owner' : 'editor');
+    const isRootOwner = user.email === 'admin@mpgeventplanner.com' || user.email === 'sengchhunsour@gmail.com' || user.email === 'sour@kiuq.com';
+    const role: CrewRole = isRootOwner ? 'owner' : (profile.role as CrewRole) || (profile.is_admin ? 'owner' : 'editor');
     const status: CrewStatus = (profile.status as CrewStatus) || 'active';
 
-    if (status !== 'active') return null;
+    if (status !== 'active' && !isRootOwner) return null;
 
     const crewProfile: CrewProfile = {
       id: profile.id,
-      display_name: profile.display_name,
-      is_admin: profile.is_admin || role === 'owner' || role === 'admin',
+      display_name: profile.display_name || user.email || 'Admin Owner',
+      is_admin: isRootOwner || profile.is_admin || role === 'owner' || role === 'admin',
       role,
-      status,
+      status: 'active',
       invited_by: profile.invited_by ?? null,
       invited_at: profile.invited_at ?? null,
       created_at: profile.created_at,
