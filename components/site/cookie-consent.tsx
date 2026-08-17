@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ShieldCheck, X } from 'lucide-react';
+import { Cookie, X } from 'lucide-react';
 import { messages } from '@/lib/i18n';
 import type { Locale } from '@/lib/types';
 
@@ -59,11 +59,9 @@ export function CookieConsent({ locale = 'en' }: { locale: Locale }) {
     >
       <div className="bg-white/98 backdrop-blur-xl border border-slate-900/10 text-slate-900 shadow-[0_20px_40px_-10px_rgba(6,20,33,0.14),0_2px_8px_rgba(6,20,33,0.04)] rounded-xl p-5 relative">
         <div className="flex items-start justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-md bg-[#1e9a2a]/10 border border-[#1e9a2a]/20 flex items-center justify-center text-[#1e9a2a] shrink-0">
-              <ShieldCheck className="w-4 h-4" />
-            </div>
-            <h3 id="cookie-title" className="text-xs font-extrabold tracking-wide uppercase text-slate-900">
+          <div className="flex items-center gap-2">
+            <Cookie className="w-4 h-4 text-[#1e9a2a] shrink-0" />
+            <h3 id="cookie-title" className="text-xs font-bold tracking-wide uppercase text-slate-900">
               {copy.title}
             </h3>
           </div>
