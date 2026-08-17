@@ -13,7 +13,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [isTransparent, setIsTransparent] = useState(false);
+  const [isTransparent, setIsTransparent] = useState(true);
   const languageRef = useRef<HTMLDivElement>(null);
   const lastScrollY = useRef(0);
   const scrollUpAccumulator = useRef(0);
@@ -30,8 +30,9 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   ] as const;
 
   useEffect(() => {
-    setIsTransparent(false);
-    lastScrollY.current = 0;
+    const atTop = typeof window !== 'undefined' ? window.scrollY <= 80 : true;
+    setIsTransparent(atTop);
+    lastScrollY.current = typeof window !== 'undefined' ? window.scrollY : 0;
     scrollUpAccumulator.current = 0;
   }, [pathname]);
 
@@ -51,17 +52,15 @@ export function SiteHeader({ locale }: { locale: Locale }) {
         const prevScrollY = lastScrollY.current;
         const delta = currentScrollY - prevScrollY;
 
-        if (currentScrollY <= 40) {
-          setIsTransparent(false);
+        if (currentScrollY <= 80) {
+          setIsTransparent(true);
           scrollUpAccumulator.current = 0;
         } else if (delta > 3) {
           scrollUpAccumulator.current = 0;
-          if (currentScrollY > 50) {
-            setIsTransparent(true);
-          }
+          setIsTransparent(true);
         } else if (delta < -3) {
           scrollUpAccumulator.current += Math.abs(delta);
-          if (scrollUpAccumulator.current >= 10) {
+          if (scrollUpAccumulator.current >= 12) {
             setIsTransparent(false);
           }
         }
@@ -73,6 +72,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
       ticking = true;
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
       window.removeEventListener('scroll', handleScroll);
