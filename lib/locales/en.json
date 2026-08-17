@@ -458,6 +458,8 @@
     "section6_desc": "We retain client data only for as long as necessary to fulfill the intended purpose: general quotation requests that do not proceed to execution are automatically archived and purged after 12 months. Executed event contracts, floor plans, and billing statements are securely retained for up to 3 years for tax compliance and warranty support, after which they are permanently deleted.",
     "section7_title": "Your Privacy Rights & Subject Access Requests",
     "section7_desc": "You retain full ownership and control over your personal data. At any time, you have the right to: (1) Request a copy of all personal records we hold regarding your inquiries; (2) Request immediate rectification of outdated or inaccurate information; (3) Request the permanent erasure of your data from our active databases; (4) Revoke or modify your cookie telemetry consent via the on-page Privacy Manager.",
+    "section8_title": "Google Services & Third-Party API User Data Policy Compliance",
+    "section8_desc": "Our platform utilizes select Google services (such as Google Fonts for typography and Google OAuth for authorized crew identity verification). MPG Event Planner's use and transfer of information received from Google APIs adheres strictly to the Google API Services User Data Policy, including the Limited Use requirements. We do not use Google user data for generalized machine learning/AI model training, and we never share or sell Google user data to external data brokers or advertising networks.",
     "contact_title": "Data Protection Officer & Governance Contact",
     "contact_desc": "For inquiries regarding this Privacy Policy, NDA requests, or data deletion requests, please contact our data governance coordinator:"
   },

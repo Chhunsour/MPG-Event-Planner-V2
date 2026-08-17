@@ -244,6 +244,7 @@ export default async function PrivacyPage({
     { title: copy.section5_title, content: copy.section5_desc },
     { title: copy.section6_title, content: copy.section6_desc },
     { title: copy.section7_title, content: copy.section7_desc },
+    { title: copy.section8_title, content: copy.section8_desc },
   ];
 
   return (
