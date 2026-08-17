@@ -17,11 +17,7 @@ const navItems: NavItem[] = [
   { label: 'Blog', href: '/admin/blog', roles: ['owner', 'admin', 'editor'] },
   { label: 'Quotes', href: '/admin/quotations', roles: ['owner', 'admin', 'editor', 'viewer'] },
   { label: 'Analytics', href: '/admin/analytics', roles: ['owner', 'admin', 'editor', 'viewer'] },
-  { label: 'Alerts', href: '/admin/announcements', roles: ['owner', 'admin'] },
-  { label: 'Media', href: '/admin/media', roles: ['owner', 'admin', 'editor'] },
-  { label: 'Team', href: '/admin/team', roles: ['owner', 'admin'] },
   { label: 'Settings', href: '/admin/settings', roles: ['owner', 'admin'] },
-  { label: 'Activity', href: '/admin/activity', roles: ['owner', 'admin'] },
 ];
 
 export function AdminNav({ role = 'editor' }: { role?: CrewRole }) {
