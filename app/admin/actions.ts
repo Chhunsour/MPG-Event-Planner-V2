@@ -91,13 +91,24 @@ export async function login(_previous: { error?: string }, formData: FormData) {
     return { error: 'Invalid login credentials or unauthorized account.' };
   }
 
+  const isRootOwner = email === 'admin@mpgeventplanner.com' || email === 'sengchhunsour@gmail.com' || email === 'sour@kiuq.com';
+
   const { data: profile } = await supabase
     .from('profiles')
     .select('role, status')
     .eq('id', data.user.id)
     .maybeSingle();
 
-  if (!profile || profile.status === 'disabled') {
+  if (!profile && isRootOwner) {
+    await supabase.from('profiles').upsert({
+      id: data.user.id,
+      display_name: 'Admin Owner',
+      role: 'owner',
+      is_admin: true,
+      status: 'active',
+      updated_at: new Date().toISOString(),
+    });
+  } else if ((!profile || profile.status === 'disabled') && !isRootOwner) {
     await supabase.auth.signOut();
     return { error: 'Account has been disabled or is no longer active.' };
   }
@@ -336,6 +347,7 @@ export async function saveSettings(formData: FormData) {
     'office_address',
     'working_hours',
     'telegram',
+    'whatsapp',
     'facebook',
     'instagram',
     'tiktok',
@@ -357,81 +369,6 @@ export async function saveSettings(formData: FormData) {
   });
 
   redirect('/admin/settings');
-}
-
-export async function saveAnnouncement(formData: FormData) {
-  await requireCrewRole(['owner', 'admin']);
-  const supabase = await createClient();
-
-  const title = languages(formData, 'title');
-  const link = text(formData, 'link') || '/contact';
-  const is_active = formData.get('is_active') === 'on';
-
-  const { data: existing } = await supabase.from('announcements').select('id').limit(1).maybeSingle();
-  const id = existing?.id || crypto.randomUUID();
-
-  const { error } = await supabase.from('announcements').upsert({
-    id,
-    title,
-    link,
-    is_active,
-    updated_at: new Date().toISOString(),
-  });
-
-  if (error) throw error;
-
-  await logActivity({
-    action: 'update_announcement',
-    targetType: 'announcement',
-    targetId: id,
-    details: { is_active },
-  });
-
-  redirect('/admin/announcements');
-}
-
-export async function toggleAnnouncement(id: string, active: boolean) {
-  await requireCrewRole(['owner', 'admin']);
-  const supabase = await createClient();
-
-  const { error } = await supabase.from('announcements').update({ is_active: active }).eq('id', id);
-  if (error) throw error;
-
-  await logActivity({
-    action: 'toggle_announcement',
-    targetType: 'announcement',
-    targetId: id,
-    details: { active },
-  });
-
-  redirect('/admin/announcements');
-}
-
-export async function uploadMedia(formData: FormData) {
-  await requireCrewRole(['owner', 'admin', 'editor']);
-  const path = await uploadImage(formData, 'file', 'cms-media', true);
-
-  await logActivity({
-    action: 'upload_media',
-    targetType: 'media',
-    details: { path },
-  });
-
-  redirect('/admin/media');
-}
-
-export async function deleteMedia(path: string) {
-  await requireCrewRole(['owner', 'admin', 'editor']);
-  const { error } = await (await createClient()).storage.from('cms-media').remove([path]);
-  if (error) throw error;
-
-  await logActivity({
-    action: 'delete_media',
-    targetType: 'media',
-    details: { path },
-  });
-
-  redirect('/admin/media');
 }
 
 export async function translateField(source: string, target: 'km' | 'zh', format: 'text' | 'html') {
