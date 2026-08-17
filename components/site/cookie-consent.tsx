@@ -55,36 +55,36 @@ export function CookieConsent({ locale = 'en' }: { locale: Locale }) {
       role="dialog"
       aria-labelledby="cookie-title"
       aria-describedby="cookie-desc"
-      className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-[999] max-w-sm animate-in fade-in slide-in-from-bottom-5 duration-500"
+      className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-[999] max-w-[380px] animate-in fade-in slide-in-from-bottom-5 duration-500"
     >
-      <div className="bg-slate-950/92 backdrop-blur-xl border border-white/15 text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl p-4.5 sm:p-5 relative overflow-hidden">
+      <div className="bg-white/96 backdrop-blur-xl border border-slate-900/10 text-slate-900 shadow-[0_24px_50px_-10px_rgba(6,20,33,0.18),0_4px_16px_rgba(6,20,33,0.06)] rounded-2xl p-5 relative overflow-hidden">
         {/* Subtle decorative green top highlight */}
-        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 opacity-80" />
+        <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#1e9a2a] via-[#58d46b] to-[#1e9a2a]" />
 
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+            <div className="w-7 h-7 rounded-lg bg-[#1e9a2a]/10 border border-[#1e9a2a]/20 flex items-center justify-center text-[#1e9a2a] shrink-0">
               <ShieldCheck className="w-4 h-4" />
             </div>
-            <h3 id="cookie-title" className="text-xs font-bold tracking-wide uppercase text-slate-200">
+            <h3 id="cookie-title" className="text-xs font-extrabold tracking-wide uppercase text-slate-900">
               {copy.title}
             </h3>
           </div>
           <button
             type="button"
             onClick={() => handleChoice('declined')}
-            className="text-slate-400 hover:text-slate-200 transition-colors p-1 -mr-1 rounded-lg hover:bg-white/5"
+            className="text-slate-400 hover:text-slate-700 transition-colors p-1 -mr-1 rounded-lg hover:bg-slate-100 cursor-pointer"
             aria-label="Dismiss cookie notice"
           >
             <X className="w-3.5 h-3.5" />
           </button>
         </div>
 
-        <p id="cookie-desc" className="mt-2.5 text-xs text-slate-300/90 leading-relaxed">
+        <p id="cookie-desc" className="mt-3 text-xs text-slate-600 leading-relaxed">
           {copy.message}{' '}
           <Link
             href={`/${locale}/privacy`}
-            className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors ml-1"
+            className="text-[#1e9a2a] hover:text-[#147a22] font-semibold underline underline-offset-2 transition-colors ml-0.5"
           >
             {copy.privacy}
           </Link>
@@ -94,14 +94,14 @@ export function CookieConsent({ locale = 'en' }: { locale: Locale }) {
           <button
             type="button"
             onClick={() => handleChoice('accepted')}
-            className="flex-1 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-semibold text-xs py-2 px-3 rounded-xl shadow-md hover:shadow-emerald-900/30 transition-all duration-200 text-center cursor-pointer"
+            className="flex-1 bg-[#1e9a2a] hover:bg-[#147a22] text-white font-semibold text-xs py-2.5 px-3 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 text-center cursor-pointer"
           >
             {copy.accept}
           </button>
           <button
             type="button"
             onClick={() => handleChoice('declined')}
-            className="bg-white/10 hover:bg-white/15 text-slate-300 hover:text-white font-medium text-xs py-2 px-3 rounded-xl border border-white/10 transition-all duration-200 cursor-pointer"
+            className="bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 font-medium text-xs py-2.5 px-3 rounded-xl border border-slate-200/80 transition-all duration-200 cursor-pointer"
           >
             {copy.essential}
           </button>
