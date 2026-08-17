@@ -18,14 +18,19 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
     <div className="admin-app">
       <header className="admin-header">
         <div className="shell admin-header__row">
-          <Link href="/admin" className="admin-brand" aria-label="MPG admin dashboard">
-            <Image src="/images/mpg-logo.png" alt="MPG Event Planner" width={183} height={61} />
+          <Link href="/admin" className="admin-brand flex-shrink-0" aria-label="MPG admin dashboard">
+            <Image src="/images/mpg-logo.png" alt="MPG Event Planner" width={140} height={46} priority />
             <span>Admin</span>
           </Link>
-          <div className="admin-account">
+
+          <div className="flex-1 flex justify-center px-4 min-w-0">
+            <AdminNav role={profile.role} />
+          </div>
+
+          <div className="admin-account flex-shrink-0">
             <Link
               href="/admin/quotations"
-              className="relative flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm transition-colors mr-2"
+              className="relative flex items-center justify-center w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm transition-colors mr-1"
               title={newQuotesCount ? `${newQuotesCount} new quotation requests` : 'No unread notifications'}
             >
               <svg className="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -40,16 +45,13 @@ export default async function AdminLayout({ children }: Readonly<{ children: Rea
 
             <Link
               href="/admin/settings"
-              className="text-xs font-semibold text-slate-700 hover:text-blue-600 transition-colors flex items-center gap-1.5 px-2.5 py-1 rounded-lg hover:bg-slate-100/80"
+              className="text-xs font-semibold text-slate-700 hover:text-blue-600 transition-colors flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg hover:bg-slate-100/80 border border-transparent hover:border-slate-200/80"
               title="Manage account & settings"
             >
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>{profile.display_name || 'Crew Member'}</span>
+              <span className="truncate max-w-[170px]">{profile.display_name || 'Crew Member'}</span>
             </Link>
           </div>
-        </div>
-        <div className="border-t border-slate-100/90 py-1.5">
-          <div className="shell"><AdminNav role={profile.role} /></div>
         </div>
       </header>
       <main className="shell admin-main">{children}</main>

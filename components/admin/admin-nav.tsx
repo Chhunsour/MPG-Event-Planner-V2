@@ -26,7 +26,7 @@ export function AdminNav({ role = 'editor' }: { role?: CrewRole }) {
   const visibleItems = navItems.filter((item) => item.roles.includes(role));
 
   return (
-    <nav className="flex items-center gap-1.5 p-1 bg-slate-100/80 border border-slate-200/70 rounded-xl overflow-x-auto scrollbar-none my-1.5 max-w-fit" aria-label="Admin navigation">
+    <nav className="flex items-center gap-1 p-1 bg-slate-100/85 border border-slate-200/80 rounded-xl overflow-x-auto scrollbar-none" aria-label="Admin navigation">
       {visibleItems.map((item) => {
         const active = item.href === '/admin' ? pathname === item.href : pathname.startsWith(item.href);
         return (
@@ -34,7 +34,7 @@ export function AdminNav({ role = 'editor' }: { role?: CrewRole }) {
             key={item.href}
             href={item.href}
             aria-current={active ? 'page' : undefined}
-            className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 text-xs rounded-lg transition-all whitespace-nowrap ${
+            className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs rounded-lg transition-all whitespace-nowrap ${
               active
                 ? 'bg-white text-slate-900 font-bold shadow-xs border border-slate-200/90 ring-1 ring-slate-900/5'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-white/60 font-medium'
