@@ -426,5 +426,12 @@
     "searchPlaceholder": "搜索文章…",
     "metaTitle": "博客 — 活动策划技巧与行业见解",
     "metaDescription": "阅读来自柬埔寨 MPG 活动策划团队的专业活动策划建议、幕后故事和行业见解。"
+  },
+  "cookies": {
+    "title": "Cookie 与数据分析偏好",
+    "message": "我们使用轻量级 Cookie 来分析网站流量并提升您的活动策划体验。",
+    "accept": "全部接受",
+    "essential": "仅必要",
+    "privacy": "隐私政策"
   }
 }

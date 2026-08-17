@@ -132,6 +132,20 @@ type ActivityLogRow = {
   created_at: string;
 };
 
+type AnalyticsEventRow = {
+  id: string;
+  session_id: string;
+  event_type: string;
+  path: string;
+  referrer: string | null;
+  browser: string | null;
+  os: string | null;
+  device_type: string | null;
+  locale: string | null;
+  metadata: Json;
+  created_at: string;
+};
+
 type TableDefinition<Row, Insert = Partial<Row>, Update = Partial<Row>> = {
   Row: Row;
   Insert: Insert;
@@ -155,6 +169,7 @@ export type Database = {
       }>;
       crew_invitations: TableDefinition<CrewInvitationRow>;
       activity_logs: TableDefinition<ActivityLogRow>;
+      analytics_events: TableDefinition<AnalyticsEventRow>;
       services: TableDefinition<ServiceRow>;
       projects: TableDefinition<ProjectRow>;
       blog_posts: TableDefinition<BlogPostRow>;
@@ -198,3 +213,4 @@ export type BlogPost = BlogPostRow;
 export type Quotation = QuotationRow;
 export type CrewInvitation = CrewInvitationRow;
 export type ActivityLog = ActivityLogRow;
+export type AnalyticsEvent = AnalyticsEventRow;

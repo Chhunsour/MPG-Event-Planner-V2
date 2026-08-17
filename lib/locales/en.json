@@ -462,5 +462,12 @@
     "searchPlaceholder": "Search articles…",
     "metaTitle": "Blog — Event Planning Tips & Insights",
     "metaDescription": "Read expert event planning advice, behind-the-scenes stories, and industry insights from the MPG Event Planner team in Cambodia."
+  },
+  "cookies": {
+    "title": "Cookie & Analytics Preferences",
+    "message": "We use lightweight cookies to analyze website traffic and optimize your event planning experience.",
+    "accept": "Accept All",
+    "essential": "Essential Only",
+    "privacy": "Privacy Policy"
   }
 }

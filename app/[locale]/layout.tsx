@@ -9,6 +9,8 @@ import { MotionProvider } from '@/components/site/motion-provider';
 import { getSiteSettings } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/seo/json-ld';
+import { CookieConsent } from '@/components/site/cookie-consent';
+import { AnalyticsTracker } from '@/components/site/analytics-tracker';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -48,9 +50,11 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
       <WebSiteJsonLd />
       <a href="#main" className="skip-link">Skip to content</a>
       <MotionProvider />
+      <AnalyticsTracker />
       <SiteHeader locale={locale} />
       <main id="main">{children}</main>
       <SiteFooter locale={locale} />
+      <CookieConsent locale={locale} />
     </div>
   );
 }

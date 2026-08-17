@@ -1,0 +1,112 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { ShieldCheck, X } from 'lucide-react';
+import { messages } from '@/lib/i18n';
+import type { Locale } from '@/lib/types';
+
+export function CookieConsent({ locale = 'en' }: { locale: Locale }) {
+  const [visible, setVisible] = useState(false);
+  const copy = (messages[locale] as unknown as { cookies?: { title: string; message: string; accept: string; essential: string; privacy: string } })?.cookies ?? {
+    title: 'Cookie & Analytics Preferences',
+    message: 'We use lightweight cookies to analyze website traffic and optimize your event planning experience.',
+    accept: 'Accept All',
+    essential: 'Essential Only',
+    privacy: 'Privacy Policy',
+  };
+
+  useEffect(() => {
+    // Check if consent has already been chosen
+    try {
+      const stored = localStorage.getItem('mpg_cookie_consent');
+      const hasCookie = document.cookie.split('; ').some((item) => item.startsWith('mpg_cookie_consent='));
+      if (!stored && !hasCookie) {
+        // Show after a subtle delay so it does not distract the initial hero impression
+        const timer = setTimeout(() => {
+          setVisible(true);
+        }, 1200);
+        return () => clearTimeout(timer);
+      }
+    } catch {
+      // Fallback
+    }
+  }, []);
+
+  const handleChoice = (choice: 'accepted' | 'declined') => {
+    try {
+      localStorage.setItem('mpg_cookie_consent', choice);
+      const maxAge = choice === 'accepted' ? 31536000 : 86400 * 30; // 1 year vs 30 days
+      document.cookie = `mpg_cookie_consent=${choice}; max-age=${maxAge}; path=/; SameSite=Lax`;
+
+      if (choice === 'accepted') {
+        window.dispatchEvent(new CustomEvent('mpg_consent_changed', { detail: { consent: 'accepted' } }));
+      }
+    } catch {
+      // Fallback
+    }
+    setVisible(false);
+  };
+
+  if (!visible) return null;
+
+  return (
+    <aside
+      role="dialog"
+      aria-labelledby="cookie-title"
+      aria-describedby="cookie-desc"
+      className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-[999] max-w-sm animate-in fade-in slide-in-from-bottom-5 duration-500"
+    >
+      <div className="bg-slate-950/92 backdrop-blur-xl border border-white/15 text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] rounded-2xl p-4.5 sm:p-5 relative overflow-hidden">
+        {/* Subtle decorative green top highlight */}
+        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-emerald-500 via-green-400 to-emerald-500 opacity-80" />
+
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+              <ShieldCheck className="w-4 h-4" />
+            </div>
+            <h3 id="cookie-title" className="text-xs font-bold tracking-wide uppercase text-slate-200">
+              {copy.title}
+            </h3>
+          </div>
+          <button
+            type="button"
+            onClick={() => handleChoice('declined')}
+            className="text-slate-400 hover:text-slate-200 transition-colors p-1 -mr-1 rounded-lg hover:bg-white/5"
+            aria-label="Dismiss cookie notice"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        </div>
+
+        <p id="cookie-desc" className="mt-2.5 text-xs text-slate-300/90 leading-relaxed">
+          {copy.message}{' '}
+          <Link
+            href={`/${locale}/privacy`}
+            className="text-emerald-400 hover:text-emerald-300 underline underline-offset-2 transition-colors ml-1"
+          >
+            {copy.privacy}
+          </Link>
+        </p>
+
+        <div className="mt-4 flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => handleChoice('accepted')}
+            className="flex-1 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-semibold text-xs py-2 px-3 rounded-xl shadow-md hover:shadow-emerald-900/30 transition-all duration-200 text-center cursor-pointer"
+          >
+            {copy.accept}
+          </button>
+          <button
+            type="button"
+            onClick={() => handleChoice('declined')}
+            className="bg-white/10 hover:bg-white/15 text-slate-300 hover:text-white font-medium text-xs py-2 px-3 rounded-xl border border-white/10 transition-all duration-200 cursor-pointer"
+          >
+            {copy.essential}
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}

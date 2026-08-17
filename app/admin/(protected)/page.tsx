@@ -36,6 +36,7 @@ export default async function AdminDashboard() {
           <Link href="/admin/services/new"><span>New service</span><i>→</i></Link>
           <Link href="/admin/projects/new"><span>New project</span><i>→</i></Link>
           <Link href="/admin/blog/new"><span>New blog post</span><i>→</i></Link>
+          <Link href="/admin/analytics"><span>Website Traffic & Analytics</span><i>→</i></Link>
           <Link href="/admin/announcements"><span>Header Notification Alert</span><i>→</i></Link>
           <Link href="/admin/media"><span>Upload media</span><i>→</i></Link>
         </aside>
