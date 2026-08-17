@@ -55,15 +55,12 @@ export function CookieConsent({ locale = 'en' }: { locale: Locale }) {
       role="dialog"
       aria-labelledby="cookie-title"
       aria-describedby="cookie-desc"
-      className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-[999] max-w-[380px] animate-in fade-in slide-in-from-bottom-5 duration-500"
+      className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-[999] max-w-[370px] animate-in fade-in slide-in-from-bottom-5 duration-500"
     >
-      <div className="bg-white/96 backdrop-blur-xl border border-slate-900/10 text-slate-900 shadow-[0_24px_50px_-10px_rgba(6,20,33,0.18),0_4px_16px_rgba(6,20,33,0.06)] rounded-2xl p-5 relative overflow-hidden">
-        {/* Subtle decorative green top highlight */}
-        <div className="absolute top-0 left-0 right-0 h-[2.5px] bg-gradient-to-r from-[#1e9a2a] via-[#58d46b] to-[#1e9a2a]" />
-
+      <div className="bg-white/98 backdrop-blur-xl border border-slate-900/10 text-slate-900 shadow-[0_20px_40px_-10px_rgba(6,20,33,0.14),0_2px_8px_rgba(6,20,33,0.04)] rounded-xl p-5 relative">
         <div className="flex items-start justify-between gap-3">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-[#1e9a2a]/10 border border-[#1e9a2a]/20 flex items-center justify-center text-[#1e9a2a] shrink-0">
+            <div className="w-7 h-7 rounded-md bg-[#1e9a2a]/10 border border-[#1e9a2a]/20 flex items-center justify-center text-[#1e9a2a] shrink-0">
               <ShieldCheck className="w-4 h-4" />
             </div>
             <h3 id="cookie-title" className="text-xs font-extrabold tracking-wide uppercase text-slate-900">
@@ -73,7 +70,7 @@ export function CookieConsent({ locale = 'en' }: { locale: Locale }) {
           <button
             type="button"
             onClick={() => handleChoice('declined')}
-            className="text-slate-400 hover:text-slate-700 transition-colors p-1 -mr-1 rounded-lg hover:bg-slate-100 cursor-pointer"
+            className="text-slate-400 hover:text-slate-700 transition-colors p-1 -mr-1 rounded-md hover:bg-slate-100 cursor-pointer"
             aria-label="Dismiss cookie notice"
           >
             <X className="w-3.5 h-3.5" />
@@ -94,14 +91,14 @@ export function CookieConsent({ locale = 'en' }: { locale: Locale }) {
           <button
             type="button"
             onClick={() => handleChoice('accepted')}
-            className="flex-1 bg-[#1e9a2a] hover:bg-[#147a22] text-white font-semibold text-xs py-2.5 px-3 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 text-center cursor-pointer"
+            className="flex-1 bg-[#1e9a2a] hover:bg-[#147a22] text-white font-semibold text-xs py-2.5 px-3 rounded-lg shadow-sm hover:shadow transition-all duration-200 text-center cursor-pointer"
           >
             {copy.accept}
           </button>
           <button
             type="button"
             onClick={() => handleChoice('declined')}
-            className="bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 font-medium text-xs py-2.5 px-3 rounded-xl border border-slate-200/80 transition-all duration-200 cursor-pointer"
+            className="bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 font-medium text-xs py-2.5 px-3 rounded-lg border border-slate-200/80 transition-all duration-200 cursor-pointer"
           >
             {copy.essential}
           </button>
