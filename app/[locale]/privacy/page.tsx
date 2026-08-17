@@ -203,27 +203,22 @@ export default async function PrivacyPage({
 
   const policyArticles = [
     {
-      num: '01',
       title: copy.section1_title,
       content: copy.section1_desc,
     },
     {
-      num: '02',
       title: copy.section2_title,
       content: copy.section2_desc,
     },
     {
-      num: '03',
       title: copy.section3_title,
       content: copy.section3_desc,
     },
     {
-      num: '04',
       title: copy.section4_title,
       content: copy.section4_desc,
     },
     {
-      num: '05',
       title: copy.section5_title,
       content: copy.section5_desc,
     },
@@ -298,21 +293,17 @@ export default async function PrivacyPage({
             </div>
           </div>
 
-          {/* Policy Articles (Editorial Numbered Layout) */}
+          {/* Policy Articles */}
           <div className="space-y-6 pt-4 border-t border-slate-200/80">
-            {policyArticles.map((article) => (
+            {policyArticles.map((article, idx) => (
               <article
-                key={article.num}
+                key={idx}
                 className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-900/10 shadow-[0_2px_12px_rgba(6,20,33,0.03)] hover:border-slate-900/20 transition-all space-y-2"
               >
-                <div className="flex items-center gap-2.5">
-                  <span className="font-mono text-xs font-bold text-[#1e9a2a]">{article.num}</span>
-                  <span className="text-slate-300">/</span>
-                  <h3 className="text-sm sm:text-base font-bold text-slate-900">
-                    {article.title}
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed pl-6 sm:pl-7">
+                <h3 className="text-sm sm:text-base font-bold text-slate-900">
+                  {article.title}
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                   {article.content}
                 </p>
               </article>
