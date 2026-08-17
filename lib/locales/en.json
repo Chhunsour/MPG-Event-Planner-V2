@@ -438,9 +438,22 @@
     ]
   },
   "privacy": {
-    "title": "Privacy Policy",
-    "last_updated": "Last updated: July 31, 2026",
-    "content": "At MPG Event Planner, we value your privacy. We collect the information provided through our quotation form solely to prepare accurate proposals, coordinate event logistics, and contact you about your event. Your details are stored securely and are never shared with third parties without your explicit permission."
+    "title": "Privacy Policy & Data Security",
+    "eyebrow": "Transparency & Trust",
+    "last_updated": "Last updated: August 2026",
+    "summary": "At MPG Event Planner, we are committed to protecting your personal information and respecting your privacy choices across our website and event production services.",
+    "section1_title": "1. Information We Collect",
+    "section1_desc": "We collect information voluntarily submitted through our quotation and inquiry forms, including your name, company name, email address, phone number, Telegram handle, and specific event requirements.",
+    "section2_title": "2. How We Use Your Information",
+    "section2_desc": "Your submitted details are used solely to prepare custom event proposals, coordinate technical staging logistics, communicate timeline updates, and provide responsive customer service. We never sell, rent, or trade your personal data with third-party marketers.",
+    "section3_title": "3. Cookies & Lightweight Telemetry",
+    "section3_desc": "With your consent, our website uses lightweight, privacy-respecting cookies to capture non-personally identifiable traffic metrics such as page visits, device types (mobile vs. desktop), browser engines, and referral sources. This data is processed securely to optimize site performance and event planning tools.",
+    "section4_title": "4. Data Security & Crew Access",
+    "section4_desc": "All inquiry submissions and analytics logs are stored in secure, encrypted cloud databases protected by strict role-based access control (RBAC). Only authorized MPG team members and coordinators have access to view event briefs.",
+    "section5_title": "5. Your Rights & Data Requests",
+    "section5_desc": "You have the right to inspect, update, or request the permanent deletion of your inquiry details and event information at any time by contacting our privacy team.",
+    "contact_title": "Questions & Data Privacy Inquiries",
+    "contact_desc": "If you have questions regarding this Privacy Policy or wish to request data removal, please reach out to us directly:"
   },
   "common": {
     "breadcrumb": "Breadcrumb",
