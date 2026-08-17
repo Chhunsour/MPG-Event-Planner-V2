@@ -13,7 +13,10 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [languageOpen, setLanguageOpen] = useState(false);
+  const [isTransparent, setIsTransparent] = useState(false);
   const languageRef = useRef<HTMLDivElement>(null);
+  const lastScrollY = useRef(0);
+  const scrollUpAccumulator = useRef(0);
   const localeMeta: Record<Locale, { flag: string; code: string }> = {
     en: { flag: '/images/flags/uk.svg', code: 'EN' },
     km: { flag: '/images/flags/cambodia.svg', code: 'KM' },
@@ -25,6 +28,56 @@ export function SiteHeader({ locale }: { locale: Locale }) {
     [labels.projects, 'projects'],
     [labels.blog, 'blog'],
   ] as const;
+
+  useEffect(() => {
+    setIsTransparent(false);
+    lastScrollY.current = 0;
+    scrollUpAccumulator.current = 0;
+  }, [pathname]);
+
+  useEffect(() => {
+    if (open || languageOpen) {
+      setIsTransparent(false);
+      return;
+    }
+
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (ticking) return;
+
+      window.requestAnimationFrame(() => {
+        const currentScrollY = Math.max(0, window.scrollY);
+        const prevScrollY = lastScrollY.current;
+        const delta = currentScrollY - prevScrollY;
+
+        if (currentScrollY <= 40) {
+          setIsTransparent(false);
+          scrollUpAccumulator.current = 0;
+        } else if (delta > 3) {
+          scrollUpAccumulator.current = 0;
+          if (currentScrollY > 50) {
+            setIsTransparent(true);
+          }
+        } else if (delta < -3) {
+          scrollUpAccumulator.current += Math.abs(delta);
+          if (scrollUpAccumulator.current >= 10) {
+            setIsTransparent(false);
+          }
+        }
+
+        lastScrollY.current = currentScrollY;
+        ticking = false;
+      });
+
+      ticking = true;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [open, languageOpen]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -52,7 +105,7 @@ export function SiteHeader({ locale }: { locale: Locale }) {
   const localizedPath = (code: Locale) => pathname.replace(/^\/(en|km|zh)(?=\/|$)/, `/${code}`);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-transparent={isTransparent}>
       <div className="site-header__bar shell">
         <Link href={`/${locale}`} className="brand-mark" aria-label="MPG Event Planner home">
           <Image src="/images/mpg-logo.png" alt="MPG Event Planner" width={183} height={61} preload />

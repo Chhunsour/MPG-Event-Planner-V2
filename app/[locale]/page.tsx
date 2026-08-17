@@ -86,41 +86,24 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             <p className="manifesto-section__lead">{copy.intro.description}</p>
             <p>{copy.intro.para2}</p>
           </div>
-          <div className="manifesto-steps-container" data-reveal>
-            <div className="manifesto-steps-track" aria-hidden="true" />
-            <ol className="manifesto-steps">
-              {copy.intro.pillars.map((item, idx) => {
-                const IconComponent = PILLAR_ICONS[idx % PILLAR_ICONS.length];
-                const tag = 'tag' in item && typeof item.tag === 'string' ? item.tag : null;
-                const desc = 'desc' in item && typeof item.desc === 'string' ? item.desc : null;
-                return (
-                  <li key={item.num} className="manifesto-step-card group">
-                    <div>
-                      <div className="manifesto-step-card__head">
-                        <span className="manifesto-step-card__num">
-                          <span className="manifesto-step-card__dot" aria-hidden="true" />
-                          {item.num}
-                        </span>
-                        <div className="manifesto-step-card__icon">
-                          <IconComponent className="w-5 h-5" aria-hidden="true" />
-                        </div>
-                      </div>
-                      <div className="manifesto-step-card__body">
-                        {tag ? <span className="manifesto-step-card__tag">{tag}</span> : null}
-                        <h3 className="manifesto-step-card__title">{item.label}</h3>
-                        {desc ? <p className="manifesto-step-card__desc">{desc}</p> : null}
-                      </div>
+          <div className="manifesto-pillars-grid" data-reveal>
+            {copy.intro.pillars.map((item, idx) => {
+              const IconComponent = PILLAR_ICONS[idx % PILLAR_ICONS.length];
+              const tag = 'tag' in item && typeof item.tag === 'string' ? item.tag : null;
+              const desc = 'desc' in item && typeof item.desc === 'string' ? item.desc : null;
+              return (
+                <div key={item.num || idx} className="manifesto-pillar-item group">
+                  <div className="manifesto-pillar-item__top">
+                    {tag ? <span className="manifesto-pillar-item__tag">{tag}</span> : null}
+                    <div className="manifesto-pillar-item__icon-wrap">
+                      <IconComponent className="w-5 h-5" aria-hidden="true" />
                     </div>
-                    <div className="manifesto-step-card__foot">
-                      <span>Phase {item.num}</span>
-                      <span className="manifesto-step-card__arrow" aria-hidden="true">
-                        <ArrowUpRight className="w-3.5 h-3.5" />
-                      </span>
-                    </div>
-                  </li>
-                );
-              })}
-            </ol>
+                  </div>
+                  <h3 className="manifesto-pillar-item__title">{item.label}</h3>
+                  {desc ? <p className="manifesto-pillar-item__desc">{desc}</p> : null}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
