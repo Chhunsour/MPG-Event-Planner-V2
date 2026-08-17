@@ -1,8 +1,21 @@
 import type { Metadata } from 'next';
 import './globals.css';
 
+function getMetadataBase(): URL {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (raw && raw.length > 0) {
+    try {
+      const urlWithProtocol = raw.startsWith('http://') || raw.startsWith('https://') ? raw : `https://${raw}`;
+      return new URL(urlWithProtocol);
+    } catch {
+      // Fallback
+    }
+  }
+  return new URL('https://mpgeventplanner.com');
+}
+
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mpgeventplanner.com'),
+  metadataBase: getMetadataBase(),
   title: {
     default: 'MPG Event Planner — Corporate Event Planning & Production in Cambodia',
     template: '%s | MPG Event Planner',
