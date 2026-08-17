@@ -38,8 +38,10 @@ export function AdminNav({ role = 'editor' }: { role?: CrewRole }) {
             key={item.href}
             href={item.href}
             aria-current={active ? 'page' : undefined}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors whitespace-nowrap ${
-              active ? 'bg-sky-500/20 text-sky-300 border border-sky-500/30 font-semibold' : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+            className={`px-3 py-1.5 text-xs rounded-xl transition-all whitespace-nowrap ${
+              active
+                ? 'bg-slate-900 text-white font-semibold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100 font-medium'
             }`}
           >
             {item.label}

@@ -1,3 +1,4 @@
+import { AdminPageHeader } from '@/components/admin/admin-page-header';
 import { requireCrewRole } from '@/lib/auth';
 import { createClient } from '@/lib/supabase/server';
 
@@ -15,16 +16,15 @@ export default async function ActivityLogPage() {
 
   return (
     <div className="space-y-6">
-      <div className="border-b border-slate-800 pb-5">
-        <h1 className="text-2xl font-bold text-white tracking-tight">Admin Activity & Audit Trail</h1>
-        <p className="text-slate-400 text-sm mt-1">
-          Recent administrative actions, content updates, and crew modifications.
-        </p>
-      </div>
+      <AdminPageHeader
+        eyebrow="Security & Audit"
+        title="Admin Activity & Audit Trail"
+        description="Recent administrative actions, content updates, security events, and crew modifications."
+      />
 
-      <div className="bg-slate-900/40 border border-white/10 rounded-2xl overflow-hidden">
-        <table className="w-full text-left text-sm text-slate-300">
-          <thead className="bg-slate-900 text-xs font-semibold uppercase text-slate-400 border-b border-white/10">
+      <div className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
+        <table className="w-full text-left text-xs text-slate-700">
+          <thead className="bg-slate-50/80 text-[11px] font-bold uppercase text-slate-600 border-b border-slate-200/80">
             <tr>
               <th className="p-4">Timestamp</th>
               <th className="p-4">User</th>
@@ -33,27 +33,27 @@ export default async function ActivityLogPage() {
               <th className="p-4">Details</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-slate-100">
             {(!logs || logs.length === 0) ? (
               <tr>
-                <td colSpan={5} className="p-8 text-center text-slate-500 text-sm">
+                <td colSpan={5} className="p-8 text-center text-slate-400">
                   No activity logs recorded yet.
                 </td>
               </tr>
             ) : (
               logs.map((log) => (
-                <tr key={log.id} className="hover:bg-white/[0.02]">
-                  <td className="p-4 text-xs font-mono text-slate-400 whitespace-nowrap">
+                <tr key={log.id} className="hover:bg-slate-50/60 transition-colors">
+                  <td className="p-4 font-mono text-slate-500 whitespace-nowrap">
                     {new Date(log.created_at).toLocaleString()}
                   </td>
-                  <td className="p-4 font-medium text-white">{log.user_email || 'System / Crew'}</td>
+                  <td className="p-4 font-semibold text-slate-900">{log.user_email || 'System / Crew'}</td>
                   <td className="p-4">
-                    <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-lg bg-sky-500/10 text-sky-400 border border-sky-500/20">
+                    <span className="inline-block px-2.5 py-1 text-xs font-semibold rounded-lg bg-sky-50 text-sky-700 border border-sky-200">
                       {log.action}
                     </span>
                   </td>
-                  <td className="p-4 text-xs font-mono text-slate-400">{log.target_type}</td>
-                  <td className="p-4 text-xs text-slate-400 max-w-xs truncate font-mono">
+                  <td className="p-4 font-mono text-slate-600">{log.target_type}</td>
+                  <td className="p-4 text-slate-500 max-w-xs truncate font-mono">
                     {log.details ? JSON.stringify(log.details) : '—'}
                   </td>
                 </tr>

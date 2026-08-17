@@ -3,7 +3,18 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    let body: Record<string, unknown> = {};
+    try {
+      body = await request.json();
+    } catch {
+      try {
+        const rawText = await request.text();
+        body = rawText ? JSON.parse(rawText) : {};
+      } catch {
+        body = {};
+      }
+    }
+
     const { session_id, event_type, path, referrer, browser, os, device_type, locale, metadata } = body;
 
     if (!session_id || !path) {
@@ -19,6 +30,9 @@ export async function POST(request: Request) {
     const cleanOs = os ? String(os).slice(0, 50) : null;
     const cleanDeviceType = device_type ? String(device_type).slice(0, 30) : 'desktop';
     const cleanLocale = locale ? String(locale).slice(0, 10) : 'en';
+    const cleanMetadata = typeof metadata === 'object' && metadata !== null && !Array.isArray(metadata)
+      ? (metadata as Record<string, unknown>)
+      : {};
 
     const supabase = await createClient();
 
@@ -31,7 +45,7 @@ export async function POST(request: Request) {
       os: cleanOs,
       device_type: cleanDeviceType,
       locale: cleanLocale,
-      metadata: typeof metadata === 'object' && metadata !== null ? metadata : {},
+      metadata: cleanMetadata as unknown as import('@/lib/types').Json,
     });
 
     if (error) {
