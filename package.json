@@ -2,6 +2,7 @@
   "name": "mpg-event-planner",
   "version": "1.0.0",
   "private": true,
+  "author": "Seng Chhunsour <https://github.com/Chhunsour>",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

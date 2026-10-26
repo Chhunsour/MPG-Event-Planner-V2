@@ -1,4 +1,16 @@
-# MPG Event Planner
+# MPG Event Planner 🎪
+
+<p align="center">
+  <sub>Developed by <strong>Seng Chhunsour</strong></sub>
+</p>
+
+<p align="center">
+  <a href="https://github.com/Chhunsour"><img src="https://img.shields.io/badge/Author-Seng%20Chhunsour-FF5A1F?style=flat-square&logo=github&logoColor=white" alt="Author: Seng Chhunsour" /></a>
+  <img src="https://img.shields.io/badge/Framework-Next.js%20App%20Router-black?style=flat-square&logo=nextdotjs&logoColor=white" alt="Next.js" />
+  <img src="https://img.shields.io/badge/Backend-Supabase%20Cloud-3ECF8E?style=flat-square&logo=supabase&logoColor=white" alt="Supabase" />
+  <img src="https://img.shields.io/badge/Languages-Khmer%20%7C%20English%20%7C%20Chinese-blue?style=flat-square" alt="Languages" />
+  <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="MIT License" />
+</p>
 
 Next.js + Supabase Cloud website and CMS for MPG Event Planner in Cambodia.
 
@@ -55,3 +67,17 @@ supabase gen types typescript --linked > lib/database.types.ts
 The one-time legacy importer is `scripts/import-legacy.mjs`. It retains legitimate content and skips obvious test quotations; it requires a temporary server-side service-role key and must be run only against the intended hosted project.
 
 The old Laravel tree is retained temporarily only until the hosted import is completed, verified, and safely removed.
+
+---
+
+## 👤 Author & Developer
+
+**Developed by Seng Chhunsour**
+- **GitHub:** [@Chhunsour](https://github.com/Chhunsour)
+- **Repository:** [https://github.com/Chhunsour/MPG-Event-Planner-V2](https://github.com/Chhunsour/MPG-Event-Planner-V2)
+
+---
+
+## 📄 License
+
+Personal and client project. Developed by Seng Chhunsour. All rights reserved.
